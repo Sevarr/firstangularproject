@@ -7,11 +7,17 @@
 </head>
 <body>
 
-<form class="box" action="index.html" method="post">
-  <h1>Login</h1>
-  <input type="text" name="" placeholder="Username">
-  <input type="password" name="" placeholder="Password">
-  <input type="submit" name="" value="Login">
+<!--<form class="box" action="index.html" method="post">-->
+<!--  <h1>Login</h1>-->
+<!--  <input type="text" name="" placeholder="Username" id="username">-->
+<!--  <input type="password" name="" placeholder="Password" id="password">-->
+<!--  <input type="submit" name="" value="Login">-->
+<!--</form>-->
+
+<form (submit)="loginUser($event)">
+  <input type="text" placeholder="Username">
+  <input type="text" placeholder="Password">
+  <input type="submit" name="" value="Submit">
 </form>
 
 </body>
