@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -11,28 +11,38 @@ export class LoginComponent implements OnInit {
   // constructor(private Auth: AuthService,
   //             private router: Router) { }
 
-  constructor() {}
+  // constructor(private Auth: AuthService) {
+  // }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
   loginUser(event) {
-    event.preventDefault()
-    console.log(event)
+    event.preventDefault();
+    const target = event.target;
+    const username = target.querySelector('#username').value;
+    const password = target.querySelector('#password').value;
+    console.log(event);
+    console.log(username, password);
+
+    // this.Auth.getUserDetails(username, password);
   }
-    // event.preventDefault()
-    // const target = event.target
-    // const username = target.querySelector('#username').value
-    // const password = target.querySelector('#password').value
-    //
-    // this.Auth.getUserDetails(username, password).subscribe(data => {
-    //   if(data.success) {
-    //     this.router.navigate(['admin'])
-    //     this.Auth.setLoggedIn(true)
-    //   } else {
-    //     window.alert(data.message)
-    //   }
-    // })
+
+  // event.preventDefault()
+  // const target = event.target
+  // const username = target.querySelector('#username').value
+  // const password = target.querySelector('#password').value
+  //
+  // this.Auth.getUserDetails(username, password).subscribe(data => {
+  //   if(data.success) {
+  //     this.router.navigate(['admin'])
+  //     this.Auth.setLoggedIn(true)
+  //   } else {
+  //     window.alert(data.message)
+  //   }
+  // })
   //   console.log(event)
   // }
 
