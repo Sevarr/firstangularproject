@@ -11,7 +11,6 @@ import {CandidateFormComponent} from './candidate-form/candidate-form.component'
 import {EmployeeFormComponent} from './employee-form/employee-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +18,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     AdminComponent,
     HomeComponent,
     CandidateFormComponent,
-    EmployeeFormComponent
+    EmployeeFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,11 +39,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
       },
       {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'candidate_form',
-        component: CandidateFormComponent
+        component: CandidateFormComponent,
       }
     ]),
     NgbModule,
