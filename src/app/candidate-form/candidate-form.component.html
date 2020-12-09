@@ -27,7 +27,7 @@
           <div class="input-group">
             <label for="dateOfBirth">Data urodzenia </label>
             <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth" placeholder="yyyy-mm-dd"
-                   name="dateOfBirth" ngbDatepicker #d="ngbDatepicker">
+                   name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
             </div>
@@ -60,6 +60,6 @@
 <div ngbDropdown class="d-inline-block">
   <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>{{selectedSortOrder}}</button>
   <div class="dropdown-menu" aria-labelledby="sortMenu">
-    <button class="dropdown-item" *ngFor="let sortOrder of sortOrders" (click)="ChangeSortOrder(sortOrder)" >{{sortOrder}}</button>
+    <button class="dropdown-item" *ngFor="let sortOrder of sortOrders" (click)=ChangeSortOrder(sortOrder) >{{sortOrder}}</button>
   </div>
 </div>

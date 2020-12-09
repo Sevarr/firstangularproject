@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {FormGroup, FormControl} from '@angular/forms';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -23,15 +23,13 @@ export class CandidateFormComponent implements OnInit {
     this.initializePersonalDataForm();
   }
 
-  ChangeSortOrder(newSortOrder: string) {
+  private ChangeSortOrder(newSortOrder: string) {
      this.selectedSortOrder = newSortOrder;
   }
 
   onSubmit() {
     console.log(this.personalDataForm.value);
   }
-
-
 
   private initializePersonalDataForm() {
     this.personalDataForm = new FormGroup({
