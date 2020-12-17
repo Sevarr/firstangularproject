@@ -10,6 +10,11 @@ import {HomeComponent} from './home/home.component';
 import {CandidateFormComponent} from './candidate-form/candidate-form.component';
 import {EmployeeFormComponent} from './employee-form/employee-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { EducationFormComponent } from './candidate-form/education-form/education-form.component';
+import { SchoolModalComponent } from './candidate-form/school-modal/school-modal.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -19,6 +24,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HomeComponent,
     CandidateFormComponent,
     EmployeeFormComponent,
+    EducationFormComponent,
+    SchoolModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,11 +51,18 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
       {
         path: 'candidate_form',
         component: CandidateFormComponent,
+      },
+      {
+        path: 'education_form',
+        component: EducationFormComponent,
       }
     ]),
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

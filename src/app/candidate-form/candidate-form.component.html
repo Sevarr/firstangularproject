@@ -7,8 +7,8 @@
           <input id="name" type="text" class="form-control" formControlName="name">
         </div>
         <div class="col-sm-12 col-md-4 form-group">
-          <label for="secondName">Opis zamówienia</label>
-          <input id="secondName" type="text" class="form-control" formControlName="secondName">
+          <label for="secondName">Drugie imię</label>
+          <input id="secondName" type="text" class="form-control" formControlName="surname">
         </div>
         <div class="col-sm-12 col-md-4 form-group">
           <label for="surname">Nazwisko</label>
@@ -38,6 +38,53 @@
           <input id="sex" type="text" class="form-control" formControlName="sex">
         </div>
       </div>
+    </form>
+    <hr>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12 col-lg-12">
+    <form [formGroup]="contactDataForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 form-group">
+          <label for="phoneNumber">Numer telefonu</label>
+          <input id="phoneNumber" type="number" class="form-control" formControlName="phoneNumber">
+        </div>
+        <div class="col-sm-12 col-md-4 form-group">
+          <label for="mailAddres">Adres mailowy</label>
+          <input id="mailAddres" type="text" class="form-control" formControlName="mailAddres">
+        </div>
+      </div>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Ukończona Szkoła</th>
+          <th scope="col">Rok ukończenia</th>
+          <th scope="col">Zawód</th>
+          <th scope="col">Specjalność</th>
+          <th scope="col">Uzyskany tytuł</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let school of schools; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ school.name }}</td>
+          <td>{{ school.graduationYear }}</td>
+          <td>{{ school.profession }}</td>
+          <td>{{ school.specialty }}</td>
+          <td>{{ school.title }}</td>
+        </tr>
+        </tbody>
+        <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <button class="btn btn-lg btn-outline-primary" (click)="onAdd(content)">Dodaj</button>
+          <button class="btn btn-lg btn-outline-primary" (click)="onDelete(getSelected())">delete</button>
+        </div>
+      </table>
+
+
       <hr>
       <div class="row">
         <div class="col-xs-12 col-lg-12">
@@ -45,7 +92,7 @@
             <div class="col-sm-12 col-md-4 form-group">
             </div>
             <div class="col-sm-12 col-md-4 form-group">
-              <button class="btn btn-success" type="submit">Dodaj</button>
+              <button class="btn btn-success" type="submit">Zapisz dane</button>
             </div>
             <div class="col-sm-12 col-md-4 form-group">
             </div>
@@ -60,6 +107,47 @@
 <div ngbDropdown class="d-inline-block">
   <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>{{selectedSortOrder}}</button>
   <div class="dropdown-menu" aria-labelledby="sortMenu">
-    <button class="dropdown-item" *ngFor="let sortOrder of sortOrders" (click)=ChangeSortOrder(sortOrder) >{{sortOrder}}</button>
+    <button class="dropdown-item" *ngFor="let sortOrder of sortOrders" (click)="changeSortOrder(sortOrder)" >{{sortOrder}}</button>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodaj szkołę</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="schoolDataForm">
+      <div class="form-group" >
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="school">Ukończona szkoła</label>
+          <input id="school" type="text" class="form-control" formControlName="school">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="graduationYear">Rok ukończenia szkoły</label>
+          <input id="graduationYear" type="text" class="form-control" formControlName="graduationYear">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="profession">Zawód</label>
+          <input id="profession" type="text" class="form-control" formControlName="profession">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="speciality">Specjalność</label>
+          <input id="speciality" type="text" class="form-control" formControlName="speciality">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="title">Uzyskany tytuł</label>
+          <input id="title" type="text" class="form-control" formControlName="title">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close(schoolDataForm)">Save</button>
+  </div>
+</ng-template>
+
+
+
