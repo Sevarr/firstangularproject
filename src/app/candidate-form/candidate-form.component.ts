@@ -29,8 +29,8 @@ const SCHOOLS: School[] = [
 
 export class CandidateFormComponent implements OnInit {
 
-  sortOrders: string[] = ["Mężczyzna", "Kobieta", "Inne"];
-  selectedSortOrder = "Wybierz płeć";
+  sortOrders: string[] = ['Mężczyzna', 'Kobieta', 'Inne'];
+  selectedSortOrder = 'Wybierz płeć';
   personalDataForm: FormGroup;
   contactDataForm: FormGroup;
   schoolDataForm: FormGroup;
@@ -41,7 +41,7 @@ export class CandidateFormComponent implements OnInit {
   constructor(
     private calendar: NgbCalendar,
     private modalService: NgbModal,
-  ){
+  ) {
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class CandidateFormComponent implements OnInit {
   }
 
   changeSortOrder(newSortOrder: string) {
-     this.selectedSortOrder = newSortOrder;
+    this.selectedSortOrder = newSortOrder;
   }
 
   onSubmit() {
@@ -86,8 +86,7 @@ export class CandidateFormComponent implements OnInit {
     });
   }
 
-  newSchool(name: string, graduationYear: number, profession: string, specialty: string, title: string)
-  {
+  newSchool(name: string, graduationYear: number, profession: string, specialty: string, title: string) {
     // this.schools.fill.arguments(name, graduationYear, profession, specialty, title);
   }
 
@@ -95,7 +94,7 @@ export class CandidateFormComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.schoolDataForm.value.title);
-      this.newSchool(this.schoolDataForm.value.school,this.schoolDataForm.value.graduationYear,this.schoolDataForm.value.profession,this.schoolDataForm.value.speciality,this.schoolDataForm.value.title)
+      this.newSchool(this.schoolDataForm.value.school, this.schoolDataForm.value.graduationYear, this.schoolDataForm.value.profession, this.schoolDataForm.value.speciality, this.schoolDataForm.value.title);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

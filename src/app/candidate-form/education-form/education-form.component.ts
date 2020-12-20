@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 
 interface Country {
@@ -42,7 +42,9 @@ const COUNTRIES: Country[] = [
 })
 export class EducationFormComponent implements OnInit {
   countries = COUNTRIES;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

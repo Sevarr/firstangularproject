@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-12 col-md-4 form-group">
           <label for="secondName">Drugie imię</label>
-          <input id="secondName" type="text" class="form-control" formControlName="surname">
+          <input id="secondName" type="text" class="form-control" formControlName="secondName">
         </div>
         <div class="col-sm-12 col-md-4 form-group">
           <label for="surname">Nazwisko</label>
@@ -20,33 +20,42 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-20 col-lg-4">
+  <div class="col-xs-20 col-lg-6">
     <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()">
       <div class="row">
-        <div class="col-sm-20 col-md-4 form-group">
+        <div class="col-sm-20 col-md-6 form-group">
           <div class="input-group">
             <label for="dateOfBirth">Data urodzenia </label>
-            <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth" placeholder="yyyy-mm-dd"
+            <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"
+                   placeholder="yyyy-mm-dd"
                    name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
             </div>
           </div>
         </div>
-        <div class="col-sm-20 col-md-4 form-group">
+
+        <div class="col-sm-20 col-md-6 form-group">
           <label for="sex">Płeć</label>
           <input id="sex" type="text" class="form-control" formControlName="sex">
         </div>
       </div>
-    </form>
+      <div class="col-sm-12 col-md-4 form-group">
+      </div>
+
+      <div class="col-sm-12 col-md-4 form-group">
+        <button class="btn btn-success" type="submit">Zapisz dane</button>
+      </div>
+      <div class="col-sm-12 col-md-4 form-group">
+      </div>
+
     <hr>
-  </div>
-</div>
+
 
 
 <div class="row">
   <div class="col-xs-12 col-lg-12">
-    <form [formGroup]="contactDataForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="contactDataForm">
       <div class="row">
         <div class="col-sm-12 col-md-4 form-group">
           <label for="phoneNumber">Numer telefonu</label>
@@ -107,7 +116,8 @@
 <div ngbDropdown class="d-inline-block">
   <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>{{selectedSortOrder}}</button>
   <div class="dropdown-menu" aria-labelledby="sortMenu">
-    <button class="dropdown-item" *ngFor="let sortOrder of sortOrders" (click)="changeSortOrder(sortOrder)" >{{sortOrder}}</button>
+    <button class="dropdown-item" *ngFor="let sortOrder of sortOrders"
+            (click)="changeSortOrder(sortOrder)">{{sortOrder}}</button>
   </div>
 </div>
 
@@ -120,7 +130,7 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="schoolDataForm">
-      <div class="form-group" >
+      <div class="form-group">
         <div class="col-sm-12 col-md-10 form-group">
           <label for="school">Ukończona szkoła</label>
           <input id="school" type="text" class="form-control" formControlName="school">
@@ -145,7 +155,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close(schoolDataForm)">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Save</button>
   </div>
 </ng-template>
 

@@ -15,6 +15,7 @@ import { SchoolModalComponent } from './candidate-form/school-modal/school-modal
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { TopBarComponent } from './top-bar/top-bar.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {MatSelectModule} from '@angular/material/select';
     EmployeeFormComponent,
     EducationFormComponent,
     SchoolModalComponent,
+    TopBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,8 +55,12 @@ import {MatSelectModule} from '@angular/material/select';
         component: CandidateFormComponent,
       },
       {
-        path: 'education_form',
-        component: EducationFormComponent,
+        path: 'app_top_bar',
+        component: TopBarComponent,
+      },
+      {
+        path: 'employee_form',
+        component: EmployeeFormComponent,
       }
     ]),
     NgbModule,
