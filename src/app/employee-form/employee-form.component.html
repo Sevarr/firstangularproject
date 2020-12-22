@@ -115,10 +115,7 @@
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
       <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "kidsDataFormModal")'>Dodaj</button>
     </div>
-  </table>
-<br><br><br>
-
-
+  </table><br><br>
 
   Podaj dane członków rodziny:
   <table class="table table-striped">
@@ -141,10 +138,64 @@
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj</button>
+      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      </button>
+    </div>
+  </table><br><br>
+
+  Podaj dane dzieci do ubezpieczenia:
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Imię</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">Data urodzenia</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let personalData of familyMembersPersonalDatas; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ personalData.name }}</td>
+      <td>{{ personalData.forename}}</td>
+      <td>{{ personalData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+    </tr>
+    </tbody>
+    <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      </button>
+    </div>
+  </table><br><br>
+
+  Podaj dane członków rodziny do ubezpieczenia:
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Imię</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">Data urodzenia</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let personalData of familyMembersPersonalDatas; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ personalData.name }}</td>
+      <td>{{ personalData.forename}}</td>
+      <td>{{ personalData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+    </tr>
+    </tbody>
+    <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      </button>
     </div>
   </table>
 </form>
+
 
 <ng-template #content let-modal>
   <div class="modal-header">
