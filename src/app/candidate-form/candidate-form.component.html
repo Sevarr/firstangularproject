@@ -36,8 +36,14 @@
         </div>
 
         <div class="col-sm-20 col-md-6 form-group">
-          <label for="sex">Płeć</label>
-          <input id="sex" type="text" class="form-control" formControlName="sex">
+          <label for="sex">Płeć</label><br>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>{{selectedSortOrder}}</button>
+            <div class="dropdown-menu" aria-labelledby="sortMenu">
+              <button class="dropdown-item" *ngFor="let sortOrder of sortOrders"
+                      (click)="changeSortOrder(sortOrder)">{{sortOrder}}</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-4 form-group">
@@ -112,15 +118,6 @@
   </div>
 </div>
 
-
-<div ngbDropdown class="d-inline-block">
-  <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>{{selectedSortOrder}}</button>
-  <div class="dropdown-menu" aria-labelledby="sortMenu">
-    <button class="dropdown-item" *ngFor="let sortOrder of sortOrders"
-            (click)="changeSortOrder(sortOrder)">{{sortOrder}}</button>
-  </div>
-</div>
-
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Dodaj szkołę</h4>
@@ -129,11 +126,15 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="schoolDataForm">
+    <form [formGroup]="schoolDataForm" (ngSubmit)="addSchool()">
       <div class="form-group">
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="school">Ukończona szkoła</label>
-          <input id="school" type="text" class="form-control" formControlName="school">
+          <label for="name">Ukończona szkoła</label>
+          <input id="name" type="text" class="form-control" formControlName="name" >
+          <div *ngIf="schoolDataForm.get('name').invalid"
+               class="alert alert-danger">
+            <div *ngIf="schoolDataForm.get('name').errors.required">Pole wymagane</div>
+          </div>
         </div>
         <div class="col-sm-12 col-md-10 form-group">
           <label for="graduationYear">Rok ukończenia szkoły</label>
@@ -144,18 +145,19 @@
           <input id="profession" type="text" class="form-control" formControlName="profession">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="speciality">Specjalność</label>
-          <input id="speciality" type="text" class="form-control" formControlName="speciality">
+          <label for="specialty">Specjalność</label>
+          <input id="specialty" type="text" class="form-control" formControlName="specialty">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
           <label for="title">Uzyskany tytuł</label>
           <input id="title" type="text" class="form-control" formControlName="title">
         </div>
       </div>
+      <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Save</button>
+
   </div>
 </ng-template>
 

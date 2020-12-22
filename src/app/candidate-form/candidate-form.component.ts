@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {NgbDateStruct, NgbCalendar, NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 interface School {
@@ -65,7 +65,7 @@ export class CandidateFormComponent implements OnInit {
       secondName: new FormControl(null),
       surname: new FormControl(null),
       dateOfBirth: new FormControl(),
-      sex: new FormControl()
+      sex: new FormControl(),
     });
   }
 
@@ -78,23 +78,31 @@ export class CandidateFormComponent implements OnInit {
 
   private initializeschoolDataForm() {
     this.schoolDataForm = new FormGroup({
-      school: new FormControl(null),
-      graduationYear: new FormControl(null),
+      name: new FormControl( ' ', [Validators.required]),
+      graduationYear: new FormControl(' ', [Validators.required]),
       profession: new FormControl(null),
-      speciality: new FormControl(null),
+      specialty: new FormControl(null),
       title: new FormControl(null),
     });
   }
 
-  newSchool(name: string, graduationYear: number, profession: string, specialty: string, title: string) {
-    // this.schools.fill.arguments(name, graduationYear, profession, specialty, title);
+  addSchool() {
+    console.log(this.schoolDataForm.value.speciality);
+    this.schools.push(
+      {
+        name: this.schoolDataForm.value.name,
+        graduationYear: this.schoolDataForm.value.graduationYear,
+        profession: this.schoolDataForm.value.profession,
+        specialty: this.schoolDataForm.value.specialty,
+        title: this.schoolDataForm.value.title
+      });
   }
 
   onAdd(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      console.log(this.schoolDataForm.value.title);
-      this.newSchool(this.schoolDataForm.value.school, this.schoolDataForm.value.graduationYear, this.schoolDataForm.value.profession, this.schoolDataForm.value.speciality, this.schoolDataForm.value.title);
+      // console.log(this.schoolDataForm.value.title);
+      // this.newSchool(this.schoolDataForm.value.school, this.schoolDataForm.value.graduationYear, this.schoolDataForm.value.profession, this.schoolDataForm.value.speciality, this.schoolDataForm.value.title);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
