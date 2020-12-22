@@ -129,6 +129,8 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('Dane pracownika: ', this.employeeDataForm.value);
+    console.log('Dane członków rodziny: ', this.familyMembersDataForm.value);
   }
 
 
