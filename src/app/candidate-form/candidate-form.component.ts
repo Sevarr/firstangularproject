@@ -3,6 +3,7 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {NgbDateStruct, NgbCalendar, NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 interface School {
+  id: number;
   name: string;
   graduationYear: number;
   profession: string;
@@ -10,15 +11,7 @@ interface School {
   title: string;
 }
 
-const SCHOOLS: School[] = [
-  {
-    name: 'Budowlana',
-    graduationYear: 2020,
-    profession: 'IT',
-    specialty: 'Networking',
-    title: 'BoS',
-  },
-];
+const SCHOOLS: School[] = [];
 
 
 @Component({
@@ -55,17 +48,19 @@ export class CandidateFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.personalDataForm.value);
-    console.log(this.contactDataForm.value);
+    console.log('Formularz dane osobowe: ', this.personalDataForm.value);
+    console.log('Formularz kontaktowy: ', this.contactDataForm.value);
+    console.log('Formularz szkoły: ', this.schoolDataForm.value);
   }
 
   private initializePersonalDataForm() {
     this.personalDataForm = new FormGroup({
+      id: new FormControl(null),
       name: new FormControl(null),
       secondName: new FormControl(null),
       surname: new FormControl(null),
       dateOfBirth: new FormControl(),
-      sex: new FormControl(),
+      sex: new FormControl()
     });
   }
 
@@ -73,12 +68,16 @@ export class CandidateFormComponent implements OnInit {
     this.contactDataForm = new FormGroup({
       phoneNumber: new FormControl(null),
       mailAddres: new FormControl(null),
+      place: new FormControl(),
+      qualifications: new FormControl(),
+      prevEmployment: new FormControl(),
+      additionalPersonalData: new FormControl()
     });
   }
 
   private initializeschoolDataForm() {
     this.schoolDataForm = new FormGroup({
-      name: new FormControl( ' ', [Validators.required]),
+      name: new FormControl(' ', [Validators.required]),
       graduationYear: new FormControl(' ', [Validators.required]),
       profession: new FormControl(null),
       specialty: new FormControl(null),
@@ -87,9 +86,9 @@ export class CandidateFormComponent implements OnInit {
   }
 
   addSchool() {
-    console.log(this.schoolDataForm.value.speciality);
     this.schools.push(
       {
+        id: (this.schools.length + 1),
         name: this.schoolDataForm.value.name,
         graduationYear: this.schoolDataForm.value.graduationYear,
         profession: this.schoolDataForm.value.profession,
@@ -118,12 +117,12 @@ export class CandidateFormComponent implements OnInit {
     }
   }
 
-  onDelete(selected: any) {
-
-  }
-
-  getSelected() {
-
+  onDelete(id) {
+    for (let i = 0; i < this.schools.length; ++i) {
+      if (this.schools[i].id === id) {
+        this.schools.splice(i, 1);
+      }
+    }
   }
 }
 
