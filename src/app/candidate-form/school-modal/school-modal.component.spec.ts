@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SchoolModalComponent } from './school-modal.component';
+import {SchoolModalComponent} from './school-modal.component';
 
 describe('SchoolModalComponent', () => {
   let component: SchoolModalComponent;
@@ -8,9 +8,9 @@ describe('SchoolModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SchoolModalComponent ]
+      declarations: [SchoolModalComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

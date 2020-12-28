@@ -10,11 +10,13 @@ import {HomeComponent} from './home/home.component';
 import {CandidateFormComponent} from './candidate-form/candidate-form.component';
 import {EmployeeFormComponent} from './employee-form/employee-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { EducationFormComponent } from './candidate-form/education-form/education-form.component';
-import { SchoolModalComponent } from './candidate-form/school-modal/school-modal.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {EducationFormComponent} from './candidate-form/education-form/education-form.component';
+import {SchoolModalComponent} from './candidate-form/school-modal/school-modal.component';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import {TopBarComponent} from './top-bar/top-bar.component';
+import {DocumentGeneratorComponent} from './document-generator/document-generator.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import {MatSelectModule} from '@angular/material/select';
     EmployeeFormComponent,
     EducationFormComponent,
     SchoolModalComponent,
+    TopBarComponent,
+    DocumentGeneratorComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,8 +57,16 @@ import {MatSelectModule} from '@angular/material/select';
         component: CandidateFormComponent,
       },
       {
-        path: 'education_form',
-        component: EducationFormComponent,
+        path: 'app_top_bar',
+        component: TopBarComponent,
+      },
+      {
+        path: 'employee_form',
+        component: EmployeeFormComponent,
+      },
+      {
+        path: 'document_generator',
+        component: DocumentGeneratorComponent,
       }
     ]),
     NgbModule,

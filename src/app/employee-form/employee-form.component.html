@@ -1,1 +1,282 @@
-<p>employee-form works!</p>
+<form [formGroup]="employeeDataForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="pesel">Pesel</label>
+      <input id="pesel" type="text" class="form-control" formControlName="pesel">
+    </div>
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="nip">NIP</label>
+      <input id="nip" type="text" class="form-control" formControlName="nip">
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="city">Miejscowość</label>
+      <input id="city" type="text" class="form-control" formControlName="city">
+    </div>
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="postcode">Kod pocztowy</label>
+      <input id="postcode" type="text" class="form-control" formControlName="postcode">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="community">Gmina</label>
+      <input id="community" type="text" class="form-control" formControlName="community">
+    </div>
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="county">Powiat</label>
+      <input id="county" type="text" class="form-control" formControlName="county">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="street">Ulica</label>
+      <input id="street" type="text" class="form-control" formControlName="street">
+    </div>
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="houseNumber">Numer domu</label>
+      <input id="houseNumber" type="text" class="form-control" formControlName="houseNumber">
+    </div>
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="apartmentNumber">Numer mieszkania</label>
+      <input id="apartmentNumber" type="text" class="form-control" formControlName="apartmentNumber">
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="taxOffice">Urząd skarbowy</label>
+      <input id="taxOffice" type="text" class="form-control" formControlName="taxOffice">
+    </div>
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="citizenship">Obywatelstwo</label>
+      <input id="citizenship" type="text" class="form-control" formControlName="citizenship">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="position">Obejmowane stanowisko</label>
+      <input id="position" type="text" class="form-control" formControlName="position">
+    </div>
+    <div class="col-sm-12 col-md-4 form-group">
+      <label for="department">Wydział</label>
+      <input id="department" type="text" class="form-control" formControlName="department">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-mm-4 form-group">
+      <label for="nfz">Narodowy Fundusz Zdrowia do którego należysz</label>
+      <input id="nfz" type="text" class="form-control" formControlName="nfz">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-mm-4 form-group">
+      <label for="bankName">Nazwa banku</label>
+      <input id="bankName" type="text" class="form-control" formControlName="bankName">
+    </div>
+    <div class="col-sm-12 col-mm-4 form-group">
+      <label for="bankAccount">Numer konta bankowego na które należy przelać wynagrodzenie</label>
+      <input id="bankAccount" type="text" class="form-control" formControlName="bankAccount">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-mm-4 form-group">
+      <label for="personToNotfiy">Osoba, którą należy powiadomić w razie wypadku</label>
+      <input id="personToNotfiy" type="text" class="form-control" formControlName="personToNotfiy">
+    </div>
+  </div>
+  <hr>
+
+  Podaj dane swoich dzieci:
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Imię</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">Data urodzenia</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let personalData of personalDatas; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ personalData.name }}</td>
+      <td>{{ personalData.forename}}</td>
+      <td>{{ personalData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+    </tr>
+    </tbody>
+    <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "kidsDataFormModal")'>Dodaj</button>
+    </div>
+  </table><br><br>
+
+  Podaj dane członków rodziny:
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Imię</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">Data urodzenia</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let personalData of familyMembersPersonalDatas; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ personalData.name }}</td>
+      <td>{{ personalData.forename}}</td>
+      <td>{{ personalData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+    </tr>
+    </tbody>
+    <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      </button>
+    </div>
+  </table><br><br>
+
+  Podaj dane dzieci do ubezpieczenia:
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Imię</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">Data urodzenia</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let personalData of familyMembersPersonalDatas; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ personalData.name }}</td>
+      <td>{{ personalData.forename}}</td>
+      <td>{{ personalData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+    </tr>
+    </tbody>
+    <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      </button>
+    </div>
+  </table><br><br>
+
+  Podaj dane członków rodziny do ubezpieczenia:
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Imię</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">Data urodzenia</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let personalData of familyMembersPersonalDatas; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ personalData.name }}</td>
+      <td>{{ personalData.forename}}</td>
+      <td>{{ personalData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+    </tr>
+    </tbody>
+    <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      </button>
+    </div>
+  </table>
+
+  <div class="row">
+    <div class="col-xs-12 col-lg-12">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 form-group">
+        </div>
+        <div class="col-sm-12 col-md-4 form-group">
+          <button class="btn btn-success" type="submit">Zapisz dane</button>
+        </div>
+        <div class="col-sm-12 col-md-4 form-group">
+        </div>
+      </div>
+    </div>
+  </div>
+</form><br><br>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="kidsDataFormModal">Dodaj dane dziecka</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="kidsDataForm" (ngSubmit)="addKid()">
+      <div class="form-group">
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="name">Imię</label>
+          <input id="name" type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="forename">Nazwisko</label>
+          <input id="forename" type="text" class="form-control" formControlName="forename">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="dateOfBirth">Data urodzenia</label>
+          <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"
+                 placeholder="rrrr-mm-dd"
+                 name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="familyMembersDataFormModal">Dodaj dane członka rodziny</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="familyMembersDataForm" (ngSubmit)="addFamilyMember()">
+      <div class="form-group">
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="name">Imię członka rodziny</label>
+          <input id="name" type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="forename">Nazwisko</label>
+          <input id="forename" type="text" class="form-control" formControlName="forename">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="dateOfBirth">Data urodzenia</label>
+          <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"
+                 placeholder="rrrr-mm-dd"
+                 name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>

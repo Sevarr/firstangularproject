@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {NgbDateStruct, NgbCalendar, NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 interface School {
+  id: number;
   name: string;
   graduationYear: number;
   profession: string;
@@ -10,15 +11,7 @@ interface School {
   title: string;
 }
 
-const SCHOOLS: School[] = [
-  {
-    name: 'Budowlana',
-    graduationYear: 2020,
-    profession: 'IT',
-    specialty: 'Networking',
-    title: 'BoS',
-  },
-];
+const SCHOOLS: School[] = [];
 
 
 @Component({
@@ -29,8 +22,8 @@ const SCHOOLS: School[] = [
 
 export class CandidateFormComponent implements OnInit {
 
-  sortOrders: string[] = ["Mężczyzna", "Kobieta", "Inne"];
-  selectedSortOrder = "Wybierz płeć";
+  sortOrders: string[] = ['Mężczyzna', 'Kobieta', 'Inne'];
+  selectedSortOrder = 'Wybierz płeć';
   personalDataForm: FormGroup;
   contactDataForm: FormGroup;
   schoolDataForm: FormGroup;
@@ -41,7 +34,7 @@ export class CandidateFormComponent implements OnInit {
   constructor(
     private calendar: NgbCalendar,
     private modalService: NgbModal,
-  ){
+  ) {
   }
 
   ngOnInit() {
@@ -51,16 +44,18 @@ export class CandidateFormComponent implements OnInit {
   }
 
   changeSortOrder(newSortOrder: string) {
-     this.selectedSortOrder = newSortOrder;
+    this.selectedSortOrder = newSortOrder;
   }
 
   onSubmit() {
-    console.log(this.personalDataForm.value);
-    console.log(this.contactDataForm.value);
+    console.log('Formularz dane osobowe: ', this.personalDataForm.value);
+    console.log('Formularz kontaktowy: ', this.contactDataForm.value);
+    console.log('Formularz szkoły: ', this.schoolDataForm.value);
   }
 
   private initializePersonalDataForm() {
     this.personalDataForm = new FormGroup({
+      id: new FormControl(null),
       name: new FormControl(null),
       secondName: new FormControl(null),
       surname: new FormControl(null),
@@ -73,29 +68,40 @@ export class CandidateFormComponent implements OnInit {
     this.contactDataForm = new FormGroup({
       phoneNumber: new FormControl(null),
       mailAddres: new FormControl(null),
+      place: new FormControl(),
+      qualifications: new FormControl(),
+      prevEmployment: new FormControl(),
+      additionalPersonalData: new FormControl()
     });
   }
 
   private initializeschoolDataForm() {
     this.schoolDataForm = new FormGroup({
-      school: new FormControl(null),
-      graduationYear: new FormControl(null),
+      name: new FormControl(' ', [Validators.required]),
+      graduationYear: new FormControl(' ', [Validators.required]),
       profession: new FormControl(null),
-      speciality: new FormControl(null),
+      specialty: new FormControl(null),
       title: new FormControl(null),
     });
   }
 
-  newSchool(name: string, graduationYear: number, profession: string, specialty: string, title: string)
-  {
-    // this.schools.fill.arguments(name, graduationYear, profession, specialty, title);
+  addSchool() {
+    this.schools.push(
+      {
+        id: (this.schools.length + 1),
+        name: this.schoolDataForm.value.name,
+        graduationYear: this.schoolDataForm.value.graduationYear,
+        profession: this.schoolDataForm.value.profession,
+        specialty: this.schoolDataForm.value.specialty,
+        title: this.schoolDataForm.value.title
+      });
   }
 
   onAdd(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      console.log(this.schoolDataForm.value.title);
-      this.newSchool(this.schoolDataForm.value.school,this.schoolDataForm.value.graduationYear,this.schoolDataForm.value.profession,this.schoolDataForm.value.speciality,this.schoolDataForm.value.title)
+      // console.log(this.schoolDataForm.value.title);
+      // this.newSchool(this.schoolDataForm.value.school, this.schoolDataForm.value.graduationYear, this.schoolDataForm.value.profession, this.schoolDataForm.value.speciality, this.schoolDataForm.value.title);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -111,12 +117,12 @@ export class CandidateFormComponent implements OnInit {
     }
   }
 
-  onDelete(selected: any) {
-
-  }
-
-  getSelected() {
-
+  onDelete(id) {
+    for (let i = 0; i < this.schools.length; ++i) {
+      if (this.schools[i].id === id) {
+        this.schools.splice(i, 1);
+      }
+    }
   }
 }
 
