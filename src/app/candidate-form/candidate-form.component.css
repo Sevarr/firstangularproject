@@ -2,10 +2,10 @@ P {
   position: center;
   margin-left: 20px;
 }
-
 label {
 
 }
+
 input[type=text], select {
   width: 92%;
   padding: 12px 20px;
