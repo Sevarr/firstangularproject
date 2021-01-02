@@ -97,7 +97,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let school of schools; index as i">
-                      <th scope="row">{{ school.id }}</th>
+                      <th scope="row">{{ i + 1 }}</th>
                       <td>{{ school.name }}</td>
                       <td>{{ school.graduationYear }}</td>
                       <td>{{ school.profession }}</td>
