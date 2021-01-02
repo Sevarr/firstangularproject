@@ -113,7 +113,7 @@
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "kidsDataFormModal")'>Dodaj</button>
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "kidsDataFormModal")'>Dodaj</button>
     </div>
   </table><br><br>
 
@@ -129,16 +129,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let personalData of familyMembersPersonalDatas; index as i">
+    <tr *ngFor="let familyMembersPersonalData of familyMembersPersonalDatas; index as i">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ personalData.name }}</td>
-      <td>{{ personalData.forename}}</td>
-      <td>{{ personalData.dateOfBirth }}</td>
-      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+      <td>{{ familyMembersPersonalData.name }}</td>
+      <td>{{ familyMembersPersonalData.forename}}</td>
+      <td>{{ familyMembersPersonalData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(familyMembersPersonalData.id)">delete</button>
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
       </button>
     </div>
   </table><br><br>
@@ -164,7 +164,7 @@
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
       </button>
     </div>
   </table><br><br>
@@ -190,7 +190,7 @@
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
       </button>
     </div>
   </table>

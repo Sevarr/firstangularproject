@@ -132,7 +132,4 @@ export class EmployeeFormComponent implements OnInit {
     console.log('Dane pracownika: ', this.employeeDataForm.value);
     console.log('Dane członków rodziny: ', this.familyMembersDataForm.value);
   }
-
-
-
 }
