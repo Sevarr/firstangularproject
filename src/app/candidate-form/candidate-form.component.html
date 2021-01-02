@@ -39,8 +39,8 @@
                 <div ngbDropdown class="d-inline-block">
                   <button type="button" class="btn btn-outline-primary" id="sortMenu"
                           ngbDropdownToggle>{{selectedSortOrder}}</button>
-                  <div class="dropdown-menu" aria-labelledby="sortMenu">
-                    <button class="dropdown-item" *ngFor="let sortOrder of sortOrders"
+                  <div ngbDropdownMenu aria-labelledby="sortMenu">
+                    <button type="button" class="dropdown-item" *ngFor="let sortOrder of sortOrders"
                             (click)="changeSortOrder(sortOrder)">{{sortOrder}}</button>
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                   <div class="row">
                     <div class="col-sm-12 form-group">
                       <label for="qualifications">Kwalifikacje zawodowe</label>
-                      <input id="qualifications" type="text" class="form-control" formControlName="qualifications">
+                      <input id="qualifications" display="block" type="text" class="form-control" formControlName="qualifications">
                     </div>
                     <div class="col-sm-12 form-group">
                       <label for="prevEmployment">Przebieg dotychczasowego zatrudnienia</label>
@@ -97,7 +97,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let school of schools; index as i">
-                      <th scope="row">{{ school.id }}</th>
+                      <th scope="row">{{ i + 1 }}</th>
                       <td>{{ school.name }}</td>
                       <td>{{ school.graduationYear }}</td>
                       <td>{{ school.profession }}</td>
