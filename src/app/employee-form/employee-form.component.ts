@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {Form, FormControl, FormGroup} from '@angular/forms';
 import {ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 interface PersonalData {
@@ -9,8 +9,10 @@ interface PersonalData {
   dateOfBirth: string;
 }
 
-const PERSONALDATA: PersonalData[] = [];
+const KIDPERSONALDATA: PersonalData[] = [];
 const FAMILYMEMBERPERSONALDATA: PersonalData[] = [];
+const KIDINSURANCEDATA: PersonalData[] = [];
+const FAMILYMEMBERINSURANCEDATA: PersonalData[] = [];
 
 @Component({
   selector: 'app-employee-form',
@@ -22,18 +24,24 @@ export class EmployeeFormComponent implements OnInit {
   employeeDataForm: FormGroup;
   kidsDataForm: FormGroup;
   familyMembersDataForm: FormGroup;
-  personalDatas = PERSONALDATA;
+  kidsInsuredDataForm: FormGroup;
+  familyMembersInsuredDataForm: FormGroup;
+  kidsPersonalDatas = KIDPERSONALDATA;
   familyMembersPersonalDatas = FAMILYMEMBERPERSONALDATA;
+  kidsInsuranceDatas = KIDINSURANCEDATA;
+  familyMembersInsuranceDatas = FAMILYMEMBERINSURANCEDATA;
   model: NgbDateStruct;
   closeResult = '';
 
-  constructor(private modalService: NgbModal, private calendar: NgbCalendar,) {
+  constructor(private modalService: NgbModal, private calendar: NgbCalendar) {
   }
 
   ngOnInit(): void {
     this.initializeEmployeeDataForm();
-    this.initializePersonalDataForm();
+    this.initializeKidsPersonalDataForm();
     this.initializeFamilyMembersDataForm();
+    this.initializeKidsInsuredDataForm();
+    this.initializefamilyMembersInsuredDataForm();
   }
 
   private initializeEmployeeDataForm() {
@@ -58,7 +66,7 @@ export class EmployeeFormComponent implements OnInit {
     });
   }
 
-  private initializePersonalDataForm() {
+  private initializeKidsPersonalDataForm() {
     this.kidsDataForm = new FormGroup(
       {
         id: new FormControl(null),
@@ -80,18 +88,48 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  onAdd(content, modalTitle) {
-    this.modalService.open(content, {ariaLabelledBy: modalTitle}).result.then((result) => {
+  private initializeKidsInsuredDataForm() {
+    this.kidsInsuredDataForm = new FormGroup(
+      {
+        id: new FormControl(null),
+        name: new FormControl(null),
+        forename: new FormControl(null),
+        dateOfBirth: new FormControl(null),
+      }
+    );
+  }
+
+  private initializefamilyMembersInsuredDataForm() {
+    this.familyMembersInsuredDataForm = new FormGroup(
+      {
+        id: new FormControl(null),
+        name: new FormControl(null),
+        forename: new FormControl(null),
+        dateOfBirth: new FormControl(null),
+      }
+    );
+  }
+
+  onAdd(Content, modalTitle) {
+    this.modalService.open(Content, {ariaLabelledBy: modalTitle}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
-  onDelete(id) {
-    for (let i = 0; i < this.personalDatas.length; ++i) {
-      if (this.personalDatas[i].id === id) {
-        this.personalDatas.splice(i, 1);
+  // onDelete(id) {
+  //   for (let i = 0; i < this.kidsPersonalDatas.length; ++i) {
+  //     if (this.kidsPersonalDatas[i].id === id) {
+  //       this.kidsPersonalDatas.splice(i, 1);
+  //     }
+  //   }
+  // }
+
+  onDelete(id, dataType) {
+    for (let i = 0; i < dataType.length; ++i) {
+      if (dataType[i].id === id) {
+        dataType.splice(i, 1);
       }
     }
   }
@@ -107,10 +145,10 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   private addKid() {
-    this.personalDatas.push(
+    this.kidsPersonalDatas.push(
       {
-        id: this.personalDatas.length + 1,
-        name: this.kidsDataForm.value.forename,
+        id: this.kidsPersonalDatas.length + 1,
+        name: this.kidsDataForm.value.name,
         forename: this.kidsDataForm.value.forename,
         dateOfBirth: this.kidsDataForm.value.dateOfBirth,
       }
@@ -121,18 +159,38 @@ export class EmployeeFormComponent implements OnInit {
     this.familyMembersPersonalDatas.push(
       {
         id: this.familyMembersPersonalDatas.length + 1,
-        name: this.familyMembersDataForm.value.forename,
+        name: this.familyMembersDataForm.value.name,
         forename: this.familyMembersDataForm.value.forename,
         dateOfBirth: this.familyMembersDataForm.value.dateOfBirth,
       }
     );
   }
 
-  onSubmit() {
-    console.log('Dane pracownika: ', this.employeeDataForm.value);
-    console.log('Dane członków rodziny: ', this.familyMembersDataForm.value);
+  private addKidToInsurance() {
+    this.kidsInsuranceDatas.push(
+      {
+        id: this.kidsInsuranceDatas.length + 1,
+        name: this.kidsInsuredDataForm.value.name,
+        forename: this.kidsInsuredDataForm.value.forename,
+        dateOfBirth: this.kidsInsuredDataForm.value.dateOfBirth,
+      }
+    );
   }
 
+  private addFamilyMemberToInsurance() {
+    this.familyMembersInsuranceDatas.push(
+      {
+        id: this.familyMembersInsuranceDatas.length + 1,
+        name: this.familyMembersInsuredDataForm.value.name,
+        forename: this.familyMembersInsuredDataForm.value.forename,
+        dateOfBirth: this.familyMembersInsuredDataForm.value.dateOfBirth,
+      }
+    );
+  }
 
-
+  onSubmit() {
+    console.log('Dane pracownika: ', this.employeeDataForm.value);
+    console.log('Dane dzieci: ', this.kidsInsuredDataForm.value);
+    console.log('Dane członków rodziny: ', this.familyMembersDataForm.value);
+  }
 }
