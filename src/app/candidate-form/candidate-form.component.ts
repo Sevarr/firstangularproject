@@ -47,28 +47,22 @@ export class CandidateFormComponent implements OnInit {
     this.selectedSortOrder = newSortOrder;
   }
 
-  onSubmit() {
-    console.log('Formularz dane osobowe: ', this.personalDataForm.value);
-    console.log('Formularz kontaktowy: ', this.contactDataForm.value);
-    console.log('Formularz szkoły: ', this.schoolDataForm.value);
-  }
-
   private initializePersonalDataForm() {
     this.personalDataForm = new FormGroup({
       id: new FormControl(null),
-      name: new FormControl(null),
+      name: new FormControl(null, [Validators.required]),
       secondName: new FormControl(null),
-      surname: new FormControl(null),
-      dateOfBirth: new FormControl(),
-      sex: new FormControl()
+      surname: new FormControl(null, [Validators.required]),
+      dateOfBirth: new FormControl([Validators.required]),
+      sex: new FormControl([Validators.required])
     });
   }
 
   private initializeContactDataForm() {
     this.contactDataForm = new FormGroup({
-      phoneNumber: new FormControl(null),
-      mailAddres: new FormControl(null),
-      place: new FormControl(),
+      phoneNumber: new FormControl(null, [Validators.required]),
+      mailAddres: new FormControl(null, [Validators.required]),
+      place: new FormControl(null,[Validators.required]),
       qualifications: new FormControl(),
       prevEmployment: new FormControl(),
       additionalPersonalData: new FormControl()
@@ -122,6 +116,15 @@ export class CandidateFormComponent implements OnInit {
       if (this.schools[i].id === id) {
         this.schools.splice(i, 1);
       }
+    }
+  }
+
+  onSubmit() {
+    console.log('Formularz dane osobowe: ', this.personalDataForm.value);
+    console.log('Formularz kontaktowy: ', this.contactDataForm.value);
+    // console.log('Formularz szkoły: ', this.schoolDataForm.value);
+    for (let i = 0; i < this.schools.length; i++){
+      console.log('Szkoły ', i + 1, ':', this.schools[i]);
     }
   }
 }

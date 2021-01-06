@@ -17,6 +17,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {TopBarComponent} from './top-bar/top-bar.component';
 import {DocumentGeneratorComponent} from './document-generator/document-generator.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {DocumentGeneratorComponent} from './document-generator/document-generato
     ReactiveFormsModule,
     NoopAnimationsModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

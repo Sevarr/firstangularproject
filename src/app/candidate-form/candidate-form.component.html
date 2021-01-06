@@ -5,6 +5,7 @@
         <div class="col-sm-12 col-md-4 form-group">
           <label for="name">Imię</label>
           <input id="name" type="text" class="form-control" formControlName="name">
+          <div *ngIf="personalDataForm.get('name').hasError('required')">Pole wymagane.</div>
         </div>
         <div class="col-sm-12 col-md-4 form-group">
           <label for="secondName">Drugie imię</label>
@@ -13,6 +14,7 @@
         <div class="col-sm-12 col-md-4 form-group">
           <label for="surname">Nazwisko</label>
           <input id="surname" type="text" class="form-control" formControlName="surname">
+          <div *ngIf="personalDataForm.get('surname').hasError('required')">Pole wymagane.</div>
         </div>
       </div>
       <hr>
@@ -30,12 +32,12 @@
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
                   </div>
+                  <div *ngIf="personalDataForm.get('dateOfBirth').hasError('required')">Pole wymagane.</div>
                 </div>
               </div>
 
               <div class="col-sm-20 col-md-6 form-group">
-                <label for="sex">Płeć</label><br>
-                <input id="sex" type="text" class="form-control" formControlName="sex">
+                <label>Płeć</label><br>
                 <div ngbDropdown class="d-inline-block">
                   <button type="button" class="btn btn-outline-primary" id="sortMenu"
                           ngbDropdownToggle>{{selectedSortOrder}}</button>
@@ -55,14 +57,17 @@
                     <div class="col-sm-12 col-md-4 form-group">
                       <label for="phoneNumber">Numer telefonu</label>
                       <input id="phoneNumber" type="number" class="form-control" formControlName="phoneNumber">
+                      <div *ngIf="contactDataForm.get('phoneNumber').hasError('required')">Pole wymagane.</div>
                     </div>
                     <div class="col-sm-12 col-md-4 form-group">
                       <label for="mailAddres">Adres mailowy</label>
                       <input id="mailAddres" type="text" class="form-control" formControlName="mailAddres">
+                      <div *ngIf="contactDataForm.get('mailAddres').hasError('required')">Pole wymagane.</div>
                     </div>
                     <div class="col-sm-12 col-md-4 form-group">
                       <label for="place">Miejscowość wypełniania formularza</label>
                       <input id="place" type="text" class="form-control" formControlName="place">
+                      <div *ngIf="contactDataForm.get('place').hasError('required')">Pole wymagane.</div>
                     </div>
                   </div>
                   <hr>
@@ -107,7 +112,7 @@
                     </tr>
                     </tbody>
                     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-                      <button class="btn btn-lg btn-outline-primary" (click)="onAdd(content)">Dodaj</button>
+                      <button type="button" class="btn btn-lg btn-outline-primary" (click)="onAdd(content)">Dodaj</button>
                     </div>
                   </table>
 
@@ -147,14 +152,12 @@
               <div class="col-sm-12 col-md-10 form-group">
                 <label for="name">Ukończona szkoła</label>
                 <input id="name" type="text" class="form-control" formControlName="name">
-                <div *ngIf="schoolDataForm.get('name').invalid"
-                     class="alert alert-danger">
-                  <div *ngIf="schoolDataForm.get('name').errors.required">Pole wymagane</div>
-                </div>
+                <div *ngIf="schoolDataForm.get('name').hasError('required')">Pole wymagane.</div>
               </div>
               <div class="col-sm-12 col-md-10 form-group">
                 <label for="graduationYear">Rok ukończenia szkoły</label>
                 <input id="graduationYear" type="text" class="form-control" formControlName="graduationYear">
+                <div *ngIf="schoolDataForm.get('graduationYear').hasError('required')">Pole wymagane.</div>
               </div>
               <div class="col-sm-12 col-md-10 form-group">
                 <label for="profession">Zawód</label>
@@ -173,6 +176,5 @@
           </form>
         </div>
         <div class="modal-footer">
-
         </div>
       </ng-template>

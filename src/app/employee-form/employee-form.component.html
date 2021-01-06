@@ -104,16 +104,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let personalData of personalDatas; index as i">
+    <tr *ngFor="let kidsPersonalData of kidsPersonalDatas; index as i">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ personalData.name }}</td>
-      <td>{{ personalData.forename}}</td>
-      <td>{{ personalData.dateOfBirth }}</td>
-      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+      <td>{{ kidsPersonalData.name }}</td>
+      <td>{{ kidsPersonalData.forename }}</td>
+      <td>{{ kidsPersonalData.dateOfBirth }}</td>
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)="onDelete(kidsPersonalData.id, kidsPersonalDatas)">delete</button>
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "kidsDataFormModal")'>Dodaj</button>
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(kidsmodalcontent, "kidsDataFormModal")'>Dodaj</button>
     </div>
   </table><br><br>
 
@@ -132,13 +132,13 @@
     <tr *ngFor="let familyMembersPersonalData of familyMembersPersonalDatas; index as i">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ familyMembersPersonalData.name }}</td>
-      <td>{{ familyMembersPersonalData.forename}}</td>
+      <td>{{ familyMembersPersonalData.forename }}</td>
       <td>{{ familyMembersPersonalData.dateOfBirth }}</td>
-      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(familyMembersPersonalData.id)">delete</button>
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)="onDelete(familyMembersPersonalData.id, familyMembersPersonalDatas)">delete</button>
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(familymembersmodalcontent, "familyMembersDataFormModal")'>Dodaj
       </button>
     </div>
   </table><br><br>
@@ -155,16 +155,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let personalData of familyMembersPersonalDatas; index as i">
+    <tr *ngFor="let kidsInsuranceData of kidsInsuranceDatas; index as i">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ personalData.name }}</td>
-      <td>{{ personalData.forename}}</td>
-      <td>{{ personalData.dateOfBirth }}</td>
-      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+      <td>{{ kidsInsuranceData.name }}</td>
+      <td>{{ kidsInsuranceData.forename}}</td>
+      <td>{{ kidsInsuranceData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(kidsInsuranceData.id, kidsInsuranceDatas)">delete</button>
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(kidsinsuredmodalcontent, "kidsInsuredDataFormModal")'>Dodaj
       </button>
     </div>
   </table><br><br>
@@ -181,16 +181,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let personalData of familyMembersPersonalDatas; index as i">
+    <tr *ngFor="let familyMembersInsuranceData of familyMembersInsuranceDatas; index as i">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ personalData.name }}</td>
-      <td>{{ personalData.forename}}</td>
-      <td>{{ personalData.dateOfBirth }}</td>
-      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(personalData.id)">delete</button>
+      <td>{{ familyMembersInsuranceData.name }}</td>
+      <td>{{ familyMembersInsuranceData.forename}}</td>
+      <td>{{ familyMembersInsuranceData.dateOfBirth }}</td>
+      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(familyMembersInsuranceData.id, familyMembersInsuranceDatas)">delete</button>
     </tr>
     </tbody>
     <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(content, "familyMembersDataFormModal")'>Dodaj
+      <button type="button" class="btn btn-lg btn-outline-primary" (click)='onAdd(familymembersinsuredmodalcontent, "familyMembersInsuredDataFormModal")'>Dodaj
       </button>
     </div>
   </table>
@@ -211,15 +211,15 @@
 </form><br><br>
 
 
-<ng-template #content let-modal>
+<ng-template #kidsmodalcontent let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="kidsDataFormModal">Dodaj dane dziecka</h4>
+    <h4 class="modal-title" id='kidsDataFormModal'>Dodaj dane dziecka</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="kidsDataForm" (ngSubmit)="addKid()">
+    <form [formGroup]='kidsInsuredDataForm' (ngSubmit)="addKid()">
       <div class="form-group">
         <div class="col-sm-12 col-md-10 form-group">
           <label for="name">Imię</label>
@@ -246,15 +246,85 @@
   </div>
 </ng-template>
 
-<ng-template #content let-modal>
+<ng-template #familymembersmodalcontent let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="familyMembersDataFormModal">Dodaj dane członka rodziny</h4>
+    <h4 class="modal-title" id='familyMembersDataFormModal'>Podaj dane członka rodziny</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="familyMembersDataForm" (ngSubmit)="addFamilyMember()">
+    <form [formGroup]='familyMembersDataForm' (ngSubmit)="addFamilyMember()">
+      <div class="form-group">
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="name">Imię członka rodziny</label>
+          <input id="name" type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="forename">Nazwisko</label>
+          <input id="forename" type="text" class="form-control" formControlName="forename">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="dateOfBirth">Data urodzenia</label>
+          <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"
+                 placeholder="rrrr-mm-dd"
+                 name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>
+
+<ng-template #kidsinsuredmodalcontent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id='kidsInsuredDataFormModal'>Podaj dane członka rodziny</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]='kidsInsuredDataForm' (ngSubmit)="addKidToInsurance()">
+      <div class="form-group">
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="name">Imię członka rodziny</label>
+          <input id="name" type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="forename">Nazwisko</label>
+          <input id="forename" type="text" class="form-control" formControlName="forename">
+        </div>
+        <div class="col-sm-12 col-md-10 form-group">
+          <label for="dateOfBirth">Data urodzenia</label>
+          <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"
+                 placeholder="rrrr-mm-dd"
+                 name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>
+
+<ng-template #familymembersinsuredmodalcontent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id='familyMembersInsuredDataFormModal'>Podaj dane członka rodziny</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]='familyMembersInsuredDataForm' (ngSubmit)="addFamilyMemberToInsurance()">
       <div class="form-group">
         <div class="col-sm-12 col-md-10 form-group">
           <label for="name">Imię członka rodziny</label>
