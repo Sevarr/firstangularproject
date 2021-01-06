@@ -27,14 +27,17 @@ export class CandidateFormComponent implements OnInit {
   personalDataForm: FormGroup;
   contactDataForm: FormGroup;
   schoolDataForm: FormGroup;
+  dataComplete: boolean;
   model: NgbDateStruct;
   schools = SCHOOLS;
   closeResult = '';
+  message = '';
 
   constructor(
     private calendar: NgbCalendar,
     private modalService: NgbModal,
   ) {
+    this.dataComplete = true;
   }
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class CandidateFormComponent implements OnInit {
 
   changeSortOrder(newSortOrder: string) {
     this.selectedSortOrder = newSortOrder;
+    this.personalDataForm.value.sex = newSortOrder;
   }
 
   private initializePersonalDataForm() {
@@ -62,7 +66,7 @@ export class CandidateFormComponent implements OnInit {
     this.contactDataForm = new FormGroup({
       phoneNumber: new FormControl(null, [Validators.required]),
       mailAddres: new FormControl(null, [Validators.required]),
-      place: new FormControl(null,[Validators.required]),
+      place: new FormControl(null, [Validators.required]),
       qualifications: new FormControl(),
       prevEmployment: new FormControl(),
       additionalPersonalData: new FormControl()
@@ -80,8 +84,7 @@ export class CandidateFormComponent implements OnInit {
   }
 
   addSchool() {
-    this.schools.push(
-      {
+    this.schools.push({
         id: (this.schools.length + 1),
         name: this.schoolDataForm.value.name,
         graduationYear: this.schoolDataForm.value.graduationYear,
@@ -92,13 +95,22 @@ export class CandidateFormComponent implements OnInit {
   }
 
   onAdd(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       // console.log(this.schoolDataForm.value.title);
       // this.newSchool(this.schoolDataForm.value.school, this.schoolDataForm.value.graduationYear, this.schoolDataForm.value.profession, this.schoolDataForm.value.speciality, this.schoolDataForm.value.title);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  poppingMessage(content, message){
+    this.message = message;
+    this.modalService.open(content, {ariaLabelledBy: 'poppingmassage'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
   }
 
   private getDismissReason(reason: any): string {
@@ -126,7 +138,10 @@ export class CandidateFormComponent implements OnInit {
     for (let i = 0; i < this.schools.length; i++){
       console.log('Szkoły ', i + 1, ':', this.schools[i]);
     }
+    if (this.dataComplete){
+      this.message = 'Dane zapisane poprawnie';
+    } else{
+      this.message = 'Nie udało się zapisać. Uzupełnij brakujące dane';
+    }
   }
 }
-
-
