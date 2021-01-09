@@ -13,7 +13,6 @@ interface School {
 
 const SCHOOLS: School[] = [];
 
-
 @Component({
   selector: 'app-candidate-form',
   templateUrl: './candidate-form.component.html',
@@ -43,7 +42,7 @@ export class CandidateFormComponent implements OnInit {
   ngOnInit() {
     this.initializePersonalDataForm();
     this.initializeContactDataForm();
-    this.initializeschoolDataForm();
+    this.initializeSchoolDataForm();
   }
 
   changeSortOrder(newSortOrder: string) {
@@ -73,7 +72,7 @@ export class CandidateFormComponent implements OnInit {
     });
   }
 
-  private initializeschoolDataForm() {
+  private initializeSchoolDataForm() {
     this.schoolDataForm = new FormGroup({
       name: new FormControl(' ', [Validators.required]),
       graduationYear: new FormControl(' ', [Validators.required]),
@@ -131,13 +130,31 @@ export class CandidateFormComponent implements OnInit {
     }
   }
 
+  validate(){
+    if (this.personalDataForm.value.name == null ||
+    this.personalDataForm.value.surname == null ||
+    this.personalDataForm.value.dateOfBirth == null ||
+    this.personalDataForm.value.sex == null){
+      return false;
+    }
+    if (this.contactDataForm.value.phoneNumber == null ||
+      this.contactDataForm.value.mailAddres == null ||
+      this.contactDataForm.value.place == null || this.contactDataForm.value.place === '""'){
+       return false;
+    }
+    return true;
+  }
+
+
   onSubmit() {
+    this.dataComplete = this.validate();
     console.log('Formularz dane osobowe: ', this.personalDataForm.value);
     console.log('Formularz kontaktowy: ', this.contactDataForm.value);
     // console.log('Formularz szkoły: ', this.schoolDataForm.value);
     for (let i = 0; i < this.schools.length; i++){
       console.log('Szkoły ', i + 1, ':', this.schools[i]);
     }
+
     if (this.dataComplete){
       this.message = 'Dane zapisane poprawnie';
     } else{
