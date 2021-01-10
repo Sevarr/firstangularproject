@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {NgbDateStruct, NgbCalendar, NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { EmployeeDataService } from '../../services/data/employee-data.service';
 
 interface School {
   id: number;
@@ -35,6 +36,7 @@ export class CandidateFormComponent implements OnInit {
   constructor(
     private calendar: NgbCalendar,
     private modalService: NgbModal,
+    private employeeData: EmployeeDataService
   ) {
     this.dataComplete = true;
   }
@@ -65,7 +67,7 @@ export class CandidateFormComponent implements OnInit {
     this.contactDataForm = new FormGroup({
       phoneNumber: new FormControl(null, [Validators.required]),
       mailAddres: new FormControl(null, [Validators.required]),
-      place: new FormControl(null, [Validators.required]),
+      fillLocation: new FormControl(null, [Validators.required]),
       qualifications: new FormControl(),
       prevEmployment: new FormControl(),
       additionalPersonalData: new FormControl()
@@ -139,7 +141,7 @@ export class CandidateFormComponent implements OnInit {
     }
     if (this.contactDataForm.value.phoneNumber == null ||
       this.contactDataForm.value.mailAddres == null ||
-      this.contactDataForm.value.place == null || this.contactDataForm.value.place === '""'){
+      this.contactDataForm.value.fillLocation == null || this.contactDataForm.value.fillLocation === '""'){
        return false;
     }
     return true;
@@ -154,11 +156,18 @@ export class CandidateFormComponent implements OnInit {
     for (let i = 0; i < this.schools.length; i++){
       console.log('Szkoły ', i + 1, ':', this.schools[i]);
     }
-
+    this.sendToDatabase();
     if (this.dataComplete){
       this.message = 'Dane zapisane poprawnie';
     } else{
       this.message = 'Nie udało się zapisać. Uzupełnij brakujące dane';
     }
   }
+
+  sendToDatabase(){
+    this.employeeData.setName(this.personalDataForm.value.name);
+    this.employeeData.setData('570b40dd-807b-4c3e-a834-e09f1d72480b');
+  }
+
 }
+

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService} from '../services/rest/rest.service';
-import {FormControl, FormGroup} from '@angular/forms';
-import {NgbDateStruct, NgbCalendar, NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup } from '@angular/forms';
+import { NgbDateStruct, NgbCalendar, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { EmployeeDataService } from '../services/data/employee-data.service';
 
 // interface School {
 //   name: string;
@@ -27,18 +28,31 @@ import {NgbDateStruct, NgbCalendar, NgbModal, ModalDismissReasons} from '@ng-boo
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  // employeeData: EmployeeDataService;
+  constructor(private apiService: RestService, private employeeData: EmployeeDataService) { }
 
-  title = 'JavaLeaderAngularApp';
-  constructor(private apiService: RestService) { }
-
-  employees;
+  // employees;
 
   ngOnInit() {
-    this.apiService.getTest().subscribe((data) => {
-        this.employees = data;
-        console.log(this.employees);
-    });
+    this.employeeData.getData('570b40dd-807b-4c3e-a834-e09f1d72480b');
+    // this.apiService.getTest().subscribe((data) => {
+    //   this.employees = data;
+    //   console.log(this.employees);
+    // });
   }
+
+  dodaj(){
+    // this.employeeData.getData('570b40dd-807b-4c3e-a834-e09f1d72480b');
+    console.log(this.employeeData.getEmail());
+    console.log(this.employeeData.getPhoneNumber());
+    console.log(this.employeeData.getFillLocation());
+    console.log(this.employeeData.getName());
+    console.log(this.employeeData.getEducation());
+    // this.employees.email = 'dziala@test' ;
+    // this.apiService.sendTest(this.employees)._subscribe(this.employees);
+    // console.log('dodanochyba');
+  }
+
 
 
   // schoolDataForm: FormGroup;
