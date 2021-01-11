@@ -16,7 +16,8 @@ export class DocumentGeneratorComponent implements OnInit {
 
   async modifyPDF() {
     console.log('działa');
-    const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf';
+    // const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf';
+    const url = '/assets/testowyplik.pdf';
     const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
 
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
