@@ -32,7 +32,7 @@ export class CandidateFormComponent implements OnInit {
   schools = SCHOOLS;
   closeResult = '';
   message = '';
-
+  test = 'tesawdawd';
   constructor(
     private calendar: NgbCalendar,
     private modalService: NgbModal,
@@ -45,17 +45,23 @@ export class CandidateFormComponent implements OnInit {
     this.initializePersonalDataForm();
     this.initializeContactDataForm();
     this.initializeSchoolDataForm();
+    this.getFromDatabase();
   }
 
   changeSortOrder(newSortOrder: string) {
     this.selectedSortOrder = newSortOrder;
-    this.personalDataForm.value.sex = newSortOrder;
+    switch (newSortOrder){
+      case 'Mężczyzna' : {this.personalDataForm.value.sex = 'MALE'; break; }
+      case 'Kobieta' : {this.personalDataForm.value.sex = 'FEMALE'; break; }
+      default : {this.personalDataForm.value.sex = 'OTHER'; break; }
+    }
+    // this.personalDataForm.value.sex = newSortOrder;
   }
 
   private initializePersonalDataForm() {
     this.personalDataForm = new FormGroup({
       id: new FormControl(null),
-      name: new FormControl(null, [Validators.required]),
+      firstName: new FormControl(null, [Validators.required]),
       secondName: new FormControl(null),
       surname: new FormControl(null, [Validators.required]),
       dateOfBirth: new FormControl([Validators.required]),
@@ -133,7 +139,7 @@ export class CandidateFormComponent implements OnInit {
   }
 
   validate(){
-    if (this.personalDataForm.value.name == null ||
+    if (this.personalDataForm.value.firstName == null ||
     this.personalDataForm.value.surname == null ||
     this.personalDataForm.value.dateOfBirth == null ||
     this.personalDataForm.value.sex == null){
@@ -156,16 +162,30 @@ export class CandidateFormComponent implements OnInit {
     for (let i = 0; i < this.schools.length; i++){
       console.log('Szkoły ', i + 1, ':', this.schools[i]);
     }
-    this.sendToDatabase();
     if (this.dataComplete){
+      this.sendToDatabase();
       this.message = 'Dane zapisane poprawnie';
-    } else{
+    } else {
       this.message = 'Nie udało się zapisać. Uzupełnij brakujące dane';
     }
   }
 
+  getFromDatabase(){
+    // if (this.employeeData.getName() !== '""' && this.employeeData.getName() !== null) {
+       this.personalDataForm.value.firstName = this.employeeData.getName();
+    // }
+  }
+
   sendToDatabase(){
-    this.employeeData.setName(this.personalDataForm.value.name);
+    this.employeeData.setName(this.personalDataForm.value.firstName);
+    this.employeeData.setSecondName(this.personalDataForm.value.secondName);
+    this.employeeData.setSurname(this.personalDataForm.value.surname);
+    this.employeeData.setBirthDate(this.personalDataForm.value.birthDate);
+    this.employeeData.setSex(this.personalDataForm.value.sex);
+    this.employeeData.setPhoneNumber(this.contactDataForm.value.phoneNumber);
+    this.employeeData.setEmail(this.contactDataForm.value.email);
+    this.employeeData.setFillLocation(this.contactDataForm.value.fillLocation);
+
     this.employeeData.setData('570b40dd-807b-4c3e-a834-e09f1d72480b');
   }
 

@@ -10,7 +10,7 @@ export class EmployeeDataService {
     this.getData('570b40dd-807b-4c3e-a834-e09f1d72480b');
   }
 
-  employee;
+  private employee;
 
   // dodaj(){
   //   this.employees.email = 'dziala@test' ;
@@ -21,24 +21,21 @@ export class EmployeeDataService {
   getData(id) {
     this.apiService.getEmployeeData(id).subscribe((data) => {
       this.employee = data;
+      // console.log(this.employee);
     });
+    // console.log(this.employee);
   }
 
   setData(id) {
     this.apiService.sendEmployeeData(id, this.employee)._subscribe(this.employee);
   }
 
-  // getData() {
-  //   this.apiService.getEmployeeData().subscribe((data) => {
-  //     this.employee = data;
-  //   });
-  // }
-
   getEmail() {
     return this.employee.email;
   }
 
   setEmail(email) {
+    // console.log(this.employee.email);
     this.employee.email = email;
   }
 
@@ -46,12 +43,24 @@ export class EmployeeDataService {
     return this.employee.phoneNumber;
   }
 
+  setPhoneNumber(phoneNumber) {
+    this.employee.phoneNumber = phoneNumber;
+  }
+
   getFillLocation(){
     return this.employee.fillLocation;
   }
 
+  setFillLocation(fillLocation){
+    this.employee.fillLocation = fillLocation;
+  }
+
   getSex(){
     return this.employee.sex;
+  }
+
+  setSex(sex) {
+    this.employee.sex = sex;
   }
 
   getName() {
@@ -66,16 +75,32 @@ export class EmployeeDataService {
     return this.employee.secondName;
   }
 
+  setSecondName(secondName) {
+    this.employee.secondName = secondName;
+  }
+
   getSurname(){
     return this.employee.surname;
+  }
+
+  setSurname(surename){
+    this.employee.surname = surename;
   }
 
   getBirthDate(){
     return this.employee.birthDate;
   }
 
+  setBirthDate(birthDate){
+    this.employee.birthDate = birthDate;
+  }
+
   getProfession(){
     return this.employee.profession;
+  }
+
+  setProfession(profession){
+    this.employee.profession = profession;
   }
 
   getSpecialty(){
@@ -86,20 +111,40 @@ export class EmployeeDataService {
     return this.employee.title;
   }
 
+  setTitle(title){
+    this.employee.title = title;
+  }
+
   getQualification(){
     return this.employee.qualifications;
+  }
+
+  setQualification(qualification){
+    this.employee.qualification = qualification;
   }
 
   getAdditionalPersonalData(){
     return this.employee.optionalData;
   }
 
+  setAdditionalPersonalData(personalData){
+    this.employee.optionalData = personalData;
+  }
+
   getEducation(){
     return this.employee.education;
   }
 
+  setEducation(education){
+    this.employee.education = education;
+  }
+
   getCitizenship(){
     return this.employee.citizenship;
+  }
+
+  setCitizenship(citizenship){
+    this.employee.citizenship = citizenship;
   }
 
   // Pesel or NIP
@@ -108,8 +153,17 @@ export class EmployeeDataService {
     return this.employee.documentNumber;
   }
 
+  setDocumentType_Number(documentType, documentNumber){
+    this.employee.documentType = documentType;
+    this.employee.documentNumber = documentNumber;
+  }
+
   getTaxOffice(){
     return this.employee.taxOffice;
+  }
+
+  setTaxOffice(taxOffice){
+    this.employee.taxOffice = taxOffice;
   }
 
   // Need that combined
@@ -120,24 +174,48 @@ export class EmployeeDataService {
     return this.employee.authorizedName;
   }
 
+  setPersonToNotify(personToNotify){
+    this.employee.authorizedName = personToNotify;
+  }
+
   getWorkplace(){
     return this.employee.workplace;
+  }
+
+  setWorkplace(workplace){
+    this.employee.workplace = workplace;
   }
 
   getDepartment(){
     return this.employee.department;
   }
 
+  setDepartment(department){
+    this.employee.department = department;
+  }
+
   getEmploymentDate(){
     return this.employee.employmentDate;
+  }
+
+  setEmplotymentDate(employmentDate){
+    this.employee.employmentDate = employmentDate;
   }
 
   getBankName(){
     return this.employee.bank;
   }
 
+  setBankName(bankName){
+    this.employee.bankName = bankName;
+  }
+
   getBankAccount(){
     return this.employee.accountNumber;
+  }
+
+  setBankAccount(bankAccount){
+    this.employee.bankAccount = bankAccount;
   }
 }
 

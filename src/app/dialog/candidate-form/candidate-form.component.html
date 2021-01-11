@@ -3,9 +3,9 @@
     <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-12 col-md-4 form-group">
-          <label for="name">Imię</label>
-          <input id="name" type="text" class="form-control" formControlName="name">
-          <div *ngIf="personalDataForm.get('name').hasError('required')">Pole wymagane.</div>
+          <label for="firstName">Imię</label>
+          <input id="firstName" type="text" class="form-control" formControlName="firstName">
+          <div *ngIf="personalDataForm.get('firstName').hasError('required')">Pole wymagane.</div>
         </div>
         <div class="col-sm-12 col-md-4 form-group">
           <label for="secondName">Drugie imię</label>
