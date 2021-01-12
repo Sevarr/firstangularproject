@@ -67,8 +67,8 @@ import { CreateNewEmployeeAccountComponent } from './create-new-employee-account
       },
       {
         path: '',
-        // component: HomeComponent,
-        component: LoginComponent,
+        component: HomeComponent,
+        // component: LoginComponent,
       },
       {
         path: 'candidate_form',

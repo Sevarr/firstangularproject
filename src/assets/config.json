@@ -1,0 +1,6 @@
+{
+  "export": {
+    "backend_url": "localhost:8080",
+    "user": "one"
+  }
+}
