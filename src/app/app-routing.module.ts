@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './dialog/users/admin/admin.component';
 
 // const routes: Routes = [];
 const routes: Routes = [

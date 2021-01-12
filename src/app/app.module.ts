@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
-import {AdminComponent} from './admin/admin.component';
+import {AdminComponent} from './dialog/users/admin/admin.component';
 import {HomeComponent} from './home/home.component';
 import {CandidateFormComponent} from './dialog/candidate-form/candidate-form.component';
 import {EmployeeFormComponent} from './dialog/employee-form/employee-form.component';
@@ -18,6 +18,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {TopBarComponent} from './top-bar/top-bar.component';
 import {DocumentGeneratorComponent} from './document-generator/document-generator.component';
 import {HttpClientModule} from '@angular/common/http';
+import { HREmployeeComponent } from './dialog/users/hr-employee/hr-employee.component';
+import { NewEmployeeComponent } from './dialog/users/new-employee/new-employee.component';
+import { ChangeAccountDataComponent } from './dialog/users/change-account-data/change-account-data.component';
+import { CreateNewEmployeeAccountComponent } from './create-new-employee-account/create-new-employee-account.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,10 @@ import {HttpClientModule} from '@angular/common/http';
     SchoolModalComponent,
     TopBarComponent,
     DocumentGeneratorComponent,
+    HREmployeeComponent,
+    NewEmployeeComponent,
+    ChangeAccountDataComponent,
+    CreateNewEmployeeAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +58,17 @@ import {HttpClientModule} from '@angular/common/http';
         // canActivate: [AuthGuard]
       },
       {
+        path: 'hr_employee',
+        component: HREmployeeComponent,
+      },
+      {
+        path: 'new_employee',
+        component: NewEmployeeComponent,
+      },
+      {
         path: '',
-        component: HomeComponent,
+        // component: HomeComponent,
+        component: LoginComponent,
       },
       {
         path: 'candidate_form',
