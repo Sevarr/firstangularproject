@@ -14,6 +14,16 @@ export class DocumentGeneratorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  metadata;
+
+  addMetadata() {
+
+  }
+
+  readMetadata(data) {
+    this.metadata = data.split(' ');
+  }
+
   async modifyPDF() {
     console.log('działa');
     // const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf';
@@ -22,14 +32,21 @@ export class DocumentGeneratorComponent implements OnInit {
 
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    pdfDoc.setKeywords(['firstName', '5', '800', '10', 'horses', 'men']);
 
+    this.readMetadata(pdfDoc.getKeywords());
+    console.log('Keywords:', this.metadata);
+    let x1 = parseInt(this.metadata[1]);
+    let y1 = parseInt(this.metadata[2]);
+    let z1 = parseInt(this.metadata[3]);
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
-    const { width, height } = firstPage.getSize();
-    firstPage.drawText('This text was added with JavaScript!', {
-      x: 5,
-      y: height / 2 + 300,
-      size: 50,
+    const {width, height} = firstPage.getSize();
+    firstPage.drawText('This text was added with JavaScript!\n' +
+      'tak', {
+        x: x1,
+        y: y1,
+        size: z1,
       font: helveticaFont,
       color: rgb(0.95, 0.1, 0.1),
     });
@@ -53,7 +70,6 @@ export class DocumentGeneratorComponent implements OnInit {
     window.URL.revokeObjectURL(url_out);
   }
 }
-
 
 
 //
