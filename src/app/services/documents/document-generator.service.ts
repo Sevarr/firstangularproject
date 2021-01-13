@@ -3,6 +3,7 @@ import {PDFDocument, StandardFonts, rgb} from 'pdf-lib';
 import {EmployeeDataService} from '../../services/data/employee-data.service';
 import {RestService} from '../../services/rest/rest.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {formatDate} from '@angular/common';
 
 interface Metadata {
   name: string;
@@ -22,6 +23,7 @@ export class DocumentGeneratorService {
   private pdfDoc: PDFDocument;
   private metadataOut = METADATA;
   private metadataIn = METADATA;
+  public files = [];
 
   constructor(private employeeData: EmployeeDataService, private restService: RestService) {
   }
@@ -71,7 +73,12 @@ export class DocumentGeneratorService {
   }
 
   private readData(data) {
+    const date = new Date();
     switch (data) {
+      case 'data': {
+        return (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear());
+        break;
+      }
       case 'firstName': {
         return this.employeeData.getName();
         break;
@@ -96,14 +103,15 @@ export class DocumentGeneratorService {
         color: rgb(0, 0, 0),
       });
     }
+    this.metadataOut.slice();
   }
 
-  async modifyPDF() {
+  async modifyPDF(file) {
     console.log('działa');
     // const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf';
     this.url = '/assets/testowyplik.pdf';
-    this.existingPdfBytes = await fetch(this.url).then(res => res.arrayBuffer());
-    // this.existingPdfBytes = await fetch(this.fileForm.get('file').value).then(res => res.arrayBuffer());
+    // this.existingPdfBytes = await fetch(this.url).then(res => res.arrayBuffer());
+    this.existingPdfBytes = await fetch(file).then(res => res.arrayBuffer());
     this.pdfDoc = await PDFDocument.load(this.existingPdfBytes);
 
     const helveticaFont = await this.pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -143,7 +151,9 @@ export class DocumentGeneratorService {
   saveFile(file) {
     this.addMetadataToFile();
     console.log('Plik do wysłania do DB: ', file);
-    this.modifyPDF();
+    this.modifyPDF(file);
+    this.files.push(file);
+    // this.metadataIn;
   }
 }
 

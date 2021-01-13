@@ -13,7 +13,7 @@ export class FileUploadComponent implements OnInit {
   dataToAddForm: FormGroup;
   private fileName;
   closeResult = '';
-  list = ['Imię', 'Drugie imię', 'Nazwisko', 'Data urodzenia', 'Płeć', 'Numer telefonu', 'Miejscowość wypełniania formularza', 'Kwalifikacje zawodowe', 'Przebieg dotychczasowego zatrudnienia', 'Dodatkowe dane osobowe', 'Ukończone szkoły'];
+  list = ['Data', 'Imię', 'Drugie imię', 'Nazwisko', 'Data urodzenia', 'Płeć', 'Numer telefonu', 'Miejscowość wypełniania formularza', 'Kwalifikacje zawodowe', 'Przebieg dotychczasowego zatrudnienia', 'Dodatkowe dane osobowe', 'Ukończone szkoły'];
   sortOrders: string[] = this.list;
   defaultSelectedSortOrder = 'Wybierz informację, którą chcesz dodać do pliku';
   selectedSortOrder = this.defaultSelectedSortOrder;
@@ -27,10 +27,13 @@ export class FileUploadComponent implements OnInit {
     this.fileForm = new FormGroup({
       file: new FormControl(null)
     });
+    const date = new Date();
+    console.log('data to: ', (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear()));
   }
 
   selectedName() {
     switch (this.selectedSortOrder) {
+      case 'Data' : {this.dataToAddForm.value.name = 'data'; break; }
       case 'Imię' : {this.dataToAddForm.value.name = 'firstName'; break; }
       case 'Drugie imię' : {this.dataToAddForm.value.name = 'secondName'; break; }
       case 'Nazwisko' : {this.dataToAddForm.value.name = 'surename'; break; }
