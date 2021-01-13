@@ -23,7 +23,6 @@ export class EmployeeDataService {
       this.employee = data;
       // console.log(this.employee);
     });
-    // console.log(this.employee);
   }
 
   setData(id) {
@@ -56,11 +55,19 @@ export class EmployeeDataService {
   }
 
   getSex(){
-    return this.employee.sex;
+    switch (this.employee.sex){
+      case 'MALE' : {return 'Mężczyzna'; break; }
+      case 'FEMALE' : {return 'Kobieta'; break; }
+      default : {return 'Inne'; break; }
+    }
   }
 
   setSex(sex) {
-    this.employee.sex = sex;
+    switch (sex){
+        case 'Mężczyzna' : {this.employee.sex = 'MALE'; break; }
+        case 'Kobieta' : {this.employee.sex = 'FEMALE'; break; }
+        default : {this.employee.sex = 'OTHER'; break; }
+      }
   }
 
   getName() {
@@ -95,32 +102,32 @@ export class EmployeeDataService {
     this.employee.birthDate = birthDate;
   }
 
-  getProfession(){
-    return this.employee.profession;
-  }
+  // getProfession(){
+  //   return this.employee.profession;
+  // }
+  //
+  // setProfession(profession){
+  //   this.employee.profession = profession;
+  // }
+  //
+  // getSpecialty(){
+  //   return this.employee.specialty;
+  // }
+  //
+  // getTitle(){
+  //   return this.employee.title;
+  // }
+  //
+  // setTitle(title){
+  //   this.employee.title = title;
+  // }
 
-  setProfession(profession){
-    this.employee.profession = profession;
-  }
-
-  getSpecialty(){
-    return this.employee.specialty;
-  }
-
-  getTitle(){
-    return this.employee.title;
-  }
-
-  setTitle(title){
-    this.employee.title = title;
-  }
-
-  getQualification(){
+  getQualifications(){
     return this.employee.qualifications;
   }
 
-  setQualification(qualification){
-    this.employee.qualification = qualification;
+  setQualifications(qualifications){
+    this.employee.qualifications = qualifications;
   }
 
   getAdditionalPersonalData(){
@@ -131,12 +138,27 @@ export class EmployeeDataService {
     this.employee.optionalData = personalData;
   }
 
-  getEducation(){
+  getSchools(){
     return this.employee.education;
   }
 
-  setEducation(education){
-    this.employee.education = education;
+  setSchools(schools){
+    for (let i = 0; i < this.employee.education.length; i++) {
+      this.employee.education.splice(i);
+    }
+    for (let i = 0; i < schools.length; i++) {
+      this.employee.education.push(schools[i]);
+    }
+    console.log('Szkoły w setSchools: ', schools);
+    console.log('Education z db w setSchools: ', this.employee.education);
+
+    // for (let i = 0; i < schools.length; i++) {
+    //   this.employee.education.push({
+    //     name: (schools[i].name),
+    //     graduationYear: (schools[i].graduationYear)
+    //   });
+    //   // console.log(schools);
+    // }
   }
 
   getCitizenship(){

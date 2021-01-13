@@ -59,11 +59,11 @@
                       <input id="phoneNumber" type="number" class="form-control" formControlName="phoneNumber">
                       <div *ngIf="contactDataForm.get('phoneNumber').hasError('required')">Pole wymagane.</div>
                     </div>
-                    <div class="col-sm-12 col-md-4 form-group">
-                      <label for="mailAddres">Adres mailowy</label>
-                      <input id="mailAddres" type="text" class="form-control" formControlName="mailAddres">
-                      <div *ngIf="contactDataForm.get('mailAddres').hasError('required')">Pole wymagane.</div>
-                    </div>
+<!--                    <div class="col-sm-12 col-md-4 form-group">-->
+<!--                      <label for="mailAddres">Adres mailowy</label>-->
+<!--                      <input id="mailAddres" type="text" class="form-control" formControlName="mailAddres">-->
+<!--                      <div *ngIf="contactDataForm.get('mailAddres').hasError('required')">Pole wymagane.</div>-->
+<!--                    </div>-->
                     <div class="col-sm-12 col-md-4 form-group">
                       <label for="fillLocation">Miejscowość wypełniania formularza</label>
                       <input id="fillLocation" type="text" class="form-control" formControlName="fillLocation">
@@ -74,8 +74,7 @@
                   <div class="row">
                     <div class="col-sm-12 form-group">
                       <label for="qualifications">Kwalifikacje zawodowe</label>
-                      <input id="qualifications" display="block" type="text" class="form-control"
-                             formControlName="qualifications">
+                      <input id="qualifications" type="text" class="form-control" formControlName="qualifications">
                     </div>
                     <div class="col-sm-12 form-group">
                       <label for="prevEmployment">Przebieg dotychczasowego zatrudnienia</label>
@@ -83,8 +82,7 @@
                     </div>
                     <div class="col-sm-12 form-group">
                       <label for="additionalPersonalData">Dodatkowe dane osobowe</label>
-                      <input id="additionalPersonalData" type="text" class="form-control"
-                             formControlName="additionalPersonalData">
+                      <input id="additionalPersonalData" type="text" class="form-control" formControlName="additionalPersonalData">
                     </div>
                   </div>
                   <hr>

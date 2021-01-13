@@ -29,61 +29,65 @@ export class CandidateFormComponent implements OnInit {
   schoolDataForm: FormGroup;
   dataComplete: boolean;
   model: NgbDateStruct;
+  // date: {year: number, month: number, day: number};
   schools = SCHOOLS;
   closeResult = '';
   message = '';
-  test = 'tesawdawd';
+
   constructor(
     private calendar: NgbCalendar,
     private modalService: NgbModal,
     private employeeData: EmployeeDataService
   ) {
     this.dataComplete = true;
+    if (this.employeeData.getSex != null){
+      this.selectedSortOrder = this.employeeData.getSex();
+    }
   }
 
   ngOnInit() {
     this.initializePersonalDataForm();
     this.initializeContactDataForm();
     this.initializeSchoolDataForm();
-    this.getFromDatabase();
+    // this.getFromDatabase();
   }
 
   changeSortOrder(newSortOrder: string) {
-    this.selectedSortOrder = newSortOrder;
-    switch (newSortOrder){
-      case 'Mężczyzna' : {this.personalDataForm.value.sex = 'MALE'; break; }
-      case 'Kobieta' : {this.personalDataForm.value.sex = 'FEMALE'; break; }
-      default : {this.personalDataForm.value.sex = 'OTHER'; break; }
-    }
+      this.selectedSortOrder = newSortOrder;
+    // switch (newSortOrder){
+    //   case 'Mężczyzna' : {this.personalDataForm.value.sex = 'MALE'; break; }
+    //   case 'Kobieta' : {this.personalDataForm.value.sex = 'FEMALE'; break; }
+    //   default : {this.personalDataForm.value.sex = 'OTHER'; break; }
+    // }
     // this.personalDataForm.value.sex = newSortOrder;
   }
 
   private initializePersonalDataForm() {
     this.personalDataForm = new FormGroup({
       id: new FormControl(null),
-      firstName: new FormControl(null, [Validators.required]),
-      secondName: new FormControl(null),
-      surname: new FormControl(null, [Validators.required]),
-      dateOfBirth: new FormControl([Validators.required]),
+      firstName: new FormControl(this.employeeData.getName(), [Validators.required]),
+      secondName: new FormControl(this.employeeData.getSecondName()),
+      surname: new FormControl(this.employeeData.getSurname(), [Validators.required]),
+      dateOfBirth: new FormControl(this.employeeData.getBirthDate(), [Validators.required]),
       sex: new FormControl([Validators.required])
     });
   }
 
   private initializeContactDataForm() {
     this.contactDataForm = new FormGroup({
-      phoneNumber: new FormControl(null, [Validators.required]),
-      mailAddres: new FormControl(null, [Validators.required]),
-      fillLocation: new FormControl(null, [Validators.required]),
-      qualifications: new FormControl(),
-      prevEmployment: new FormControl(),
-      additionalPersonalData: new FormControl()
+      phoneNumber: new FormControl(this.employeeData.getPhoneNumber(), [Validators.required]),
+      // mailAddres: new FormControl(this.employeeData.getEmail(), [Validators.required]),
+      fillLocation: new FormControl(this.employeeData.getFillLocation(), [Validators.required]),
+      qualifications: new FormControl(this.employeeData.getQualifications()),
+      prevEmployment: new FormControl(), // prevEmployment: new FormControl(this.employeeData.getPrevEmployment),
+      additionalPersonalData: new FormControl(this.employeeData.getAdditionalPersonalData())
     });
   }
 
   private initializeSchoolDataForm() {
     this.schoolDataForm = new FormGroup({
-      name: new FormControl(' ', [Validators.required]),
-      graduationYear: new FormControl(' ', [Validators.required]),
+      name: new FormControl(null, [Validators.required]),
+      graduationYear: new FormControl(null, [Validators.required]),
       profession: new FormControl(null),
       specialty: new FormControl(null),
       title: new FormControl(null),
@@ -146,13 +150,12 @@ export class CandidateFormComponent implements OnInit {
       return false;
     }
     if (this.contactDataForm.value.phoneNumber == null ||
-      this.contactDataForm.value.mailAddres == null ||
+      // this.contactDataForm.value.mailAddres == null ||
       this.contactDataForm.value.fillLocation == null || this.contactDataForm.value.fillLocation === '""'){
        return false;
     }
     return true;
   }
-
 
   onSubmit() {
     this.dataComplete = this.validate();
@@ -170,23 +173,22 @@ export class CandidateFormComponent implements OnInit {
     }
   }
 
-  getFromDatabase(){
-    // if (this.employeeData.getName() !== '""' && this.employeeData.getName() !== null) {
-       this.personalDataForm.value.firstName = this.employeeData.getName();
-    // }
-  }
-
   sendToDatabase(){
     this.employeeData.setName(this.personalDataForm.value.firstName);
     this.employeeData.setSecondName(this.personalDataForm.value.secondName);
     this.employeeData.setSurname(this.personalDataForm.value.surname);
     this.employeeData.setBirthDate(this.personalDataForm.value.birthDate);
-    this.employeeData.setSex(this.personalDataForm.value.sex);
+    console.log('Data urodzenia: ', this.personalDataForm.value.birthDate);
+    this.employeeData.setSex(this.selectedSortOrder);
     this.employeeData.setPhoneNumber(this.contactDataForm.value.phoneNumber);
-    this.employeeData.setEmail(this.contactDataForm.value.email);
+    // this.employeeData.setEmail(this.contactDataForm.value.email);
     this.employeeData.setFillLocation(this.contactDataForm.value.fillLocation);
-
+    this.employeeData.setQualifications(this.contactDataForm.value.qualifications);
+    // this.employeeData.prevEmployment(this.contactDataForm.value.prevEmployment);
+    this.employeeData.setAdditionalPersonalData(this.contactDataForm.value.additionalPersonalData);
+    this.employeeData.setSchools(this.schools);
     this.employeeData.setData('570b40dd-807b-4c3e-a834-e09f1d72480b');
+    console.log('Data form: ', this.personalDataForm.value);
   }
 
 }
