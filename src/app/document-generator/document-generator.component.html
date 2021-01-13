@@ -1,19 +1,14 @@
 <p>document-generator works!</p>
 <button type="button" (click)=modifyPDF()></button>
 
-<!--<!DOCTYPE html>-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title>File Upload / Download</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div>-->
-<!--  <h3>Upload Multiple Files</h3>-->
-<!--  <form id="uploadFiles" name="uploadFiles" (click)="upload()" encType="multipart/form-data">-->
-<!--    <input type="file" name="files" multiple required />-->
-<!--    <button type="submit">Submit</button>-->
-<!--  </form>-->
-<!--</div>-->
+
+<div>
+  <h3>Upload File</h3>
+  <form [formGroup]="fileForm" (ngSubmit)="onSubmit()" >
+    <input type="file" (change)="upload($event)" />
+    <button type="submit" value="upload">Submit</button>
+  </form>
+</div>
 
 <!--<div>-->
 <!--  <h3>List of Documents</h3>-->

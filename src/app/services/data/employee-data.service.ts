@@ -12,12 +12,6 @@ export class EmployeeDataService {
 
   private employee;
 
-  // dodaj(){
-  //   this.employees.email = 'dziala@test' ;
-  //   this.apiService.sendTest(this.employees)._subscribe(this.employees);
-  //   console.log('dodanochyba');
-  // }
-
   getData(id) {
     this.apiService.getEmployeeData(id).subscribe((data) => {
       this.employee = data;
