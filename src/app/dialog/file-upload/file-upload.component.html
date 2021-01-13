@@ -1,0 +1,43 @@
+<p>file-upload works!</p>
+
+<form [formGroup]="dataToAddForm" (ngSubmit)="onSubmitData()">
+  <label>Płeć</label><br>
+  <div ngbDropdown class="d-inline-block">
+    <button type="button" class="btn btn-outline-primary" id="sortMenu"
+            ngbDropdownToggle>{{selectedSortOrder}}</button>
+    <div ngbDropdownMenu aria-labelledby="sortMenu">
+      <button type="button" class="dropdown-item" *ngFor="let sortOrder of sortOrders"
+              (click)="changeSortOrder(sortOrder)">{{sortOrder}}</button>
+    </div>
+  </div><br>
+  <label>Pozycja X</label>
+  <input id="positionX" name="positionX" type="text" formControlName="positionX" /><br>
+  <label>Pozycja Y</label>
+  <input id="positionY" name="positionY" type="text" formControlName="positionY"/><br>
+  <label>Rozmiar</label>
+  <input id="size" name="size" type="text" formControlName="size"/><br>
+  <button type="submit" (click)="poppingMessage(poppingmassagecontent, 'Wiadomość')">Submit</button>
+</form>
+
+<div>
+  <h3>Upload File</h3>
+  <form [formGroup]="fileForm" (ngSubmit)="onSubmitFile()" >
+    <input type="file" (change)="upload($event)" /> <br><br>
+    <button type="submit" value="upload">Submit</button>
+  </form>
+</div>
+
+
+<ng-template #poppingmassagecontent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="poppingmassage"></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <td>{{ message }}</td>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>

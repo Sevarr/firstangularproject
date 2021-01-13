@@ -22,6 +22,8 @@ import { HREmployeeComponent } from './dialog/users/hr-employee/hr-employee.comp
 import { NewEmployeeComponent } from './dialog/users/new-employee/new-employee.component';
 import { ChangeAccountDataComponent } from './dialog/users/change-account-data/change-account-data.component';
 import { CreateNewEmployeeAccountComponent } from './create-new-employee-account/create-new-employee-account.component';
+import { FileDownloadComponent } from './dialog/file-download/file-download.component';
+import { FileUploadComponent } from './dialog/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { CreateNewEmployeeAccountComponent } from './create-new-employee-account
     NewEmployeeComponent,
     ChangeAccountDataComponent,
     CreateNewEmployeeAccountComponent,
+    FileDownloadComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,8 +87,12 @@ import { CreateNewEmployeeAccountComponent } from './create-new-employee-account
         component: EmployeeFormComponent,
       },
       {
-        path: 'document_generator',
-        component: DocumentGeneratorComponent,
+        path: 'file_upload',
+        component: FileUploadComponent,
+      },
+      {
+        path: 'file_download',
+        component: FileDownloadComponent,
       }
     ]),
     NgbModule,
