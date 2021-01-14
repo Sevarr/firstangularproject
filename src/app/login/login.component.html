@@ -1,23 +1,29 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <title>َAnimated Login Form</title>
-  <link rel="stylesheet" href="login.component.css">
-</head>
-<body>
-
 <!--<form class="box" action="index.html" method="post">-->
 <!--  <h1>Login</h1>-->
 <!--  <input type="text" name="" placeholder="Username" id="username">-->
 <!--  <input type="password" name="" placeholder="Password" id="password">-->
 <!--  <input type="submit" name="" value="Login">-->
 <!--</form>-->
+<html>
+<body>
 
-<form (submit)="loginUser($event)">
-  <input type="text" placeholder="Username" id="username">
-  <input type="password" placeholder="Password" id="password">
-  <input type="submit" value="Submit">
+
+<div class="header center">Log In</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+  <mat-form-field>
+    <input matInput type="text" id="username" placeholder="Username" autocomplete="off" formControlName="username" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="password" id="password" placeholder="Password" formControlName="password" required>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">LOG IN</button>
+  </div>
+
 </form>
 
 <h1>Strona startowa aplikacji</h1>
