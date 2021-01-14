@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,8 @@ export class AppComponent {
 
   title = 'Rekrutacja';
   login;
+  greeting = {};
+  constructor(private http: HttpClient) {
+    http.get('resource').subscribe(data => this.greeting = data);
+  }
 }

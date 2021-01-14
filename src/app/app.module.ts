@@ -10,13 +10,10 @@ import {HomeComponent} from './home/home.component';
 import {CandidateFormComponent} from './dialog/candidate-form/candidate-form.component';
 import {EmployeeFormComponent} from './dialog/employee-form/employee-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {EducationFormComponent} from './dialog/candidate-form/education-form/education-form.component';
-import {SchoolModalComponent} from './dialog/candidate-form/school-modal/school-modal.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {TopBarComponent} from './top-bar/top-bar.component';
-import {DocumentGeneratorComponent} from './document-generator/document-generator.component';
 import {HttpClientModule} from '@angular/common/http';
 import {HREmployeeComponent} from './dialog/users/hr-employee/hr-employee.component';
 import {NewEmployeeComponent} from './dialog/users/new-employee/new-employee.component';
@@ -33,10 +30,7 @@ import {FileUploadComponent} from './dialog/file-upload/file-upload.component';
     HomeComponent,
     CandidateFormComponent,
     EmployeeFormComponent,
-    EducationFormComponent,
-    SchoolModalComponent,
     TopBarComponent,
-    DocumentGeneratorComponent,
     HREmployeeComponent,
     NewEmployeeComponent,
     ChangeAccountDataComponent,

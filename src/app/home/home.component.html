@@ -1,4 +1,6 @@
 <h1>Strona startowa aplikacji</h1>
+<body>
+
 <p>
   <a routerLink="/login">Login</a><br>
   <a routerLink="/admin">Go to admin</a><br>
@@ -6,5 +8,21 @@
   <a routerLink="/employee_form">Formularz dla pracownika</a><br>
   <a routerLink="/file_download">File Download</a><br>
   <a routerLink="/file_upload">File Upload</a><br>
-  "/file_upload"
 </p>
+<!--<app-candidate-form></app-candidate-form><app-candidate-form></app-candidate-form>-->
+<!--<button (click)="candidateForm()">Formularz dla kandydata</button>-->
+<!--  <div *ngIf="this.pressed"><app-file-upload></app-file-upload></div>-->
+
+<button type="button" class="btn btn-outline-primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+        aria-controls="collapseExample">
+  Dodaj dokument
+</button>
+<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+  <div class="card">
+    <div class="card-body">
+      <app-file-upload></app-file-upload>
+    </div>
+  </div>
+</div>
+
+</body>

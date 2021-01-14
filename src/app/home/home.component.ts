@@ -11,9 +11,18 @@ import {HttpClient} from '@angular/common/http';
 export class HomeComponent implements OnInit {
   constructor(private http: HttpClient) {
   }
-
+  public isCollapsed = true;
+  pressed = false;
 
 
   ngOnInit(): void {
+  }
+
+  candidateForm(){
+    console.log('działa');
+    // window.alert('Działa');
+    this.pressed = true;
+    // '<app-candidate-form></app-candidate-form>'         // ['/file_download']);     // ['<app-candidate-form></app-candidate-form>']);
+
   }
 }
