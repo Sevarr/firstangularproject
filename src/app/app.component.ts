@@ -11,8 +11,10 @@ export class AppComponent {
 
   title = 'Rekrutacja';
   login;
-  greeting = {};
+  // greeting = {};
   constructor(private http: HttpClient) {
-    http.get('resource').subscribe(data => this.greeting = data);
+    // http.get('resource').subscribe(data => this.greeting = data);
   }
+
+
 }
