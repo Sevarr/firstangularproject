@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import {AuthGuard} from './auth/guards/auth.guard';
-import {HomeGuard} from './auth/guards/home.guard';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { HomeGuard } from './auth/guards/home.guard';
 
-// const routes: Routes = [];
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   {
@@ -14,6 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
+    loadChildren: './home/home.module#HomeModule',
     canActivate: [HomeGuard],
     canLoad: [HomeGuard]
   }
