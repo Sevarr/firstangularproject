@@ -1,196 +1,196 @@
-<div class="row">
-  <div class="col-xs-12 col-lg-12">
-    <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <div class="col-sm-12 col-md-4 form-group">
-          <label for="firstName">Imię</label>
-          <input id="firstName" type="text" class="form-control" formControlName="firstName">
-          <div *ngIf="personalDataForm.get('firstName').hasError('required')">Pole wymagane.</div>
-        </div>
-        <div class="col-sm-12 col-md-4 form-group">
-          <label for="secondName">Drugie imię</label>
-          <input id="secondName" type="text" class="form-control" formControlName="secondName">
-        </div>
-        <div class="col-sm-12 col-md-4 form-group">
-          <label for="surname">Nazwisko</label>
-          <input id="surname" type="text" class="form-control" formControlName="surname">
-          <div *ngIf="personalDataForm.get('surname').hasError('required')">Pole wymagane.</div>
-        </div>
-      </div>
-      <hr>
+<!--<div class="row">-->
+<!--  <div class="col-xs-12 col-lg-12">-->
+<!--    <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()">-->
+<!--      <div class="row">-->
+<!--        <div class="col-sm-12 col-md-4 form-group">-->
+<!--          <label for="firstName">Imię</label>-->
+<!--          <input id="firstName" type="text" class="form-control" formControlName="firstName">-->
+<!--          <div *ngIf="personalDataForm.get('firstName').hasError('required')">Pole wymagane.</div>-->
+<!--        </div>-->
+<!--        <div class="col-sm-12 col-md-4 form-group">-->
+<!--          <label for="secondName">Drugie imię</label>-->
+<!--          <input id="secondName" type="text" class="form-control" formControlName="secondName">-->
+<!--        </div>-->
+<!--        <div class="col-sm-12 col-md-4 form-group">-->
+<!--          <label for="surname">Nazwisko</label>-->
+<!--          <input id="surname" type="text" class="form-control" formControlName="surname">-->
+<!--          <div *ngIf="personalDataForm.get('surname').hasError('required')">Pole wymagane.</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <hr>-->
 
-      <div class="row">
-        <div class="col-xs-20 col-lg-6">
-          <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-              <div class="col-sm-20 col-md-6 form-group">
-                <div class="input-group">
-                  <label for="dateOfBirth">Data urodzenia </label>
-                  <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"
-                         placeholder="rrrr-mm-dd"
-                         name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-                  </div>
-                  <div *ngIf="personalDataForm.get('dateOfBirth').hasError('required')">Pole wymagane.</div>
-                </div>
-              </div>
+<!--      <div class="row">-->
+<!--        <div class="col-xs-20 col-lg-6">-->
+<!--          <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()">-->
+<!--            <div class="row">-->
+<!--              <div class="col-sm-20 col-md-6 form-group">-->
+<!--                <div class="input-group">-->
+<!--                  <label for="dateOfBirth">Data urodzenia </label>-->
+<!--                  <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"-->
+<!--                         placeholder="rrrr-mm-dd"-->
+<!--                         name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">-->
+<!--                  <div class="input-group-append">-->
+<!--                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>-->
+<!--                  </div>-->
+<!--                  <div *ngIf="personalDataForm.get('dateOfBirth').hasError('required')">Pole wymagane.</div>-->
+<!--                </div>-->
+<!--              </div>-->
 
-              <div class="col-sm-20 col-md-6 form-group">
-                <label>Płeć</label><br>
-                <div ngbDropdown class="d-inline-block">
-                  <button type="button" class="btn btn-outline-primary" id="sortMenu"
-                          ngbDropdownToggle>{{selectedSortOrder}}</button>
-                  <div ngbDropdownMenu aria-labelledby="sortMenu">
-                    <button type="button" class="dropdown-item" *ngFor="let sortOrder of sortOrders"
-                            (click)="changeSortOrder(sortOrder)">{{sortOrder}}</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr>
+<!--              <div class="col-sm-20 col-md-6 form-group">-->
+<!--                <label>Płeć</label><br>-->
+<!--                <div ngbDropdown class="d-inline-block">-->
+<!--                  <button type="button" class="btn btn-outline-primary" id="sortMenu"-->
+<!--                          ngbDropdownToggle>{{selectedSortOrder}}</button>-->
+<!--                  <div ngbDropdownMenu aria-labelledby="sortMenu">-->
+<!--                    <button type="button" class="dropdown-item" *ngFor="let sortOrder of sortOrders"-->
+<!--                            (click)="changeSortOrder(sortOrder)">{{sortOrder}}</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <hr>-->
 
-            <div class="row">
-              <div class="col-xs-12 col-lg-12">
-                <form [formGroup]="contactDataForm" (ngSubmit)="onSubmit()">
-                  <div class="row">
-                    <div class="col-sm-12 col-md-4 form-group">
-                      <label for="phoneNumber">Numer telefonu</label>
-                      <input id="phoneNumber" type="tel" class="form-control" formControlName="phoneNumber">
-                      <div *ngIf="contactDataForm.get('phoneNumber').hasError('required')">Pole wymagane.</div>
-                    </div>
+<!--            <div class="row">-->
+<!--              <div class="col-xs-12 col-lg-12">-->
+<!--                <form [formGroup]="contactDataForm" (ngSubmit)="onSubmit()">-->
+<!--                  <div class="row">-->
 <!--                    <div class="col-sm-12 col-md-4 form-group">-->
-<!--                      <label for="mailAddres">Adres mailowy</label>-->
-<!--                      <input id="mailAddres" type="text" class="form-control" formControlName="mailAddres">-->
-<!--                      <div *ngIf="contactDataForm.get('mailAddres').hasError('required')">Pole wymagane.</div>-->
+<!--                      <label for="phoneNumber">Numer telefonu</label>-->
+<!--                      <input id="phoneNumber" type="tel" class="form-control" formControlName="phoneNumber">-->
+<!--                      <div *ngIf="contactDataForm.get('phoneNumber').hasError('required')">Pole wymagane.</div>-->
 <!--                    </div>-->
-                    <div class="col-sm-12 col-md-4 form-group">
-                      <label for="fillLocation">Miejscowość wypełniania formularza</label>
-                      <input id="fillLocation" type="text" class="form-control" formControlName="fillLocation">
-                      <div *ngIf="contactDataForm.get('fillLocation').hasError('required')">Pole wymagane.</div>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-12 form-group">
-                      <label for="qualifications">Kwalifikacje zawodowe</label>
-                      <input id="qualifications" type="text" class="form-control" formControlName="qualifications">
-                    </div>
-                    <div class="col-sm-12 form-group">
-                      <label for="prevEmployment">Przebieg dotychczasowego zatrudnienia</label>
-                      <input id="prevEmployment" type="text" class="form-control" formControlName="prevEmployment">
-                    </div>
-                    <div class="col-sm-12 form-group">
-                      <label for="additionalPersonalData">Dodatkowe dane osobowe</label>
-                      <input id="additionalPersonalData" type="text" class="form-control" formControlName="additionalPersonalData">
-                    </div>
-                  </div>
-                  <hr>
-                  <br>
-                  <table class="table table-striped">
-                    <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Ukończona Szkoła</th>
-                      <th scope="col">Rok ukończenia</th>
-                      <th scope="col">Zawód</th>
-                      <th scope="col">Specjalność</th>
-                      <th scope="col">Uzyskany tytuł</th>
-                      <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let school of schools; index as i">
-                      <th scope="row">{{ i + 1 }}</th>
-                      <td>{{ school.name }}</td>
-                      <td>{{ school.graduationYear }}</td>
-                      <td>{{ school.profession }}</td>
-                      <td>{{ school.specialty }}</td>
-                      <td>{{ school.title }}</td>
-                      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(school.id)">delete</button>
-                    </tr>
-                    </tbody>
-                    <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-                      <button type="button" class="btn btn-lg btn-outline-primary" (click)="onAdd(content)">Dodaj
-                      </button>
-                    </div>
-                  </table>
+<!--&lt;!&ndash;                    <div class="col-sm-12 col-md-4 form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <label for="mailAddres">Adres mailowy</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <input id="mailAddres" type="text" class="form-control" formControlName="mailAddres">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div *ngIf="contactDataForm.get('mailAddres').hasError('required')">Pole wymagane.</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <div class="col-sm-12 col-md-4 form-group">-->
+<!--                      <label for="fillLocation">Miejscowość wypełniania formularza</label>-->
+<!--                      <input id="fillLocation" type="text" class="form-control" formControlName="fillLocation">-->
+<!--                      <div *ngIf="contactDataForm.get('fillLocation').hasError('required')">Pole wymagane.</div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <hr>-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-sm-12 form-group">-->
+<!--                      <label for="qualifications">Kwalifikacje zawodowe</label>-->
+<!--                      <input id="qualifications" type="text" class="form-control" formControlName="qualifications">-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-12 form-group">-->
+<!--                      <label for="prevEmployment">Przebieg dotychczasowego zatrudnienia</label>-->
+<!--                      <input id="prevEmployment" type="text" class="form-control" formControlName="prevEmployment">-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-12 form-group">-->
+<!--                      <label for="additionalPersonalData">Dodatkowe dane osobowe</label>-->
+<!--                      <input id="additionalPersonalData" type="text" class="form-control" formControlName="additionalPersonalData">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <hr>-->
+<!--                  <br>-->
+<!--                  <table class="table table-striped">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                      <th scope="col">#</th>-->
+<!--                      <th scope="col">Ukończona Szkoła</th>-->
+<!--                      <th scope="col">Rok ukończenia</th>-->
+<!--                      <th scope="col">Zawód</th>-->
+<!--                      <th scope="col">Specjalność</th>-->
+<!--                      <th scope="col">Uzyskany tytuł</th>-->
+<!--                      <th scope="col"></th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr *ngFor="let school of schools; index as i">-->
+<!--                      <th scope="row">{{ i + 1 }}</th>-->
+<!--                      <td>{{ school.name }}</td>-->
+<!--                      <td>{{ school.graduationYear }}</td>-->
+<!--                      <td>{{ school.profession }}</td>-->
+<!--                      <td>{{ school.specialty }}</td>-->
+<!--                      <td>{{ school.title }}</td>-->
+<!--                      <button class="btn btn-lg btn-outline-primary" (click)="onDelete(school.id)">delete</button>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                    <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">-->
+<!--                      <button type="button" class="btn btn-lg btn-outline-primary" (click)="onAdd(content)">Dodaj-->
+<!--                      </button>-->
+<!--                    </div>-->
+<!--                  </table>-->
 
 
-                  <hr>
-                  <div class="row">
-                    <div class="col-xs-12 col-lg-12">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-4 form-group">
-                        </div>
-                        <div class="col-sm-12 col-md-4 form-group">
-                          <button class="btn btn-success" type="submit"
-                                  (click)="poppingMessage(poppingmassagecontent, 'Wiadomość')">Zapisz dane
-                          </button>
-                        </div>
-                        <div class="col-sm-12 col-md-4 form-group">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+<!--                  <hr>-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-xs-12 col-lg-12">-->
+<!--                      <div class="row">-->
+<!--                        <div class="col-sm-12 col-md-4 form-group">-->
+<!--                        </div>-->
+<!--                        <div class="col-sm-12 col-md-4 form-group">-->
+<!--                          <button class="btn btn-success" type="submit"-->
+<!--                                  (click)="poppingMessage(poppingmassagecontent, 'Wiadomość')">Zapisz dane-->
+<!--                          </button>-->
+<!--                        </div>-->
+<!--                        <div class="col-sm-12 col-md-4 form-group">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </form>-->
+<!--              </div>-->
+<!--            </div>-->
 
-          </form>
-        </div>
-      </div>
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <ng-template #content let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Dodaj szkołę</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="schoolDataForm" (ngSubmit)="addSchool()">
-            <div class="form-group">
-              <div class="col-sm-12 col-md-10 form-group">
-                <label for="name">Ukończona szkoła</label>
-                <input id="name" type="text" class="form-control" formControlName="name">
-                <div *ngIf="schoolDataForm.get('name').hasError('required')">Pole wymagane.</div>
-              </div>
-              <div class="col-sm-12 col-md-10 form-group">
-                <label for="graduationYear">Rok ukończenia szkoły</label>
-                <input id="graduationYear" type="text" class="form-control" formControlName="graduationYear">
-                <div *ngIf="schoolDataForm.get('graduationYear').hasError('required')">Pole wymagane.</div>
-              </div>
-              <div class="col-sm-12 col-md-10 form-group">
-                <label for="profession">Zawód</label>
-                <input id="profession" type="text" class="form-control" formControlName="profession">
-              </div>
-              <div class="col-sm-12 col-md-10 form-group">
-                <label for="specialty">Specjalność</label>
-                <input id="specialty" type="text" class="form-control" formControlName="specialty">
-              </div>
-              <div class="col-sm-12 col-md-10 form-group">
-                <label for="title">Uzyskany tytuł</label>
-                <input id="title" type="text" class="form-control" formControlName="title">
-              </div>
-            </div>
-            <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </ng-template>
+<!--      <ng-template #content let-modal>-->
+<!--        <div class="modal-header">-->
+<!--          <h4 class="modal-title" id="modal-basic-title">Dodaj szkołę</h4>-->
+<!--          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">-->
+<!--            <span aria-hidden="true">&times;</span>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <form [formGroup]="schoolDataForm" (ngSubmit)="addSchool()">-->
+<!--            <div class="form-group">-->
+<!--              <div class="col-sm-12 col-md-10 form-group">-->
+<!--                <label for="name">Ukończona szkoła</label>-->
+<!--                <input id="name" type="text" class="form-control" formControlName="name">-->
+<!--                <div *ngIf="schoolDataForm.get('name').hasError('required')">Pole wymagane.</div>-->
+<!--              </div>-->
+<!--              <div class="col-sm-12 col-md-10 form-group">-->
+<!--                <label for="graduationYear">Rok ukończenia szkoły</label>-->
+<!--                <input id="graduationYear" type="text" class="form-control" formControlName="graduationYear">-->
+<!--                <div *ngIf="schoolDataForm.get('graduationYear').hasError('required')">Pole wymagane.</div>-->
+<!--              </div>-->
+<!--              <div class="col-sm-12 col-md-10 form-group">-->
+<!--                <label for="profession">Zawód</label>-->
+<!--                <input id="profession" type="text" class="form-control" formControlName="profession">-->
+<!--              </div>-->
+<!--              <div class="col-sm-12 col-md-10 form-group">-->
+<!--                <label for="specialty">Specjalność</label>-->
+<!--                <input id="specialty" type="text" class="form-control" formControlName="specialty">-->
+<!--              </div>-->
+<!--              <div class="col-sm-12 col-md-10 form-group">-->
+<!--                <label for="title">Uzyskany tytuł</label>-->
+<!--                <input id="title" type="text" class="form-control" formControlName="title">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>-->
+<!--          </form>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--        </div>-->
+<!--      </ng-template>-->
 
-      <ng-template #poppingmassagecontent let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="poppingmassage"></h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <td>{{ message }}</td>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </ng-template>
+<!--      <ng-template #poppingmassagecontent let-modal>-->
+<!--        <div class="modal-header">-->
+<!--          <h4 class="modal-title" id="poppingmassage"></h4>-->
+<!--          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">-->
+<!--            <span aria-hidden="true">&times;</span>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <td>{{ message }}</td>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--        </div>-->
+<!--      </ng-template>-->

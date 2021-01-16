@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// @ts-ignore
-import config from '../../../assets/config.json';
+import { config } from '../../../assets/config';
+import {Observable, of} from 'rxjs';
+import {catchError, mapTo, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,34 +11,60 @@ import config from '../../../assets/config.json';
 export class RestService {
   public backendUrl;
   constructor(private httpClient: HttpClient) {
-    this.load();
+    // this.load();
   }
 
-  load() {
-    this.backendUrl = config.backend_url;
-  }
+  // load() {
+  //   this.backendUrl = config.backend_url;
+  // }
+
+  // login(user: { username: string, password: string }): Observable<boolean> {
+  //   return this.http.post<any>(config.backend_url + `/login`, user)
+  //     .pipe(
+  //       tap(tokens => this.doLoginUser(user.username, tokens)),
+  //       mapTo(true),
+  //       catchError(error => {
+  //         alert(error.error);
+  //         return of(false);
+  //       }));
+  // }
+
+  newAccountRegistrationLink(userType){
+      return this.httpClient.post<any>(config.backend_url + `/generatelink`, userType);
+        // .pipe(
+        //   tap(registerLink => this.registrationLink(registerLink)),
+        //   mapTo(true),
+        //   catchError(error => {
+        //     alert(error.error);
+        //     return of(false);
+        //   }));
+    }
+
+    public registrationLink(registerLink){
+      console.log('poszło tutaj: ', registerLink);
+    }
 
   // Get corrent user data from database by id
   public getEmployeeData(id){
-    const url = (this.backendUrl + '/workers/' + id);
+    const url = (config.backend_url + '/workers/' + id);
     return this.httpClient.get(url);
     //  return this.httpClient.get('http://localhost:8080/workers/' + id);
   }
 
   // Send corrent user data to database by id
   public sendEmployeeData(id, data){
-    const url = (this.backendUrl + '/workers/update/' + id);
+    const url = (config.backend_url + '/workers/update/' + id);
     return this.httpClient.put(url, data);
     // return this.httpClient.put('http://localhost:8080/workers/update/' + id, data);
   }
 
   public getFile(name){
-    const url = (this.backendUrl + '/');
+    const url = (config.backend_url + '/');
     return this.httpClient.get(url);
   }
 
   public sendFile(file){
-    const url = (this.backendUrl + '/uploadfiles/');
+    const url = (config.backend_url + '/uploadfiles/');
     console.log('Poszedł plik do bazy');
     return this.httpClient.post(url, file);
   }

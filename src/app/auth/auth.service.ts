@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
-// @ts-ignore
-import { config } from '../../assets/config.json';
+import { config } from '../../assets/config';
 import { Tokens } from './tokens';
 
 
@@ -16,12 +15,12 @@ export class AuthService {
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private loggedUser: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
-  login(user: { username: string, password: string }): Observable<boolean> {
-    return this.http.post<any>(`config.backend_url/login`, user)
+  login(user: { email: string, password: string }): Observable<boolean> {
+    return this.httpClient.post<any>(config.backend_url + `/login`, user)
       .pipe(
-        tap(tokens => this.doLoginUser(user.username, tokens)),
+        tap(tokens => this.doLoginUser(user.email, tokens)),
         mapTo(true),
         catchError(error => {
           alert(error.error);
@@ -30,8 +29,8 @@ export class AuthService {
   }
 
   logout() {
-    return this.http.post<any>(`config.backend_url/logout`, {
-      'refreshToken': this.getRefreshToken()
+    return this.httpClient.post<any>(config.backend_url + `/logout`, {
+      refreshToken: this.getRefreshToken()
     }).pipe(
       tap(() => this.doLogoutUser()),
       mapTo(true),
@@ -46,8 +45,8 @@ export class AuthService {
   }
 
   refreshToken() {
-    return this.http.post<any>(`config.backend_url/refresh`, {
-      'refreshToken': this.getRefreshToken()
+    return this.httpClient.post<any>(config.backend_url + `/refresh`, {
+      refreshToken: this.getRefreshToken()
     }).pipe(tap((tokens: Tokens) => {
       this.storeJwtToken(tokens.jwt);
     }));
@@ -57,8 +56,8 @@ export class AuthService {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
-  private doLoginUser(username: string, tokens: Tokens) {
-    this.loggedUser = username;
+  private doLoginUser(email: string, tokens: Tokens) {
+    this.loggedUser = email;
     this.storeTokens(tokens);
   }
 

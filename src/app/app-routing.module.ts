@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { HomeGuard } from './auth/guards/home.guard';
+import {HomeComponent} from './home/home.component';
 
 
 const routes: Routes = [
@@ -14,12 +15,12 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomeModule',
+    // loadChildren: './home/home.module#HomeModule',
+    component: HomeComponent,
     canActivate: [HomeGuard],
     canLoad: [HomeGuard]
   }
 ];
-
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes)],
