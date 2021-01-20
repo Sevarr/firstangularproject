@@ -50,7 +50,7 @@ export class FileUploadComponent implements OnInit {
 
   changeSortOrder(newSortOrder: string) {
     this.selectedSortOrder = newSortOrder;
-    // this.dataToAddForm.value.name = this.selectedSortOrder;
+    this.dataToAddForm.value.name = this.selectedSortOrder;
   }
 
   initializeDataToAdd() {

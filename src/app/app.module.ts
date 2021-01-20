@@ -1,10 +1,12 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthModule} from './auth/auth/auth.module';
 import {AppComponent} from './app.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbCollapse, NgbDatepicker, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import { CreateNewAccountComponent } from './dialog/accounts/create-new-account/create-new-account.component';
 // import { RegisterNewAccountComponent } from './dialog/accounts/register-new-account/register-new-account.component';
 // import {LoginComponent} from './login/login.component';
@@ -42,6 +44,10 @@ import {AppComponent} from './app.component';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    ReactiveFormsModule,
+    FormsModule,
+    // NgModule,
+    // NgbModule,
     // RouterModule.forRoot([
       // {
       //   path: 'login',
@@ -95,13 +101,16 @@ import {AppComponent} from './app.component';
       //   component: FileDownloadComponent,
       // }
     // ]),
-    NgbModule,
+    // NgbModule,
     // FormsModule,
     // ReactiveFormsModule,
     // HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    NgbModule,
+  ]
 })
 export class AppModule {
 }

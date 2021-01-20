@@ -13,17 +13,43 @@
 <!--<button (click)="candidateForm()">Formularz dla kandydata</button>-->
 <!--  <div *ngIf="this.pressed"><app-file-upload></app-file-upload></div>-->
 
-<button type="button" class="btn btn-outline-primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
-        aria-controls="collapseExample">
-  Dodaj dokument
-</button>
-<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <div class="card">
-    <div class="card-body">
+
+<!--<p>-->
+<!--  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="isColapsed" aria-expanded="false" aria-controls="collapseExample">-->
+<!--    Dodaj dokument-->
+<!--  </button>-->
+<!--</p>-->
+<!--<div class="collapse" id="isColapsed">-->
+<!--  <div class="card card-body">-->
+<!--      Dodaj dokument-->
+<!--    <button><app-file-upload></app-file-upload></button>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<app-file-upload></app-file-upload>-->
+<!--<button><app-candidate-form></app-candidate-form></button>-->
+<!--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"-->
+<!--        aria-controls="collapseExample">-->
+<!--  Dodaj dokument-->
+<!--<button><app-file-upload></app-file-upload></button>-->
+<!--</button>-->
+<!--<div class="collapse" id="isCollapsed">-->
+<!--  <div class="card">-->
+<!--    <div class="card-body">-->
 <!--      <app-file-upload></app-file-upload>-->
-    </div>
-  </div>
-</div>
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<div ngbDropdown class="d-inline-block">-->
+<!--  <button type="button" class="btn btn-outline-primary" id="sortMenu"-->
+<!--          ngbDropdownToggle>{{'Dodaj plik'}}</button>-->
+<!--  <div ngbDropdownMenu aria-labelledby="sortMenu">-->
+<!--&lt;!&ndash;    <app-file-upload></app-file-upload>&ndash;&gt;-->
+<!--    <app-candidate-form></app-candidate-form>-->
+<!--  </div>-->
+<!--</div><br>-->
+
+<button (click)="logout()">Logout</button>
 
 <!--<app-candidate-form></app-candidate-form>-->
 

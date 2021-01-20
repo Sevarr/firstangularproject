@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@Angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -21,12 +20,12 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout()
-      .subscribe(success => {
-        if (success) {
-          this.router.navigate(['/login']);
-        }
-      });
+    this.authService.logout();
+      // .subscribe(success => {
+      //   if (success) {
+    this.router.navigate(['/login']);
+        // }
+      // });
   }
 
   candidateForm(){

@@ -40,9 +40,9 @@ export class CandidateFormComponent implements OnInit {
     private employeeData: EmployeeDataService
   ) {
     this.dataComplete = true;
-    if (this.employeeData.getSex != null){
-      this.selectedSortOrder = this.employeeData.getSex();
-    }
+    // if (this.employeeData.getSex != null){
+    //   this.selectedSortOrder = this.employeeData.getSex();
+    // }
   }
 
   ngOnInit() {

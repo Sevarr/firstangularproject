@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '../../login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+// import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { AuthService } from '../auth.service';
 import { HomeGuard } from '../guards/home.guard';
 import { TokenInterceptor } from '../token.interceptor';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ReactiveFormsModule} from '@angular/forms';
 // import { NewEmployeeComponent } from '../../dialog/users/new-employee/new-employee.component';
 // import { CandidateFormComponent } from '../../dialog/candidate-form/candidate-form.component';
 // import { EmployeeFormComponent } from '../../dialog/employee-form/employee-form.component';
@@ -31,7 +33,9 @@ import { TokenInterceptor } from '../token.interceptor';
     CommonModule,
     RouterModule,
     HttpClientModule,
+    NgbModule,
     ReactiveFormsModule,
+    // ReactiveFormsModule,
     // RouterModule.forRoot([
     //   {
     //     path: 'new',
@@ -89,6 +93,6 @@ import { TokenInterceptor } from '../token.interceptor';
     //   component: FileDownloadComponent,
     // }
     // ]),
-  ]
+  ],
 })
 export class AuthModule { }
