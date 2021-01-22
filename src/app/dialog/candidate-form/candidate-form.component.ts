@@ -39,6 +39,7 @@ export class CandidateFormComponent implements OnInit {
     private modalService: NgbModal,
     private employeeData: EmployeeDataService
   ) {
+    this.getFromDatabase();
     this.dataComplete = true;
     // if (this.employeeData.getSex != null){
     //   this.selectedSortOrder = this.employeeData.getSex();
@@ -49,7 +50,7 @@ export class CandidateFormComponent implements OnInit {
     this.initializePersonalDataForm();
     this.initializeContactDataForm();
     this.initializeSchoolDataForm();
-    // this.getFromDatabase();
+
   }
 
   changeSortOrder(newSortOrder: string) {
@@ -62,15 +63,19 @@ export class CandidateFormComponent implements OnInit {
     // this.personalDataForm.value.sex = newSortOrder;
   }
 
+  getFromDatabase(){
+    this.employeeData.get();
+  }
+
   private initializePersonalDataForm() {
-    this.personalDataForm = new FormGroup({
-      id: new FormControl(null),
-      firstName: new FormControl(this.employeeData.getName(), [Validators.required]),
-      secondName: new FormControl(this.employeeData.getSecondName()),
-      surname: new FormControl(this.employeeData.getSurname(), [Validators.required]),
-      dateOfBirth: new FormControl(this.employeeData.getBirthDate(), [Validators.required]),
-      sex: new FormControl([Validators.required])
-    });
+      this.personalDataForm = new FormGroup({
+        id: new FormControl(null),
+        firstName: new FormControl(this.employeeData.getName(), [Validators.required]),
+        secondName: new FormControl(this.employeeData.getSecondName()),
+        surname: new FormControl(this.employeeData.getSurname(), [Validators.required]),
+        dateOfBirth: new FormControl(this.employeeData.getBirthDate(), [Validators.required]),
+        sex: new FormControl([Validators.required])
+      });
   }
 
   private initializeContactDataForm() {

@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
   }
   public isCollapsed = true;
   pressed = false;
-
+  // jwt = this.authService.getJwtToken();
+  // userType = this.authService.getUserType();
 
   ngOnInit(): void {
   }

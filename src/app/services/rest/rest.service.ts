@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { config } from '../../../assets/config';
 import {Observable, of} from 'rxjs';
 import {catchError, mapTo, tap} from 'rxjs/operators';
@@ -45,9 +45,11 @@ export class RestService {
     }
 
   // Get corrent user data from database by id
-  public getEmployeeData(id){
-    const url = (config.backend_url + '/workers/' + id);
-    return this.httpClient.get(url);
+  public getEmployeeData(token, userType){
+    return this.httpClient.get<any>(config.backend_url + '/' + userType, {headers: new HttpHeaders().set('Authorization', token)});
+
+    // const url = (config.backend_url + '/workers/' + id);
+    // return this.httpClient.get(url);
     //  return this.httpClient.get('http://localhost:8080/workers/' + id);
   }
 

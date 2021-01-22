@@ -1,21 +1,24 @@
 import { RestService } from '../rest/rest.service';
 import { Injectable } from '@angular/core';
+import {AuthService} from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeDataService {
 
-  constructor(private apiService: RestService) {
-    this.getData('570b40dd-807b-4c3e-a834-e09f1d72480b');
+  constructor(private apiService: RestService, private authService: AuthService) {
+    this.getData(this.authService.getJwtToken(), this.authService.getUserType());
   }
 
   private employee;
 
-  getData(id) {
-    this.apiService.getEmployeeData(id).subscribe((data) => {
+  get(){console.log('nic'); }
+
+  getData(token, userType) {
+    this.apiService.getEmployeeData(token, userType).subscribe((data) => {
       this.employee = data;
-      // console.log(this.employee);
+      console.log(this.employee);
     });
   }
 

@@ -19,7 +19,7 @@ export class AuthService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   // private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private loggedUser: string;
-  private user: string;
+  private userType: string;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -36,6 +36,7 @@ export class AuthService {
 
   logout() {
     this.doLogoutUser();
+    localStorage.clear();
     // return this.httpClient.post<any>(config.backend_url + `/logout`, {
     //   refreshToken: this.getRefreshToken()
     // }).pipe(
@@ -63,15 +64,20 @@ export class AuthService {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
+  getUserType(){
+    console.log('User type: ', this.userType);
+    return this.userType;
+  }
+
   private doLoginUser(email: string, tokens: Tokens) {
-    this.user = tokens.href.split('/')[3];
+    this.userType = tokens.href.split('/')[3];
     this.loggedUser = email;
     this.storeTokens(tokens);
   }
 
   private doLogoutUser() {
     this.loggedUser = null;
-    this.user = null;
+    this.userType = null;
     this.removeTokens();
   }
 
