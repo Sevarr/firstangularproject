@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService, private router: Router, private employeeData: EmployeeDataService) {
     // this.employeeData.get();
     this.getFromDatabase();
-    this.userType = this.employeeData.userType;
+    this.userType = this.authService.getUserType();
     // console.log('Dane pobrane w home: ', this.employeeData.get());
   }
 
@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit {
   getFromDatabase(){
     // this.employeeData.get();
     // this.employee = this.employeeData.getCandidate();
-    console.log('Tego szukam: ', this.employeeData.getCandidate());
   }
 
   candidateForm(){

@@ -52,7 +52,6 @@ export class CandidateFormComponent implements OnInit {
     this.initializePersonalDataForm();
     this.initializeContactDataForm();
     this.initializeSchoolDataForm();
-
   }
 
   changeSortOrder(newSortOrder: string) {
