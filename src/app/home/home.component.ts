@@ -10,25 +10,39 @@ import { EmployeeDataService} from '../services/data/employee-data.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private http: HttpClient, private authService: AuthService, private router: Router, private employeeData: EmployeeDataService) {
-    this.employeeData.get();
-    // console.log('Dane pobrane w home: ', this.employeeData.get());
-  }
+
+
   public isCollapsed = true;
   pressed = false;
   // jwt = this.authService.getJwtToken();
   // userType = this.authService.getUserType();
+  userType; // : string[] = ['admin', 'worker', 'hr_employee'];
+
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router, private employeeData: EmployeeDataService) {
+    // this.employeeData.get();
+    this.getFromDatabase();
+    this.userType = this.employeeData.userType;
+    // console.log('Dane pobrane w home: ', this.employeeData.get());
+  }
+
 
   ngOnInit(): void {
   }
 
   logout() {
     this.authService.logout();
+    this.employeeData.clearEmployee();
       // .subscribe(success => {
       //   if (success) {
     this.router.navigate(['/login']);
         // }
       // });
+  }
+
+  getFromDatabase(){
+    // this.employeeData.get();
+    // this.employee = this.employeeData.getCandidate();
+    console.log('Tego szukam: ', this.employeeData.getCandidate());
   }
 
   candidateForm(){

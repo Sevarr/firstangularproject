@@ -8,9 +8,14 @@ import {EmployeeDataService} from '../../../services/data/employee-data.service'
 })
 export class NewEmployeeComponent implements OnInit {
 
+  public hide = false;
+
   constructor(private employeeData: EmployeeDataService) { }
 
   ngOnInit(): void {
   }
 
+  loadCandidateForm(){
+    this.hide = true;
+  }
 }

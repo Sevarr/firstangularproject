@@ -33,6 +33,7 @@ export class CandidateFormComponent implements OnInit {
   schools = SCHOOLS;
   closeResult = '';
   message = '';
+  employee;
 
   constructor(
     private calendar: NgbCalendar,
@@ -64,9 +65,8 @@ export class CandidateFormComponent implements OnInit {
     // this.personalDataForm.value.sex = newSortOrder;
   }
 
-  getFromDatabase(){
-    this.employeeData.get();
-  }
+
+
 
   private initializePersonalDataForm() {
       this.personalDataForm = new FormGroup({

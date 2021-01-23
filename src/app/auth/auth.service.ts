@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
 import { config } from '../../assets/config';
+// import { EmployeeDataService} from '../services/data/employee-data.service';
 // import { Tokens } from './tokens';
 
 
@@ -21,7 +22,10 @@ export class AuthService {
   private loggedUser: string;
   private userType: string;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient
+    // public employeeDataService: EmployeeDataService
+  ) {}
 
   login(user: { email: string, password: string }): Observable<boolean> {
     return this.httpClient.post<any>(config.backend_url + `/login`, user)
@@ -36,7 +40,7 @@ export class AuthService {
 
   logout() {
     this.doLogoutUser();
-    localStorage.clear();
+    // localStorage.clear();
     // return this.httpClient.post<any>(config.backend_url + `/logout`, {
     //   refreshToken: this.getRefreshToken()
     // }).pipe(

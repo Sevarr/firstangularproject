@@ -1,6 +1,11 @@
-<h1>Strona startowa aplikacji</h1>
-<p>
-  <a routerLink="/candidate_form">Formularz dla kandydata</a><br>
-  <a routerLink="/employee_form">Formularz dla pracownika</a><br>
-  <a routerLink="/upload_file">Prześlij plik</a><br>
-</p>
+<!--<h1>Strona startowa aplikacji</h1>-->
+<!--<p>-->
+<!--  <a routerLink="/candidate_form">Formularz dla kandydata</a><br>-->
+<!--  <a routerLink="/employee_form">Formularz dla pracownika</a><br>-->
+<!--  <a routerLink="/upload_file">Prześlij plik</a><br>-->
+<!--</p>-->
+
+Strona nowego pracownika
+
+<button (click)="loadCandidateForm()">Otworz formularz</button>
+<app-candidate-form  *ngIf="hide"></app-candidate-form>

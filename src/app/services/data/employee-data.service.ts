@@ -1,6 +1,6 @@
 import { RestService } from '../api/rest.service';
 import { Injectable } from '@angular/core';
-import {AuthService} from '../../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +8,27 @@ import {AuthService} from '../../auth/auth.service';
 export class EmployeeDataService {
 
   constructor(private apiService: RestService, private authService: AuthService) {
-    this.getData(this.authService.getJwtToken(), this.authService.getUserType());
+      this.getUser();
+      this.getData(this.jwtToken, this.userType);
   }
 
+  jwtToken;
+  userType;
   private employee;
+
+  getUser(){
+    this.jwtToken = this.authService.getJwtToken();
+    this.userType = this.authService.getUserType();
+  }
+
+  clearEmployee(){
+    this.employee = null;
+  }
 
   get(){console.log('Tworzenie employee-data'); }
 
   getData(token, userType) {
+    this.getUser();
     this.apiService.getEmployeeData(token, userType).subscribe((data) => {
       this.employee = data;
       console.log(this.employee);
@@ -243,6 +256,10 @@ export class EmployeeDataService {
 
   setBankAccount(bankAccount){
     this.employee.bankAccount = bankAccount;
+  }
+
+  getCandidate() {
+    return this.employee;
   }
 }
 
