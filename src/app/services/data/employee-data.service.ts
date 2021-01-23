@@ -1,4 +1,4 @@
-import { RestService } from '../rest/rest.service';
+import { RestService } from '../api/rest.service';
 import { Injectable } from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
 
@@ -13,7 +13,7 @@ export class EmployeeDataService {
 
   private employee;
 
-  get(){console.log('nic'); }
+  get(){console.log('Tworzenie employee-data'); }
 
   getData(token, userType) {
     this.apiService.getEmployeeData(token, userType).subscribe((data) => {
@@ -22,12 +22,16 @@ export class EmployeeDataService {
     });
   }
 
-  setData(id) {
-    this.apiService.sendEmployeeData(id, this.employee)._subscribe(this.employee);
+  setData(token) {
+    this.apiService.sendEmployeeData(token, this.employee)._subscribe(this.employee);
   }
 
   getEmail() {
-    return this.employee.email;
+    if (this.employee.email) {
+      return this.employee.email;
+    } else {
+      return '';
+    }
   }
 
   setEmail(email) {
@@ -68,7 +72,11 @@ export class EmployeeDataService {
   }
 
   getName() {
-    return this.employee.firstName;
+    if (this.employee.firstName) {
+      return this.employee.firstName;
+    } else {
+      return '';
+    }
   }
 
   setName(name) {
@@ -96,7 +104,7 @@ export class EmployeeDataService {
   }
 
   setBirthDate(birthDate){
-    this.employee.birthDate = birthDate;
+    // this.employee.birthDate = birthDate;
   }
 
   // getProfession(){
@@ -132,7 +140,7 @@ export class EmployeeDataService {
   }
 
   setAdditionalPersonalData(personalData){
-    this.employee.optionalData = personalData;
+    // this.employee.optionalData = personalData;
   }
 
   getSchools(){

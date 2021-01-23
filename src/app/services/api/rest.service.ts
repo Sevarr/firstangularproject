@@ -13,7 +13,7 @@ export class RestService {
   constructor(private httpClient: HttpClient) {
     // this.load();
   }
-
+  userTypeDebug = 'worker';
   // load() {
   //   this.backendUrl = config.backend_url;
   // }
@@ -46,7 +46,7 @@ export class RestService {
 
   // Get corrent user data from database by id
   public getEmployeeData(token, userType){
-    return this.httpClient.get<any>(config.backend_url + '/' + userType, {headers: new HttpHeaders().set('Authorization', token)});
+    return this.httpClient.get<any>(config.backend_url + '/' + this.userTypeDebug, {headers: new HttpHeaders().set('Authorization', token)});
 
     // const url = (config.backend_url + '/workers/' + id);
     // return this.httpClient.get(url);
@@ -54,10 +54,10 @@ export class RestService {
   }
 
   // Send corrent user data to database by id
-  public sendEmployeeData(id, data){
-    const url = (config.backend_url + '/workers/update/' + id);
-    return this.httpClient.put(url, data);
-    // return this.httpClient.put('http://localhost:8080/workers/update/' + id, data);
+  public sendEmployeeData(token, data){
+    // console.log('Wysyłane data: ', data);
+    // return this.httpClient.put<any>(config.backend_url + '/updatecandidate', {headers: new HttpHeaders().set('Authorization', token)}, data);
+    return this.httpClient.put<any>(config.backend_url + '/updatecandidate', data);
   }
 
   public getFile(name){

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../../services/rest/rest.service';
+import { RestService } from '../../../services/api/rest.service';
 
 @Component({
   selector: 'app-create-new-account',

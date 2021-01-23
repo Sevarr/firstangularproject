@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {PDFDocument, StandardFonts, rgb} from 'pdf-lib';
 import {EmployeeDataService} from '../../services/data/employee-data.service';
-import {RestService} from '../../services/rest/rest.service';
+import {RestService} from '../api/rest.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {formatDate} from '@angular/common';
 

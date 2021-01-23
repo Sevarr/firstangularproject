@@ -39,7 +39,8 @@ export class CandidateFormComponent implements OnInit {
     private modalService: NgbModal,
     private employeeData: EmployeeDataService
   ) {
-    this.getFromDatabase();
+    // this.getFromDatabase();
+    // console.log('Imie: ', this.employeeData.getName());
     this.dataComplete = true;
     // if (this.employeeData.getSex != null){
     //   this.selectedSortOrder = this.employeeData.getSex();
