@@ -9,7 +9,9 @@ import { ApiService } from '../../services/api/api.service';
 })
 export class FileDownloadComponent implements OnInit {
 
-  constructor(private documentGenerator: DocumentGeneratorService, private apiService: ApiService) { }
+  constructor(private documentGenerator: DocumentGeneratorService, private apiService: ApiService) {
+    this.apiService.downloadFile();
+  }
 
   ngOnInit(): void {
   }

@@ -36,7 +36,7 @@ export class ApiService {
   newAccountRegistrationLink(userType: { userType: string }){
     return this.httpClient.post(config.backend_url + '/generatelink', userType,
       {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(data => this.data = data);
+      .subscribe( error => console.log(error) );
     }
 
     public registrationLink(registerLink){
@@ -82,10 +82,16 @@ export class ApiService {
     return this.fileNames;
   }
 
-  downloadFile(fileNames){
+  downloadFileNames(fileNames){
     this.httpClient.get(config.backend_url + '/downloadfilenames',
       {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
       .subscribe(data => this.data = data);
     return this.data;
+  }
+
+  downloadFile(){
+    this.httpClient.get(config.backend_url + '/downloadfile/' + 'pytania_neuronowo-rozmyte.pdf',
+      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .subscribe(error => console.log(error));
   }
 }
