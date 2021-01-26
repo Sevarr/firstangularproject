@@ -13,6 +13,7 @@ import {catchError, mapTo, tap} from 'rxjs/operators';
 export class ApiService {
   // public backendUrl;
   private data: any;
+  private fileNames: string;
   constructor(private httpClient: HttpClient, private authService: AuthService) {
     // this.load();
   }
@@ -33,8 +34,9 @@ export class ApiService {
   // }
 
   newAccountRegistrationLink(userType: { userType: string }){
-    return this.httpClient.post<any>(config.backend_url + '/generatelink', userType);
-      // {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())});
+    return this.httpClient.post(config.backend_url + '/generatelink', userType,
+      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .subscribe(data => this.data = data);
     }
 
     public registrationLink(registerLink){
@@ -44,7 +46,7 @@ export class ApiService {
   // Get corrent user data from database by id
   public getEmployeeData(token, userType){
     return this.httpClient.get<any>(config.backend_url + '/' + this.userTypeDebug,
-      {headers: new HttpHeaders().set('Authorization', token), responseType: 'text' as 'json'});
+      {headers: new HttpHeaders().set('Authorization', token)});
 
     // const url = (config.backend_url + '/workers/' + id);
     // return this.httpClient.get(url);
@@ -64,9 +66,26 @@ export class ApiService {
   }
 
   public sendFile(file){
-    const url = (config.backend_url + '/uploadfiles/');
     console.log('Poszedł plik do bazy');
-    return this.httpClient.post(url, file);
+    return this.httpClient.post<any>(config.backend_url + '/uploadfiles/1',
+      {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .subscribe(data => console.log(data));
+
+    // console.log(this.httpClient.post<any>(config.backend_url + '/uploadfiles/1',
+    //   {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())}));
   }
 
+  public getFileList() {
+    this.httpClient.get(config.backend_url + '/downloadfilenames',
+      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .subscribe(fileNames => this.fileNames = fileNames);
+    return this.fileNames;
+  }
+
+  downloadFile(fileNames){
+    this.httpClient.get(config.backend_url + '/downloadfilenames',
+      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .subscribe(data => this.data = data);
+    return this.data;
+  }
 }

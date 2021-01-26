@@ -1,4 +1,12 @@
-Admin
 
-<button (click)="loadCreateNewAccount()">Stwórz nowe konto</button>
-<app-create-new-account  *ngIf="hideCreateNewAccount"></app-create-new-account><br>
+<div *ngIf="hideAll">
+  Admin
+  <button (click)="loadCreateNewAccount()">Stwórz nowe konto</button>
+  <button (click)="loadUploadFiles()">Dodaj dokumenty</button>
+  <button (click)="loadDownloadFiles()">Pobierz dokumenty</button>
+
+</div>
+<app-create-new-account  *ngIf="hideCreateNewAccount"></app-create-new-account><br><br>
+<app-file-upload  *ngIf="hideUploadFiles"></app-file-upload><br><br>
+<app-file-download  *ngIf="hideDownloadFiles"></app-file-download><br><br>
+<button *ngIf="hideAll == false" (click)="goBack()">Powrót</button>

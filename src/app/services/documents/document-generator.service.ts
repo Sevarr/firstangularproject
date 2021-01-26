@@ -1,7 +1,7 @@
-import {Injectable, OnInit} from '@angular/core';
-import {PDFDocument, StandardFonts, rgb} from 'pdf-lib';
-import {EmployeeDataService} from '../../services/data/employee-data.service';
-import {ApiService} from '../api/api.service';
+import { Injectable, OnInit } from '@angular/core';
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { EmployeeDataService } from '../../services/data/employee-data.service';
+import { ApiService } from '../api/api.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {formatDate} from '@angular/common';
 
@@ -25,7 +25,7 @@ export class DocumentGeneratorService {
   private metadataIn = METADATA;
   public files = [];
 
-  constructor(private employeeData: EmployeeDataService, private restService: ApiService) {
+  constructor(private employeeData: EmployeeDataService, private apiService: ApiService) {
   }
 
   addMetadata(name, positionX, positionY, size) {
@@ -39,7 +39,7 @@ export class DocumentGeneratorService {
     // this.pdfDoc.setKeywords(['firstName', '5', '800', '10', ';', 'firstName', '67', '800', '10', ';', 'firstName', '75', '800', '10', ';', 'firstName', '84', '800', '10', ';', 'firstName', '129', '800', '10']);
   }
 
-  addMetadataToFile() {
+  private addMetadataToFile() {
     // this.pdfDoc.setKeywords([]);
     console.log('Metadata do dodania do pliku pdf: ', this.metadataIn);
     let data: string;
@@ -61,7 +61,7 @@ export class DocumentGeneratorService {
       console.log('Data:', data);
       for (let i = 0; data.length > i; i++) {
         let singleData = data[i].split(' ');
-        console.log('Singledata: ', singleData);
+        // console.log('Singledata: ', singleData);
         this.metadataOut.push({
           name: (singleData[0]),
           x: parseInt(singleData[1]),
@@ -79,17 +79,20 @@ export class DocumentGeneratorService {
         return (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear());
         break;
       }
-      case 'firstName': {
-        return this.employeeData.getName();
-        break;
-      }
+      // case 'firstName': {
+      //   // return this.employeeData.getName();
+      //   break;
+      // }
       default: {
-        return 'Domyslna dana';
+        return data;
         break;
       }
     }
   }
 
+  private previewData(){
+
+  }
 
   // private drawText(page, data, x, y, size, font) {
   private drawText(page, font) {
@@ -149,12 +152,20 @@ export class DocumentGeneratorService {
   }
 
   saveFile(file) {
-    this.addMetadataToFile();
-    console.log('Plik do wysłania do DB: ', file);
+    // this.addMetadataToFile();
+    // console.log('Plik do wysłania do DB: ', file);
     this.modifyPDF(file);
     this.files.push(file);
+    // this.saveFileToDataBase(file);
     // this.metadataIn;
   }
+
+  public saveFileToDataBase(){
+
+    // Send to data base, nie działa na razie
+    // this.apiService.sendFile(this.files[]);
+  }
+
 }
 
 

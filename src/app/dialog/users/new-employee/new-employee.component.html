@@ -4,17 +4,17 @@
 <!--  <a routerLink="/employee_form">Formularz dla pracownika</a><br>-->
 <!--  <a routerLink="/upload_file">Prześlij plik</a><br>-->
 <!--</p>-->
-
+<div *ngIf="hideAll">
 Strona nowego pracownika
+  <button (click)="loadCandidateForm()">Otworz formularz kandydata</button>
+  <button (click)="loadEmployeeForm()">Otworz formularz pracownika</button>
+</div>
+<button *ngIf="hideAll == false" (click)="goBack()">Powrót</button>
 
-<button (click)="loadCandidateForm()">Otworz formularz kandydata</button>
 <app-candidate-form  *ngIf="hideCandidateForm"></app-candidate-form><br>
 
-<button (click)="loadEmployeeForm()">Otworz formularz pracownika</button>
+
 <app-employee-form  *ngIf="hideEmployeeForm"></app-employee-form><br>
 
 <!--<button (click)="loadDokumentGenerator()">Generuj dokumenty</button>-->
 <!--<app-change-account-data  *ngIf="hideDocumentGenerator"></app-change-account-data>-->
-
-<button (click)="loadChangeAccountData()">Zmień dane konta</button>
-<app-change-account-data  *ngIf="hideChangeAccountData"></app-change-account-data>

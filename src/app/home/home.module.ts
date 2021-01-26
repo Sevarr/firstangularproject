@@ -20,7 +20,7 @@ import {TopBarComponent} from '../top-bar/top-bar.component';
 import {AdminComponent} from '../dialog/users/admin/admin.component';
 import {NewEmployeeComponent} from '../dialog/users/new-employee/new-employee.component';
 import {HREmployeeComponent} from '../dialog/users/hr-employee/hr-employee.component';
-// import {FileDownloadComponent} from '../dialog/file-download/file-download.component';
+import {FileDownloadComponent} from '../dialog/file-download/file-download.component';
 import {FileUploadComponent} from '../dialog/file-upload/file-upload.component';
 import {NgbDatepickerModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -41,7 +41,7 @@ import { ChangeAccountDataComponent } from '../dialog/accounts/change-account-da
     HREmployeeComponent,
     NewEmployeeComponent,
     // CreateNewAccountComponent,
-    // FileDownloadComponent,
+    FileDownloadComponent,
     FileUploadComponent,
     ChangeAccountDataComponent,
   ],

@@ -1,5 +1,20 @@
 <h4>Generowanie dokumentacji dla nowo przyjętych pracowników
+  <button (click)="changePassword(content)">Ustawienia konta</button>
 <button (click)="logout()">Wyloguj się</button>
 </h4>
 <br>
 
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Zmień dane konta</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-change-account-data></app-change-account-data>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">Zakończ zmiany</button>
+  </div>
+</ng-template>

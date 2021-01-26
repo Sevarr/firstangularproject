@@ -18,7 +18,7 @@ export class CreateNewAccountComponent implements OnInit {
 
   generateRegisterLink() {
     console.log('Testuje');
-    this.apiService.newAccountRegistrationLink({userType: 'WORKER'}).subscribe(data => { this.data = data; });
+    console.log(this.apiService.newAccountRegistrationLink({userType: 'WORKER'})); // .subscribe(data => { this.data = data; });
       // .pipe(
         // tap(registerLink => this.data = registerLink),
         // mapTo(true),
@@ -29,6 +29,6 @@ export class CreateNewAccountComponent implements OnInit {
     // .subscribe((url) => {
       // this.data = url;
     // });
-    console.log('Co zas: ', this.data);
+    // console.log('Co zas: ', this.data);
   }
 }

@@ -1,7 +1,15 @@
 <app-top-bar></app-top-bar>
-<h1>Strona startowa aplikacji</h1>
+<h1>Witaj!</h1>
+<h1>Wybierz co chcesz zrobić</h1>
 <body>
 
+<div [ngSwitch]="userType">
+  <div *ngSwitchCase="'worker'"><app-new-employee></app-new-employee><br><br></div>
+  <div *ngSwitchCase="'admin'"><app-admin></app-admin><br><br></div>
+  <div *ngSwitchCase="'hr_employee'"><app-hr-employee></app-hr-employee><br><br></div>
+</div>
+
+</body>
 <!--<p>-->
 <!--  <a routerLink="/login">Login</a><br>-->
 <!--  <a routerLink="/admin">Go to admin</a><br>-->
@@ -27,11 +35,7 @@
 <!--  </div>-->
 <!--</div>-->
 <!--<app-file-upload></app-file-upload>-->
-<div [ngSwitch]="userType">
-  <div *ngSwitchCase="'worker'"><app-new-employee></app-new-employee><br><br></div>
-  <div *ngSwitchCase="'admin'"><app-admin></app-admin><br><br></div>
-  <div *ngSwitchCase="'hr_employee'"><app-hr-employee></app-hr-employee><br><br></div>
-</div>
+
 
 <!--<button (click)="loadCandidateForm()">Otworz formularz</button>-->
 <!--<app-candidate-form  *ngIf="hide"></app-candidate-form>-->
@@ -63,4 +67,4 @@
 
 <!--<app-candidate-form></app-candidate-form>-->
 
-</body>
+

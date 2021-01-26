@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {DocumentGeneratorService} from '../../services/documents/document-generator.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {FormControl, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { DocumentGeneratorService } from '../../services/documents/document-generator.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-file-upload',
@@ -64,7 +64,7 @@ export class FileUploadComponent implements OnInit {
 
   upload(event) {
     // console.log('test', this.fileForm.value.file);
-    // this.restService.sendFile(this.fileForm.value.file);
+    // this.apiService.sendFile(this.fileForm.value.file);
     console.log('test', this.fileForm.get('file').value);
 
     const reader = new FileReader();
@@ -105,7 +105,7 @@ export class FileUploadComponent implements OnInit {
       this.message = 'Dodano poprawnie';
       this.list.slice(this.dataToAddForm.value.name);
       this.selectedSortOrder = this.defaultSelectedSortOrder;
-      console.log(this.dataToAddForm.value);
+      // console.log(this.dataToAddForm.value);
     } else {
       this.message = 'Brakuje informacji';
     }
@@ -135,4 +135,9 @@ export class FileUploadComponent implements OnInit {
     // this.restService.sendFile(this.fileForm.get('file').value);
     this.documentGenerator.saveFile(this.fileForm.get('file').value);
   }
+
+  saveFile(){
+    this.documentGenerator.saveFileToDataBase();
+  }
+
 }

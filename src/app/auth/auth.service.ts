@@ -99,9 +99,15 @@ export class AuthService {
     // localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
   }
 
+  // Usunięcie tokenu użytkownika z pamięci
   private removeTokens() {
     localStorage.removeItem(this.JWT_TOKEN);
     // localStorage.removeItem(this.REFRESH_TOKEN);
+  }
+
+  // Komunikacja z backendem celem zmiany hasła
+  changePassword(passwordDataForm) {
+
   }
 }
 
