@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeDataService } from '../../services/data/employee-data.service';
@@ -192,7 +192,7 @@ export class CandidateFormComponent implements OnInit {
     // this.employeeData.prevEmployment(this.contactDataForm.value.prevEmployment);
     this.employeeData.setAdditionalPersonalData(this.contactDataForm.value.additionalPersonalData);
     this.employeeData.setSchools(this.schools);
-    this.employeeData.setData('570b40dd-807b-4c3e-a834-e09f1d72480b');
+    // this.employeeData.setData();
     console.log('Data form: ', this.personalDataForm.value);
   }
 

@@ -1,20 +1,81 @@
-import { RestService } from '../api/rest.service';
+import { ApiService } from '../api/api.service';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
+
+let employee = {
+    email: null,
+    phoneNumber: null,
+    fillLocation: null,
+    sex: '',
+    firstName: 'Zdzichu', // null,
+    secondName: null,
+    surname: '',
+    prevEmployment: null,
+    dateOfBirth: null,
+    qualifications: null,
+    additionalPersonalData: null,
+    citizenship: null,
+    documentNumber: null,
+    documentType: null,
+    taxOffice: null,
+    willSpecialPowersForFamily: false,
+    willPIT2: false,
+    workplace: null,
+    department: null,
+    pension: null,
+    employmentDate: null,
+    bank: null,
+    accountNumber: null,
+    securityClearance: null,
+    pensionZUSNumber: null,
+    disabledZUSNumber: null,
+    disabledFrom: null,
+    disabledTo: null,
+    medicover: null,
+    contractType: null,
+    incomePerPerson: null,
+    hasChildren: false,
+    willParent: false,
+    childUnderFourPermissions: null,
+    childUnderFourteenPermissions: null,
+    willReducedTask: false,
+    methodOfTaxation: false,
+    annualEarningsFamily: null,
+    willTaxReducingAmount: false,
+    willHigherTask: false,
+    higherTaskMonth: null,
+    willIncreasedCosts: false,
+    willZUS: false,
+    annualEarningsZUS: null,
+    addresses: [],
+    education: [],
+    familyMembers: [],
+    nip: null,
+    disabled: false,
+    nfz: null,
+    zfss1: false,
+    zfss4: false,
+    zfss3: false,
+    zfss7: false,
+    zfss2: false,
+    zfss5: false,
+    zfss6: false
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeDataService {
 
-  constructor(private apiService: RestService, private authService: AuthService) {
+  constructor(private apiService: ApiService, private authService: AuthService) {
       this.getUser();
       this.getData(this.jwtToken, this.userType);
   }
 
-  jwtToken;
-  userType;
-  private employee;
+  private jwtToken;
+  private userType;
+  private data;
+  private employee = employee;
 
   getUser(){
     this.jwtToken = this.authService.getJwtToken();
@@ -30,13 +91,15 @@ export class EmployeeDataService {
   getData(token, userType) {
     this.getUser();
     this.apiService.getEmployeeData(token, userType).subscribe((data) => {
-      this.employee = data;
-      console.log(this.employee);
+      this.data = data;
+      // console.log(this.employee);
     });
+    // this.employee = this.data;
   }
 
   setData(token) {
-    this.apiService.sendEmployeeData(token, this.employee)._subscribe(this.employee);
+    // this.data = this.employee;
+    // this.apiService.sendEmployeeData(token, this.employee)._subscribe(this.data);
   }
 
   getEmail() {
@@ -47,10 +110,10 @@ export class EmployeeDataService {
     }
   }
 
-  setEmail(email) {
-    // console.log(this.employee.email);
-    this.employee.email = email;
-  }
+  // setEmail(email) {
+  //   // console.log(this.employee.email);
+  //   this.employee.email = email;
+  // }
 
   getPhoneNumber() {
     return this.employee.phoneNumber;
@@ -85,7 +148,7 @@ export class EmployeeDataService {
   }
 
   getName() {
-    if (this.employee.firstName) {
+    if (this.employee.firstName != null) {
       return this.employee.firstName;
     } else {
       return '';
@@ -113,7 +176,7 @@ export class EmployeeDataService {
   }
 
   getBirthDate(){
-    return this.employee.birthDate;
+    return this.employee.dateOfBirth;
   }
 
   setBirthDate(birthDate){
@@ -149,7 +212,7 @@ export class EmployeeDataService {
   }
 
   getAdditionalPersonalData(){
-    return this.employee.optionalData;
+    return this.employee.additionalPersonalData;
   }
 
   setAdditionalPersonalData(personalData){
@@ -211,11 +274,11 @@ export class EmployeeDataService {
   // "authorizedSurname": null,
   // "authorizedContact": null,
   getPersonToNotify(){
-    return this.employee.authorizedName;
+    // return this.employee.authorizedName;
   }
 
   setPersonToNotify(personToNotify){
-    this.employee.authorizedName = personToNotify;
+    // this.employee.authorizedName = personToNotify;
   }
 
   getWorkplace(){
@@ -247,7 +310,7 @@ export class EmployeeDataService {
   }
 
   setBankName(bankName){
-    this.employee.bankName = bankName;
+    this.employee.bank = bankName;
   }
 
   getBankAccount(){
@@ -255,7 +318,7 @@ export class EmployeeDataService {
   }
 
   setBankAccount(bankAccount){
-    this.employee.bankAccount = bankAccount;
+    this.employee.accountNumber = bankAccount;
   }
 
   getCandidate() {

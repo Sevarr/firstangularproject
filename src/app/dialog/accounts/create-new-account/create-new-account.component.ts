@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../../services/api/rest.service';
+import { ApiService } from '../../../services/api/api.service';
+import {catchError, mapTo, tap} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-create-new-account',
@@ -7,16 +9,26 @@ import { RestService } from '../../../services/api/rest.service';
   styleUrls: ['./create-new-account.component.css']
 })
 export class CreateNewAccountComponent implements OnInit {
+  private data: any;
 
-  constructor(private restService: RestService) { this.generateRegisterLink(); }
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
   }
 
-  generateRegisterLink(){
+  generateRegisterLink() {
     console.log('Testuje');
-    console.log(this.restService.newAccountRegistrationLink('WOKER'));
-
+    this.apiService.newAccountRegistrationLink({userType: 'WORKER'}).subscribe(data => { this.data = data; });
+      // .pipe(
+        // tap(registerLink => this.data = registerLink),
+        // mapTo(true),
+        // catchError(error => {
+        //   alert(error.error);
+        //   return of(false);
+        // }));
+    // .subscribe((url) => {
+      // this.data = url;
+    // });
+    console.log('Co zas: ', this.data);
   }
-
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { config } from '../../../assets/config';
+import { AuthService } from '../../auth/auth.service';
 import {Observable, of} from 'rxjs';
 import {catchError, mapTo, tap} from 'rxjs/operators';
 
@@ -8,9 +9,11 @@ import {catchError, mapTo, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class RestService {
-  public backendUrl;
-  constructor(private httpClient: HttpClient) {
+
+export class ApiService {
+  // public backendUrl;
+  private data: any;
+  constructor(private httpClient: HttpClient, private authService: AuthService) {
     // this.load();
   }
   userTypeDebug = 'worker';
@@ -29,15 +32,9 @@ export class RestService {
   //       }));
   // }
 
-  newAccountRegistrationLink(userType){
-      return this.httpClient.post<any>(config.backend_url + `/generatelink`, userType);
-        // .pipe(
-        //   tap(registerLink => this.registrationLink(registerLink)),
-        //   mapTo(true),
-        //   catchError(error => {
-        //     alert(error.error);
-        //     return of(false);
-        //   }));
+  newAccountRegistrationLink(userType: { userType: string }){
+    return this.httpClient.post<any>(config.backend_url + '/generatelink', userType);
+      // {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())});
     }
 
     public registrationLink(registerLink){
@@ -46,7 +43,8 @@ export class RestService {
 
   // Get corrent user data from database by id
   public getEmployeeData(token, userType){
-    return this.httpClient.get<any>(config.backend_url + '/' + this.userTypeDebug, {headers: new HttpHeaders().set('Authorization', token)});
+    return this.httpClient.get<any>(config.backend_url + '/' + this.userTypeDebug,
+      {headers: new HttpHeaders().set('Authorization', token), responseType: 'text' as 'json'});
 
     // const url = (config.backend_url + '/workers/' + id);
     // return this.httpClient.get(url);

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Form, FormControl, FormGroup} from '@angular/forms';
-import {ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { Form, FormControl, FormGroup } from '@angular/forms';
+import { ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 interface PersonalData {
   id: number;

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  hideCreateNewAccount = false;
 
   constructor() { }
 
@@ -14,5 +15,11 @@ export class AdminComponent implements OnInit {
   }
 
 
-
+  loadCreateNewAccount() {
+    if (this.hideCreateNewAccount){
+      this.hideCreateNewAccount = false;
+    } else {
+      this.hideCreateNewAccount = true;
+    }
+  }
 }

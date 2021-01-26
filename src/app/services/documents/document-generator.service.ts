@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {PDFDocument, StandardFonts, rgb} from 'pdf-lib';
 import {EmployeeDataService} from '../../services/data/employee-data.service';
-import {RestService} from '../api/rest.service';
+import {ApiService} from '../api/api.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {formatDate} from '@angular/common';
 
@@ -25,7 +25,7 @@ export class DocumentGeneratorService {
   private metadataIn = METADATA;
   public files = [];
 
-  constructor(private employeeData: EmployeeDataService, private restService: RestService) {
+  constructor(private employeeData: EmployeeDataService, private restService: ApiService) {
   }
 
   addMetadata(name, positionX, positionY, size) {

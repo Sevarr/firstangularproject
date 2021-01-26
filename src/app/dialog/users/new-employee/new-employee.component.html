@@ -7,5 +7,14 @@
 
 Strona nowego pracownika
 
-<button (click)="loadCandidateForm()">Otworz formularz</button>
-<app-candidate-form  *ngIf="hide"></app-candidate-form>
+<button (click)="loadCandidateForm()">Otworz formularz kandydata</button>
+<app-candidate-form  *ngIf="hideCandidateForm"></app-candidate-form><br>
+
+<button (click)="loadEmployeeForm()">Otworz formularz pracownika</button>
+<app-employee-form  *ngIf="hideEmployeeForm"></app-employee-form><br>
+
+<!--<button (click)="loadDokumentGenerator()">Generuj dokumenty</button>-->
+<!--<app-change-account-data  *ngIf="hideDocumentGenerator"></app-change-account-data>-->
+
+<button (click)="loadChangeAccountData()">Zmień dane konta</button>
+<app-change-account-data  *ngIf="hideChangeAccountData"></app-change-account-data>

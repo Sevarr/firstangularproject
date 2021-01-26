@@ -8,7 +8,10 @@ import { EmployeeDataService } from '../../../services/data/employee-data.servic
 })
 export class NewEmployeeComponent implements OnInit {
 
-  public hide = false;
+  public hideCandidateForm = false;
+  public hideEmployeeForm = false;
+  public hideDocumentGenerator = false;
+  public hideChangeAccountData = false;
 
   constructor(private employeeData: EmployeeDataService) { }
 
@@ -16,6 +19,35 @@ export class NewEmployeeComponent implements OnInit {
   }
 
   loadCandidateForm(){
-    this.hide = true;
+    if (this.hideCandidateForm){
+      this.hideCandidateForm = false;
+    } else {
+      this.hideCandidateForm = true;
+      this.hideEmployeeForm = false;
+    }
+  }
+  loadEmployeeForm(){
+    if (this.hideEmployeeForm){
+      this.hideEmployeeForm = false;
+    } else {
+      this.hideEmployeeForm = true;
+      this.hideCandidateForm = false;
+    }
+  }
+
+  loadChangeAccountData() {
+    if (this.hideChangeAccountData){
+      this.hideChangeAccountData = false;
+    } else {
+      this.hideChangeAccountData = true;
+    }
+  }
+
+  loadDokumentGenerator() {
+    if (this.hideDocumentGenerator){
+      this.hideDocumentGenerator = false;
+    } else {
+      this.hideDocumentGenerator = true;
+    }
   }
 }

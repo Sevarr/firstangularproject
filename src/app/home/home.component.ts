@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@Angular/router';
 import { HttpClient } from '@angular/common/http';
-import { EmployeeDataService} from '../services/data/employee-data.service';
+// import { EmployeeDataService } from '../services/data/employee-data.service';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +18,12 @@ export class HomeComponent implements OnInit {
   // userType = this.authService.getUserType();
   userType; // : string[] = ['admin', 'worker', 'hr_employee'];
 
-  constructor(private http: HttpClient, private authService: AuthService, private router: Router, private employeeData: EmployeeDataService) {
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) { // , private employeeData: EmployeeDataService) {
     // this.employeeData.get();
-    this.getFromDatabase();
     this.userType = this.authService.getUserType();
+    // if (this.userType === 'WORKER'){
+    //   this.getFromDatabase();
+    // }
     // console.log('Dane pobrane w home: ', this.employeeData.get());
   }
 
@@ -31,7 +33,9 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.employeeData.clearEmployee();
+    // if (this.userType === 'WORKER'){
+    //  this.employeeData.clearEmployee();
+    // }
       // .subscribe(success => {
       //   if (success) {
     this.router.navigate(['/login']);
@@ -45,10 +49,6 @@ export class HomeComponent implements OnInit {
   }
 
   candidateForm(){
-    console.log('działa');
-    // window.alert('Działa');
     this.pressed = true;
-    // '<app-candidate-form></app-candidate-form>'         // ['/file_download']);     // ['<app-candidate-form></app-candidate-form>']);
-
   }
 }
