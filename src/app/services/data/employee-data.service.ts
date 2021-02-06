@@ -69,13 +69,14 @@ export class EmployeeDataService {
 
   constructor(private apiService: ApiService, private authService: AuthService) {
       this.getUser();
-      this.getData(this.jwtToken, this.userType);
+      this.getData();
   }
 
   private jwtToken;
   private userType;
   private data;
   private employee = employee;
+  // private dataCompleted = false;
 
   getUser(){
     this.jwtToken = this.authService.getJwtToken();
@@ -88,26 +89,29 @@ export class EmployeeDataService {
 
   get(){console.log('Tworzenie employee-data'); }
 
-  getData(token, userType) {
+  // getDataCompleted(){
+  //   return this.dataCompleted;
+  // }
+
+  getData() {
     this.getUser();
-    this.apiService.getEmployeeData(token, userType).subscribe((data) => {
-      this.data = data;
+    this.apiService.getEmployeeData(this.authService.getJwtToken(), this.authService.getUserType()).subscribe((data) => {
+      this.employee = data;
       // console.log(this.employee);
     });
+    // if (this.data.name !== '') {
+    //   this.dataCompleted = true;
+    // }
     // this.employee = this.data;
   }
 
-  setData(token) {
+  setData() {
     // this.data = this.employee;
-    // this.apiService.sendEmployeeData(token, this.employee)._subscribe(this.data);
+    this.apiService.sendEmployeeData(this.authService.getJwtToken(), this.employee)._subscribe(this.data);
   }
 
   getEmail() {
-    if (this.employee.email) {
       return this.employee.email;
-    } else {
-      return '';
-    }
   }
 
   // setEmail(email) {
@@ -148,11 +152,8 @@ export class EmployeeDataService {
   }
 
   getName() {
-    if (this.employee.firstName != null) {
-      return this.employee.firstName;
-    } else {
-      return '';
-    }
+    console.log('Uzystane dane: ', this.employee);
+    return this.employee.firstName;
   }
 
   setName(name) {

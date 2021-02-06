@@ -192,7 +192,7 @@ export class CandidateFormComponent implements OnInit {
     // this.employeeData.prevEmployment(this.contactDataForm.value.prevEmployment);
     this.employeeData.setAdditionalPersonalData(this.contactDataForm.value.additionalPersonalData);
     this.employeeData.setSchools(this.schools);
-    // this.employeeData.setData();
+    this.employeeData.setData();
     console.log('Data form: ', this.personalDataForm.value);
   }
 

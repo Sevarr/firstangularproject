@@ -1,10 +1,11 @@
-import {Injectable, OnInit} from '@angular/core';
-import {PDFDocument, StandardFonts, rgb} from 'pdf-lib';
-import {EmployeeDataService} from '../../services/data/employee-data.service';
-import {ApiService} from '../api/api.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {formatDate} from '@angular/common';
-import {first} from 'rxjs/operators';
+import { Injectable, OnInit } from '@angular/core';
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { EmployeeDataService } from '../../services/data/employee-data.service';
+import { ApiService } from '../api/api.service';
+import { AuthService } from '../../auth/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { first } from 'rxjs/operators';
 
 interface Metadata {
   name: string;
@@ -29,7 +30,8 @@ export class DocumentGeneratorService {
   private file;
   private fileName;
 
-  constructor(private employeeData: EmployeeDataService, private apiService: ApiService) {
+  constructor(private employeeData: EmployeeDataService, private apiService: ApiService, private authService: AuthService) {
+    // this.employeeData.getData();
   }
 
   addMetadata(name, positionX, positionY, size) {
@@ -103,19 +105,28 @@ export class DocumentGeneratorService {
 
   private readData(data) {
     const date = new Date();
-    switch (data) {
-      case 'data': {
-        return (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear());
-        break;
-      }
-      // case 'firstName': {
-      //   // return this.employeeData.getName();
-      //   break;
+    if (this.authService.getUserType() === 'worker') {
+      // if (data === 'data'){
+      //   return (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear());
+      // } else if (data === this.employeeData.) {
+      //
       // }
-      default: {
-        return data;
-        break;
+      switch (data) {
+        case 'data': {
+          return (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear());
+          break;
+        }
+        case 'Imie': {
+          return this.employeeData.getName();
+          break;
+        }
+        default: {
+          return '';
+          break;
+        }
       }
+    } else {
+      return data;
     }
   }
 
@@ -183,6 +194,7 @@ export class DocumentGeneratorService {
     a.download = name;
     a.click();
     window.URL.revokeObjectURL(url_out);
+    this.metadataOut.slice();
   }
 
   private async modifyDownloadPDF(file, fileName) {
@@ -206,7 +218,7 @@ export class DocumentGeneratorService {
     a.download = name;
     a.click();
     window.URL.revokeObjectURL(url_out);
-
+    this.metadataOut.slice();
   }
 
   public async saveFileToDataBase() {
