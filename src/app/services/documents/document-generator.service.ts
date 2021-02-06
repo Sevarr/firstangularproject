@@ -89,7 +89,6 @@ export class DocumentGeneratorService {
   readMetadata(pdfDoc) {
     if (pdfDoc.getKeywords()) {
       let data = pdfDoc.getKeywords().split(' ; ');
-      // console.log('Data:', data);
       for (let i = 0; data.length > i; i++) {
         let singleData = data[i].split(' ');
         this.metadataOut.push({
@@ -201,7 +200,8 @@ export class DocumentGeneratorService {
     document.body.appendChild(a);
     a.style.display = 'none';
     const name = fileName;
-    const url_out = window.URL.createObjectURL(file);
+    const blob = new Blob([pdfBytes], {type: 'application/pdf'});
+    const url_out = window.URL.createObjectURL(blob);
     a.href = url_out;
     a.download = name;
     a.click();
