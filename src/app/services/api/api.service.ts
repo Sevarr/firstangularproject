@@ -2,25 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { config } from '../../../assets/config';
 import { AuthService } from '../../auth/auth.service';
-import {Observable, of} from 'rxjs';
-import {catchError, mapTo, tap} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, mapTo, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 
-
 export class ApiService {
-  // public backendUrl;
   private data: any;
-  private fileNames: string;
+  private fileNames = null;
   constructor(private httpClient: HttpClient, private authService: AuthService) {
-    // this.load();
+    this.getFileNames();
   }
   userTypeDebug = 'worker';
-  // load() {
-  //   this.backendUrl = config.backend_url;
-  // }
 
   // login(user: { username: string, password: string }): Observable<boolean> {
   //   return this.http.post<any>(config.backend_url + `/login`, user)
@@ -67,31 +62,51 @@ export class ApiService {
 
   public sendFile(file){
     console.log('Poszedł plik do bazy');
-    return this.httpClient.post<any>(config.backend_url + '/uploadfiles/1',
+    var formData: any = new FormData();
+    formData.append('files', file.value);
+    console.log('tuuuu: ', formData.value);
+    return this.httpClient.post<any>(config.backend_url + '/uploadfiles/1', formData,
       {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(data => console.log(data));
+      .subscribe(response => console.log(response),
+        (error => console.log(error)));
 
     // console.log(this.httpClient.post<any>(config.backend_url + '/uploadfiles/1',
     //   {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())}));
   }
 
-  public getFileList() {
-    this.httpClient.get(config.backend_url + '/downloadfilenames',
-      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(fileNames => this.fileNames = fileNames);
-    return this.fileNames;
+  public getFileList(){
+    if (this.fileNames != null) {
+      this.getFileNames();
+      this.fileNames = this.fileNames.slice(2, (length - 2));
+      return this.fileNames.split('","');
+    } else {
+      return this.fileNames;
+    }
+  }
+  private getFileNames() {
+    // let list;
+    // if (!this.fileNames) {
+      this.httpClient.get(config.backend_url + '/downloadfilenames',
+        {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+        .subscribe(fileNames => this.fileNames = fileNames);
+    // }
+        // error => console.log(error));
+    // if (list !== undefined) {
+    //   this.fileNames = list; // .split('","');
+    // }
+    // console.log('Pobrane z bazy nazwy plików: ', this.fileNames);
   }
 
-  downloadFileNames(fileNames){
-    this.httpClient.get(config.backend_url + '/downloadfilenames',
-      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(data => this.data = data);
-    return this.data;
-  }
-
-  downloadFile(){
-    this.httpClient.get(config.backend_url + '/downloadfile/' + 'pytania_neuronowo-rozmyte.pdf',
-      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(error => console.log(error));
+  downloadFile(fileName){
+    let file;
+    console.log('Nazwa pliku: ', fileName);
+    this.httpClient.get(config.backend_url + '/downloadfile/' + fileName,
+      {responseType: 'blob', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .pipe(
+        tap (
+        response => file = response,
+          error => console.log(error))
+      );
+    return file;
   }
 }

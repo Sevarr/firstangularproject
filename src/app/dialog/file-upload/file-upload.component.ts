@@ -13,7 +13,7 @@ export class FileUploadComponent implements OnInit {
   dataToAddForm: FormGroup;
   private fileName;
   closeResult = '';
-  list = ['Data', 'Imię', 'Drugie imię', 'Nazwisko', 'Data urodzenia', 'Płeć', 'Numer telefonu', 'Miejscowość wypełniania formularza', 'Kwalifikacje zawodowe', 'Przebieg dotychczasowego zatrudnienia', 'Dodatkowe dane osobowe', 'Ukończone szkoły'];
+  list = ['Data', 'Imie', 'Drugie imie', 'Nazwisko', 'Data urodzenia', 'Plec', 'Numer telefonu', 'Miejscowosc wypelniania formularza', 'Kwalifikacje zawodowe', 'Przebieg dotychczasowego zatrudnienia', 'Dodatkowe dane osobowe', 'Ukonczone szkoly'];
   sortOrders: string[] = this.list;
   defaultSelectedSortOrder = 'Wybierz informację, którą chcesz dodać do pliku';
   selectedSortOrder = this.defaultSelectedSortOrder;
@@ -31,22 +31,22 @@ export class FileUploadComponent implements OnInit {
     console.log('data to: ', (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear()));
   }
 
-  selectedName() {
-    switch (this.selectedSortOrder) {
-      case 'Data' : {this.dataToAddForm.value.name = 'data'; break; }
-      case 'Imię' : {this.dataToAddForm.value.name = 'firstName'; break; }
-      case 'Drugie imię' : {this.dataToAddForm.value.name = 'secondName'; break; }
-      case 'Nazwisko' : {this.dataToAddForm.value.name = 'surename'; break; }
-      case 'Data urodzenia' : {this.dataToAddForm.value.name = 'dateOfBirth'; break; }
-      case 'Płeć' : {this.dataToAddForm.value.name = 'sex'; break; }
-      case 'Numer telefonu' : {this.dataToAddForm.value.name = 'phoneNumber'; break; }
-      case 'Miejscowość wypełniania formularza' : {this.dataToAddForm.value.name = 'fillLocation'; break; }
-      case 'Kwalifikacje zawodowe' : {this.dataToAddForm.value.name = 'qualifications'; break; }
-      case 'Przebieg dotychczasowego zatrudnienia' : {this.dataToAddForm.value.name = 'prevEmployment'; break; }
-      case 'Dodatkowe dane osobowe' : {this.dataToAddForm.value.name = 'additionaPersonalData'; break; }
-      case 'Ukończone szkoły' : {this.dataToAddForm.value.name = 'schools'; break; }
-    }
-  }
+  // selectedName() {
+  //   switch (this.selectedSortOrder) {
+  //     case 'Data' : {this.dataToAddForm.value.name = 'data'; break; }
+  //     case 'Imię' : {this.dataToAddForm.value.name = 'firstName'; break; }
+  //     case 'Drugie imię' : {this.dataToAddForm.value.name = 'secondName'; break; }
+  //     case 'Nazwisko' : {this.dataToAddForm.value.name = 'surename'; break; }
+  //     case 'Data urodzenia' : {this.dataToAddForm.value.name = 'dateOfBirth'; break; }
+  //     case 'Płeć' : {this.dataToAddForm.value.name = 'sex'; break; }
+  //     case 'Numer telefonu' : {this.dataToAddForm.value.name = 'phoneNumber'; break; }
+  //     case 'Miejscowość wypełniania formularza' : {this.dataToAddForm.value.name = 'fillLocation'; break; }
+  //     case 'Kwalifikacje zawodowe' : {this.dataToAddForm.value.name = 'qualifications'; break; }
+  //     case 'Przebieg dotychczasowego zatrudnienia' : {this.dataToAddForm.value.name = 'prevEmployment'; break; }
+  //     case 'Dodatkowe dane osobowe' : {this.dataToAddForm.value.name = 'additionaPersonalData'; break; }
+  //     case 'Ukończone szkoły' : {this.dataToAddForm.value.name = 'schools'; break; }
+  //   }
+  // }
 
   changeSortOrder(newSortOrder: string) {
     this.selectedSortOrder = newSortOrder;
@@ -95,7 +95,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   onSubmitData() {
-    this.selectedName();
+    // this.selectedName();
     if (this.validate()) {
       this.documentGenerator.addMetadata(
         this.dataToAddForm.value.name,
@@ -132,12 +132,12 @@ export class FileUploadComponent implements OnInit {
 
   onSubmitFile() {
     console.log(this.fileName); // , this.fileForm.get('file').value);
-    // this.restService.sendFile(this.fileForm.get('file').value);
+    // this.ApiService.sendFile(this.fileForm.get('file').value);
     this.documentGenerator.saveFile(this.fileForm.get('file').value);
   }
 
   saveFile(){
-    this.documentGenerator.saveFileToDataBase();
+    this.documentGenerator.saveFileToDataBase(this.fileForm.get('file').value);
   }
 
 }

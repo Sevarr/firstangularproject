@@ -1,5 +1,28 @@
 <p>file-download works!</p>
 
 <!--<button type="button" (click)=this.documentGenerator.modifyPDF()></button>-->
+<!--<button (click)="getFileList()">Pobierz listę plików</button>-->
+<div ngbDropdown class="d-inline-block">
+  <button type="button" (click)="getFileList()" class="btn btn-outline-primary" id="sortMenu"
+          ngbDropdownToggle>{{ selectedSortOrder }}</button>
+  <div ngbDropdownMenu aria-labelledby="sortMenu">
+    <button type="button" class="dropdown-item" *ngFor="let sortOrder of sortOrders"
+            (click)="changeSortOrder(sortOrder)">{{ sortOrder }}</button>
+  </div>
+</div><br>
 
-<button (click)="getFileList()">Pobierz listę plików</button>
+<button type="button" (click)="downloadFile(poppingmassagecontent)">Pobierz i wygeneruj plik</button>
+
+<ng-template #poppingmassagecontent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="poppingmassage"></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <td>{{ message }}</td>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>

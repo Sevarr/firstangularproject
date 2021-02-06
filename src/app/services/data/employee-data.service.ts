@@ -7,7 +7,7 @@ let employee = {
     phoneNumber: null,
     fillLocation: null,
     sex: '',
-    firstName: 'Zdzichu', // null,
+    firstName: null, // null,
     secondName: null,
     surname: '',
     prevEmployment: null,

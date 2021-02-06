@@ -2,8 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import { EmployeeDataService } from '../../services/data/employee-data.service';
 import { ApiService } from '../api/api.service';
-import {FormControl, FormGroup} from '@angular/forms';
-import {formatDate} from '@angular/common';
+import { FormControl, FormGroup } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 interface Metadata {
   name: string;
@@ -90,9 +90,9 @@ export class DocumentGeneratorService {
     }
   }
 
-  private previewData(){
-
-  }
+  // private previewData(){
+  //
+  // }
 
   // private drawText(page, data, x, y, size, font) {
   private drawText(page, font) {
@@ -155,16 +155,23 @@ export class DocumentGeneratorService {
     // this.addMetadataToFile();
     // console.log('Plik do wysłania do DB: ', file);
     this.modifyPDF(file);
-    this.files.push(file);
+    // this.files.push(file);
     // this.saveFileToDataBase(file);
     // this.metadataIn;
   }
 
-  public saveFileToDataBase(){
+  public saveFileToDataBase(file){
 
     // Send to data base, nie działa na razie
-    // this.apiService.sendFile(this.files[]);
+    this.apiService.sendFile(file);
   }
+
+  public generateFile(fileName){
+    let file = this.apiService.downloadFile(fileName);
+    // this.modifyPDF(file);
+    console.log('Tu jest pobrany plik: ', file);
+  }
+
 
 }
 
