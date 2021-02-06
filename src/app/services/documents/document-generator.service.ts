@@ -120,6 +120,46 @@ export class DocumentGeneratorService {
           return this.employeeData.getName();
           break;
         }
+        case 'Drugie_imie': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Nazwisko': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Data_urodzenia': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Plec': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Numer_telefonu': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Miejscowosc_wypelniania_formularza': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Kwalifikacje_zawodowe': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Przebieg_dotychczasowego_zatrudnienia': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Dodatkowe_dane_osobowe': {
+          return this.employeeData.getName();
+          break;
+        }
+        case 'Ukonczone_szkoly': {
+          return this.employeeData.getName();
+          break;
+        }
         default: {
           return '';
           break;
