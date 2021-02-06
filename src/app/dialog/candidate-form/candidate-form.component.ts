@@ -23,7 +23,8 @@ const SCHOOLS: School[] = [];
 export class CandidateFormComponent implements OnInit {
 
   sortOrders: string[] = ['Mężczyzna', 'Kobieta', 'Inne'];
-  selectedSortOrder = 'Wybierz płeć';
+  defaultSortOrder = 'Wybierz płeć';
+  selectedSortOrder = this.defaultSortOrder;
   personalDataForm: FormGroup;
   contactDataForm: FormGroup;
   schoolDataForm: FormGroup;
@@ -43,9 +44,9 @@ export class CandidateFormComponent implements OnInit {
     // this.getFromDatabase();
     // console.log('Imie: ', this.employeeData.getName());
     this.dataComplete = true;
-    // if (this.employeeData.getSex != null){
-    //   this.selectedSortOrder = this.employeeData.getSex();
-    // }
+    if (this.employeeData.getSex != null){
+      this.selectedSortOrder = this.employeeData.getSex();
+    }
   }
 
   ngOnInit() {
@@ -65,16 +66,13 @@ export class CandidateFormComponent implements OnInit {
   }
 
 
-
-
   private initializePersonalDataForm() {
       this.personalDataForm = new FormGroup({
         id: new FormControl(null),
         firstName: new FormControl(this.employeeData.getName(), [Validators.required]),
         secondName: new FormControl(this.employeeData.getSecondName()),
         surname: new FormControl(this.employeeData.getSurname(), [Validators.required]),
-        dateOfBirth: new FormControl(this.employeeData.getBirthDate(), [Validators.required]),
-        sex: new FormControl([Validators.required])
+        birthDate: new FormControl(this.employeeData.getBirthDate(), [Validators.required]),
       });
   }
 
@@ -150,8 +148,8 @@ export class CandidateFormComponent implements OnInit {
   validate(){
     if (this.personalDataForm.value.firstName == null ||
     this.personalDataForm.value.surname == null ||
-    this.personalDataForm.value.dateOfBirth == null ||
-    this.personalDataForm.value.sex == null){
+    this.personalDataForm.value.birthDate == null ||
+    this.selectedSortOrder === this.defaultSortOrder){
       return false;
     }
     if (this.contactDataForm.value.phoneNumber == null ||
@@ -183,7 +181,6 @@ export class CandidateFormComponent implements OnInit {
     this.employeeData.setSecondName(this.personalDataForm.value.secondName);
     this.employeeData.setSurname(this.personalDataForm.value.surname);
     this.employeeData.setBirthDate(this.personalDataForm.value.birthDate);
-    console.log('Data urodzenia: ', this.personalDataForm.value.birthDate);
     this.employeeData.setSex(this.selectedSortOrder);
     this.employeeData.setPhoneNumber(this.contactDataForm.value.phoneNumber);
     // this.employeeData.setEmail(this.contactDataForm.value.email);

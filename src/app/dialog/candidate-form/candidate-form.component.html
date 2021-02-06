@@ -25,14 +25,14 @@
             <div class="row">
               <div class="col-sm-20 col-md-6 form-group">
                 <div class="input-group">
-                  <label for="dateOfBirth">Data urodzenia </label>
-                  <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"
+                  <label for="birthDate">Data urodzenia </label>
+                  <input id="birthDate" type="text" class="form-control" formControlName="birthDate"
                          placeholder="rrrr-mm-dd"
-                         name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                         name="birthDate" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                    <button class="btn btn-outline-secondary calendar" d="personalDataForm.value.birthDate" (click)="d.toggle()" type="button"></button>
                   </div>
-                  <div *ngIf="personalDataForm.get('dateOfBirth').hasError('required')">Pole wymagane.</div>
+                  <div *ngIf="personalDataForm.get('birthDate').hasError('required')">Pole wymagane.</div>
                 </div>
               </div>
 

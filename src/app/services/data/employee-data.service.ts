@@ -1,6 +1,7 @@
 import { ApiService } from '../api/api.service';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
+import {parseDate} from 'pdf-lib';
 
 let employee = {
     email: null,
@@ -177,11 +178,19 @@ export class EmployeeDataService {
   }
 
   getBirthDate(){
-    return this.employee.dateOfBirth;
+    let date;
+    date = this.employee.dateOfBirth.split('-');
+    if (date[1] < 10){ date[1] = (date[1][1]); }
+    if (date[2] < 10){ date[2]  = (date[2][1]); }
+    console.log(date);
+    return date;
   }
 
   setBirthDate(birthDate){
-    // this.employee.birthDate = birthDate;
+    if (birthDate.day < 10){ birthDate.day = ('0' + birthDate.day); }
+    if (birthDate.month < 10){ birthDate.month = ('0' + birthDate.month); }
+    const date = (birthDate.year + '-' + birthDate.month + '-' + birthDate.day);
+    this.employee.dateOfBirth  = date;
   }
 
   // getProfession(){
@@ -231,8 +240,6 @@ export class EmployeeDataService {
     for (let i = 0; i < schools.length; i++) {
       this.employee.education.push(schools[i]);
     }
-    console.log('Szkoły w setSchools: ', schools);
-    console.log('Education z db w setSchools: ', this.employee.education);
 
     // for (let i = 0; i < schools.length; i++) {
     //   this.employee.education.push({
