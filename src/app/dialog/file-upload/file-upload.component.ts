@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DocumentGeneratorService } from '../../services/documents/document-generator.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {DocumentGeneratorService} from '../../services/documents/document-generator.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-file-upload',
@@ -65,7 +65,7 @@ export class FileUploadComponent implements OnInit {
   upload(event) {
     // console.log('test', this.fileForm.value.file);
     // this.apiService.sendFile(this.fileForm.value.file);
-    console.log('test', this.fileForm.get('file').value);
+    // console.log('test', this.fileForm.get('file').value);
 
     const reader = new FileReader();
 
@@ -131,12 +131,12 @@ export class FileUploadComponent implements OnInit {
   }
 
   onSubmitFile() {
-    console.log(this.fileName); // , this.fileForm.get('file').value);
+    // console.log(this.fileName); // , this.fileForm.get('file').value);
     // this.ApiService.sendFile(this.fileForm.get('file').value);
-    this.documentGenerator.saveFile(this.fileForm.get('file').value);
+    this.documentGenerator.previewPDF(this.fileForm.get('file').value);
   }
 
-  saveFile(){
+  saveFile() {
     this.documentGenerator.saveFileToDataBase(this.fileForm.get('file').value);
   }
 

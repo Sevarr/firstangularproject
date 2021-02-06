@@ -53,6 +53,9 @@ export class AuthService {
   }
 
   isLoggedIn() {
+    if (!this.userType){
+      this.doLogoutUser();
+    }
     return !!this.getJwtToken();
   }
 
@@ -69,7 +72,7 @@ export class AuthService {
   }
 
   getUserType(){
-    console.log('User type: ', this.userType);
+    // console.log('User type: ', this.userType);
     return this.userType;
   }
 

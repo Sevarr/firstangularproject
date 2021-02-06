@@ -12,6 +12,7 @@ import { catchError, mapTo, tap } from 'rxjs/operators';
 export class ApiService {
   private data: any;
   private fileNames = null;
+  private file = null;
   constructor(private httpClient: HttpClient, private authService: AuthService) {
     this.getFileNames();
   }
@@ -62,9 +63,9 @@ export class ApiService {
 
   public sendFile(file){
     console.log('Poszedł plik do bazy');
-    var formData: any = new FormData();
-    formData.append('files', file.value);
-    console.log('tuuuu: ', formData.value);
+    let formData: any = new FormData();
+    formData.append('files', file);
+    console.log('tuuuu: ', file);
     return this.httpClient.post<any>(config.backend_url + '/uploadfiles/1', formData,
       {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
       .subscribe(response => console.log(response),
@@ -97,16 +98,15 @@ export class ApiService {
     // console.log('Pobrane z bazy nazwy plików: ', this.fileNames);
   }
 
+
   downloadFile(fileName){
-    let file;
-    console.log('Nazwa pliku: ', fileName);
+    // file;
     this.httpClient.get(config.backend_url + '/downloadfile/' + fileName,
       {responseType: 'blob', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .pipe(
-        tap (
-        response => file = response,
-          error => console.log(error))
-      );
-    return file;
+      .subscribe(
+        response => (this.file = response),
+          error => console.log(error));
+    console.log('Pobrany plik ', this.file);
+    return this.file;
   }
 }

@@ -109,6 +109,36 @@ export class DocumentGeneratorService {
     this.metadataOut.slice();
   }
 
+  public previewPDF(file){
+    this.modifyPDF(file);
+  }
+
+  async modifyDownloadPDF(file, fileName){
+    this.existingPdfBytes = await file.arrayBuffer(); // fetch(file).then(res => res.arrayBuffer());
+    this.pdfDoc = await PDFDocument.load(this.existingPdfBytes);
+    const helveticaFont = await this.pdfDoc.embedFont(StandardFonts.Helvetica);
+    const pages = this.pdfDoc.getPages();
+    const firstPage = pages[0];
+    const { width, height } = firstPage.getSize();
+    // this.drawText(firstPage, this.readData('firstName'), this.metadata[1].x, this.metadata[1].y, this.metadata[1].size, helveticaFont);
+    this.drawText(firstPage, helveticaFont);
+    const pdfBytes = await this.pdfDoc.save();
+    this.readMetadata();
+
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style.display = 'none';
+    const name = fileName;
+    const url_out = window.URL.createObjectURL(file);
+    a.href = url_out;
+    a.download = name;
+    a.click();
+    window.URL.revokeObjectURL(url_out);
+
+  }
+
+
+
   async modifyPDF(file) {
     console.log('działa');
     // const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf';
@@ -128,7 +158,7 @@ export class DocumentGeneratorService {
     // let size = parseInt(this.metadata[3]);
     const pages = this.pdfDoc.getPages();
     const firstPage = pages[0];
-    const {width, height} = firstPage.getSize();
+    const { width, height } = firstPage.getSize();
     // this.drawText(firstPage, this.readData('firstName'), this.metadata[1].x, this.metadata[1].y, this.metadata[1].size, helveticaFont);
     this.drawText(firstPage, helveticaFont);
     const pdfBytes = await this.pdfDoc.save();
@@ -151,28 +181,36 @@ export class DocumentGeneratorService {
     window.URL.revokeObjectURL(url_out);
   }
 
-  saveFile(file) {
-    // this.addMetadataToFile();
-    // console.log('Plik do wysłania do DB: ', file);
-    this.modifyPDF(file);
-    // this.files.push(file);
-    // this.saveFileToDataBase(file);
-    // this.metadataIn;
-  }
+  // saveFile(file) {
+  //   // this.addMetadataToFile();
+  //   // console.log('Plik do wysłania do DB: ', file);
+  //   this.modifyPDF(file);
+  //   // this.files.push(file);
+  //   // this.saveFileToDataBase(file);
+  //   // this.metadataIn;
+  // }
 
   public saveFileToDataBase(file){
 
     // Send to data base, nie działa na razie
-    this.apiService.sendFile(file);
+    // const blob = new Blob([file], {type: 'application/pdf'});
+    const bleb = new Blob([file], {type: 'application/pdf'});
+    this.apiService.sendFile(bleb);
   }
 
   public generateFile(fileName){
     let file = this.apiService.downloadFile(fileName);
-    // this.modifyPDF(file);
-    console.log('Tu jest pobrany plik: ', file);
-  }
-
-
+    // let run = false;
+    // while (!run) {
+    if (file) {
+        // run = true;
+        this.modifyDownloadPDF(file, fileName);
+        console.log('Tu jest pobrany plik: ', file);
+      } else {
+        file = this.apiService.downloadFile(fileName);
+      }
+    }
+    // }
 }
 
 

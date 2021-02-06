@@ -15,7 +15,9 @@ export class HomeGuard implements CanActivate, CanLoad {
 
   canLoad() {
     if (!this.authService.isLoggedIn()) {
+      if (!this.authService.getUserType()) {
       this.router.navigate(['/login']);
+      }
     }
     return this.authService.isLoggedIn();
   }
