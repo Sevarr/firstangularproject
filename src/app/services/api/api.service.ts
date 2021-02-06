@@ -63,8 +63,8 @@ export class ApiService {
 
   public sendFile(file){
     console.log('Poszedł plik do bazy');
-    let formData: any = new FormData();
-    formData.append('files', file);
+    const formData = new FormData();
+    formData.set('files', file);
     console.log('tuuuu: ', file);
     return this.httpClient.post<any>(config.backend_url + '/uploadfiles/1', formData,
       {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})

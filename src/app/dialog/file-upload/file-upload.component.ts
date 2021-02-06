@@ -142,7 +142,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   saveFile() {
-    this.documentGenerator.saveFileToDataBase();
+    this.documentGenerator.saveFileToDatabase();
   }
 
 }

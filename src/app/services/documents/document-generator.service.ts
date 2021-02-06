@@ -261,29 +261,30 @@ export class DocumentGeneratorService {
     this.metadataOut.slice();
   }
 
-  public async saveFileToDataBase() {
+  public async saveFileToDatabase() {
 
     // Send to data base, nie działa na razie
     // const blob = new Blob([file], {type: 'application/pdf'});
     // Właściwe połączenie z DB
-    // const bleb = new Blob([this.file], {type: 'application/pdf'});
-    // this.apiService.sendFile(bleb);
+
+    const blob = new Blob([this.fileName, this.file], {type: 'application/pdf'});
+    this.apiService.sendFile(blob);
 
     // Testowo dopóki DB nie działa
-    const pdfBytes = await this.pdfDoc.save();
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.style.display = 'none';
-    const name = this.fileName;
-    const blob = new Blob([pdfBytes], {type: 'application/pdf'});
-    const url_out = window.URL.createObjectURL(blob);
-    // console.log('Blob: ', blob);
-    // console.log('url_out: ', url_out);
-    // console.log('pdfBytes: ', pdfBytes);
-    a.href = url_out;
-    a.download = name;
-    a.click();
-    window.URL.revokeObjectURL(url_out);
+    // const pdfBytes = await this.pdfDoc.save();
+    // const a = document.createElement('a');
+    // document.body.appendChild(a);
+    // a.style.display = 'none';
+    // const name = this.fileName;
+    // const blob = new Blob([pdfBytes], {type: 'application/pdf'});
+    // const url_out = window.URL.createObjectURL(blob);
+    // // console.log('Blob: ', blob);
+    // // console.log('url_out: ', url_out);
+    // // console.log('pdfBytes: ', pdfBytes);
+    // a.href = url_out;
+    // a.download = name;
+    // a.click();
+    // window.URL.revokeObjectURL(url_out);
   }
 
 

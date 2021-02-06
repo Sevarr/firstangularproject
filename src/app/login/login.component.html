@@ -5,17 +5,21 @@
 <!--  <input type="submit" name="" value="Login">-->
 <!--</form>-->
 <html>
+<head>
+  <meta charset="utf-8">
+  <title>َAnimated Login Form</title>
+</head>
 <body>
 
 
-<div class="header center">Log In</div>
+<!--<div class="header center">Log In</div>-->
 
-<form [formGroup]="loginForm" (ngSubmit)="login()">
+<form class="box" [formGroup]="loginForm" (ngSubmit)="login()">
     <input  type="text" id="email" placeholder="email" autocomplete="off" formControlName="email" required>
     <input  type="password" id="password" placeholder="Password" formControlName="password" required>
-  <div class="actions">
+<!--  <div class="actions">-->
     <button color="primary" type="submit" [disabled]="!loginForm.valid">LOG IN</button>
-  </div>
+<!--  </div>-->
 
 </form>
 
