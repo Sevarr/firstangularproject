@@ -1,9 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
-import { EmployeeDataService } from '../../services/data/employee-data.service';
-import { ApiService } from '../api/api.service';
-import { FormControl, FormGroup } from '@angular/forms';
-import { formatDate } from '@angular/common';
+import {Injectable, OnInit} from '@angular/core';
+import {PDFDocument, StandardFonts, rgb} from 'pdf-lib';
+import {EmployeeDataService} from '../../services/data/employee-data.service';
+import {ApiService} from '../api/api.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {formatDate} from '@angular/common';
+import {first} from 'rxjs/operators';
 
 interface Metadata {
   name: string;
@@ -21,47 +22,76 @@ export class DocumentGeneratorService {
   private url: string;
   private existingPdfBytes: ArrayBuffer;
   private pdfDoc: PDFDocument;
+  private pdfDocPreview: PDFDocument;
   private metadataOut = METADATA;
   private metadataIn = METADATA;
   public files = [];
+  private file;
+  private fileName;
 
   constructor(private employeeData: EmployeeDataService, private apiService: ApiService) {
   }
 
   addMetadata(name, positionX, positionY, size) {
-    this.metadataIn.push({
+    this.metadataOut.push({
       name,
       x: parseInt(positionX),
       y: parseInt(positionY),
       size: parseInt(size)
     });
-    console.log('Dodane Metadata: ', this.metadataIn);
+    // console.log('Dodane Metadata: ', this.metadataIn);
     // this.pdfDoc.setKeywords(['firstName', '5', '800', '10', ';', 'firstName', '67', '800', '10', ';', 'firstName', '75', '800', '10', ';', 'firstName', '84', '800', '10', ';', 'firstName', '129', '800', '10']);
   }
 
   private addMetadataToFile() {
-    // this.pdfDoc.setKeywords([]);
-    console.log('Metadata do dodania do pliku pdf: ', this.metadataIn);
-    let data: string;
-    if (this.metadataIn) {
-      for (let i = 0; this.metadataIn.length > i; i++) {
-        if (data === undefined) {
-          data = (this.metadataIn[i].name + ' ' + this.metadataIn[i].x + ' ' + this.metadataIn[i].y + ' ' + this.metadataIn[i].size + ' ' + ';');
-        } else {
-          data = (data + ' ' + this.metadataIn[i].name + ' ' + this.metadataIn[i].x + ' ' + this.metadataIn[i].y + ' ' + this.metadataIn[i].size + ' ' + ';');
-        }
-      }
+    // // this.pdfDoc.setKeywords([]);
+    // console.log('Metadata do dodania do pliku pdf: ', this.metadataIn);
+    // let data = null;
+    // if (this.metadataIn) {
+    //   for (let i = 0; this.metadataIn.length > i; i++) {
+    //     if (data === undefined) {
+    //       data = (this.metadataIn[i].name + ' ' + this.metadataIn[i].x + ' ' + this.metadataIn[i].y + ' ' + this.metadataIn[i].size + ' ' + ';');
+    //     } else {
+    //       data = (data + ' ' + this.metadataIn[i].name + ' ' + this.metadataIn[i].x + ' ' + this.metadataIn[i].y + ' ' + this.metadataIn[i].size + ' ' + ';');
+    //     }
+    //   }
+    // }
+    // console.log('Metadata połączone do dodania do pliku pdf: ', data);
+    // return data;
+
+    const keywords = [];
+    if (this.metadataOut.length > 0) {
+      // let i = 0;
+      this.metadataOut.forEach(item => {
+        keywords.push(item.name);
+        keywords.push(item.x);
+        keywords.push(item.y);
+        keywords.push(item.size);
+        keywords.push(';');
+        // i++;
+      });
+      this.pdfDoc.setKeywords(keywords);
     }
-    console.log('Metadata połączone do dodania do pliku pdf: ', data);
+
+
+
+      // for (let i = 0; data.length > i; i++) {
+      //   let singleData = data[i].split(' ');
+        // this.metadataIn.({
+        //   name: (singleData[0]),
+        //   x: parseInt(singleData[1]),
+        //   y: parseInt(singleData[2]),
+        //   size: parseInt(singleData[3])
+        // });
+
   }
 
-  readMetadata() {
-    if (this.pdfDoc.getKeywords()) {
-      let data = this.pdfDoc.getKeywords().split('; ');
-      console.log('Data:', data);
+  readMetadata(pdfDoc) {
+    if (pdfDoc.getKeywords()) {
+      let data = pdfDoc.getKeywords().split(' ; ');
+      // console.log('Data:', data);
       for (let i = 0; data.length > i; i++) {
         let singleData = data[i].split(' ');
-        // console.log('Singledata: ', singleData);
         this.metadataOut.push({
           name: (singleData[0]),
           x: parseInt(singleData[1]),
@@ -95,8 +125,8 @@ export class DocumentGeneratorService {
   // }
 
   // private drawText(page, data, x, y, size, font) {
-  private drawText(page, font) {
-    this.readMetadata();
+  private drawText(page, font, pdfDoc) {
+    this.readMetadata(pdfDoc);
     for (let i = 0; this.metadataOut.length > i; i++) {
       page.drawText(this.readData(this.metadataOut[i].name), {
         x: this.metadataOut[i].x,
@@ -109,21 +139,63 @@ export class DocumentGeneratorService {
     this.metadataOut.slice();
   }
 
-  public previewPDF(file){
-    this.modifyPDF(file);
+  // public async generatePDF() {
+  //   // this.existingPdfBytes = await fetch(this.file).then(res => res.arrayBuffer());
+  //   // this.pdfDoc = await PDFDocument.load(this.existingPdfBytes);
+  //
+  //   // this.pdfDoc.setKeywords(this.addMetadataToFile());
+  //   // this.addMetadataToFile();
+  //   // const pdfBytes = await this.pdfDoc.save();
+  //   //
+  //   // const a = document.createElement('a');
+  //   // document.body.appendChild(a);
+  //   // const blob = new Blob([pdfBytes], {type: 'application/pdf'});
+  // }
+
+  public async setPDF(file) {
+    this.file = file;
+    this.fileName = file.name;
+    this.existingPdfBytes = await fetch(file).then(res => res.arrayBuffer());
+    this.pdfDoc = await PDFDocument.load(this.existingPdfBytes);
+    this.pdfDocPreview = await PDFDocument.load(this.existingPdfBytes);
+    this.addMetadataToFile();
   }
 
-  async modifyDownloadPDF(file, fileName){
-    this.existingPdfBytes = await file.arrayBuffer(); // fetch(file).then(res => res.arrayBuffer());
-    this.pdfDoc = await PDFDocument.load(this.existingPdfBytes);
-    const helveticaFont = await this.pdfDoc.embedFont(StandardFonts.Helvetica);
-    const pages = this.pdfDoc.getPages();
+  public async previewPDF() {
+    // this.readMetadata();
+    let pdfDoc = this.pdfDocPreview;
+    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const pages = pdfDoc.getPages();
     const firstPage = pages[0];
     const { width, height } = firstPage.getSize();
-    // this.drawText(firstPage, this.readData('firstName'), this.metadata[1].x, this.metadata[1].y, this.metadata[1].size, helveticaFont);
-    this.drawText(firstPage, helveticaFont);
-    const pdfBytes = await this.pdfDoc.save();
-    this.readMetadata();
+    this.drawText(firstPage, helveticaFont, pdfDoc);
+    const pdfBytes = await pdfDoc.save();
+
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style.display = 'none';
+    const name = this.fileName;
+    const blob = new Blob([pdfBytes], {type: 'application/pdf'});
+    const url_out = window.URL.createObjectURL(blob);
+    // console.log('Blob: ', blob);
+    // console.log('url_out: ', url_out);
+    // console.log('pdfBytes: ', pdfBytes);
+    a.href = url_out;
+    a.download = name;
+    a.click();
+    window.URL.revokeObjectURL(url_out);
+  }
+
+  private async modifyDownloadPDF(file, fileName) {
+    const existingPdfBytes = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(existingPdfBytes);
+    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const pages = pdfDoc.getPages();
+    const firstPage = pages[0];
+    const { width, height } = firstPage.getSize();
+    this.drawText(firstPage, helveticaFont, pdfDoc);
+    const pdfBytes = await pdfDoc.save();
+    // this.readMetadata(pdfDoc);
 
     const a = document.createElement('a');
     document.body.appendChild(a);
@@ -137,49 +209,89 @@ export class DocumentGeneratorService {
 
   }
 
+  public async saveFileToDataBase() {
 
+    // Send to data base, nie działa na razie
+    // const blob = new Blob([file], {type: 'application/pdf'});
+    // Właściwe połączenie z DB
+    // const bleb = new Blob([this.file], {type: 'application/pdf'});
+    // this.apiService.sendFile(bleb);
 
-  async modifyPDF(file) {
-    console.log('działa');
-    // const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf';
-    this.url = '/assets/testowyplik.pdf';
-    // this.existingPdfBytes = await fetch(this.url).then(res => res.arrayBuffer());
-    this.existingPdfBytes = await fetch(file).then(res => res.arrayBuffer());
-    this.pdfDoc = await PDFDocument.load(this.existingPdfBytes);
-
-    const helveticaFont = await this.pdfDoc.embedFont(StandardFonts.Helvetica);
-    // this.addMetadata();
-    this.addMetadataToFile();
-    this.readMetadata();
-    // console.log(this.readData('firstName'));
-    // console.log('Keywords:', this.metadata);
-    // let x = parseInt(this.metadata[1]);
-    // let y = parseInt(this.metadata[2]);
-    // let size = parseInt(this.metadata[3]);
-    const pages = this.pdfDoc.getPages();
-    const firstPage = pages[0];
-    const { width, height } = firstPage.getSize();
-    // this.drawText(firstPage, this.readData('firstName'), this.metadata[1].x, this.metadata[1].y, this.metadata[1].size, helveticaFont);
-    this.drawText(firstPage, helveticaFont);
+    // Testowo dopóki DB nie działa
     const pdfBytes = await this.pdfDoc.save();
-    // console.log(pdfBytes);
-    // download(pdfBytes, 'pdf-lib_creation_example.pdf', 'application/pdf');
-
-
     const a = document.createElement('a');
     document.body.appendChild(a);
     a.style.display = 'none';
-    const name = 'testowyplik.pdf';
+    const name = this.fileName;
     const blob = new Blob([pdfBytes], {type: 'application/pdf'});
     const url_out = window.URL.createObjectURL(blob);
-    console.log('Blob: ', blob);
-    console.log('url_out: ', url_out);
-    console.log('pdfBytes: ', pdfBytes);
+    // console.log('Blob: ', blob);
+    // console.log('url_out: ', url_out);
+    // console.log('pdfBytes: ', pdfBytes);
     a.href = url_out;
     a.download = name;
     a.click();
     window.URL.revokeObjectURL(url_out);
   }
+
+
+
+  public generateFile(fileName){
+    let file = this.apiService.downloadFile(fileName);
+    // let run = false;
+    // while (!run) {
+    if (file) {
+      // run = true;
+      this.modifyDownloadPDF(file, fileName);
+      // console.log('Tu jest pobrany plik: ', file);
+    } else {
+      file = this.apiService.downloadFile(fileName);
+    }
+  }
+  // }
+}
+
+  // async modifyPDF(file) {
+  //   console.log('działa');
+  //   // const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf';
+  //   this.url = '/assets/testowyplik.pdf';
+  //   // this.existingPdfBytes = await fetch(this.url).then(res => res.arrayBuffer());
+  //   this.existingPdfBytes = await fetch(file).then(res => res.arrayBuffer());
+  //   this.pdfDoc = await PDFDocument.load(this.existingPdfBytes);
+  //
+  //   const helveticaFont = await this.pdfDoc.embedFont(StandardFonts.Helvetica);
+  //   // this.addMetadata();
+  //   this.addMetadataToFile();
+  //   this.readMetadata();
+  //   // console.log(this.readData('firstName'));
+  //   // console.log('Keywords:', this.metadata);
+  //   // let x = parseInt(this.metadata[1]);
+  //   // let y = parseInt(this.metadata[2]);
+  //   // let size = parseInt(this.metadata[3]);
+  //   const pages = this.pdfDoc.getPages();
+  //   const firstPage = pages[0];
+  //   const { width, height } = firstPage.getSize();
+  //   // this.drawText(firstPage, this.readData('firstName'), this.metadata[1].x, this.metadata[1].y, this.metadata[1].size, helveticaFont);
+  //   this.drawText(firstPage, helveticaFont);
+  //   const pdfBytes = await this.pdfDoc.save();
+  //   // console.log(pdfBytes);
+  //   // download(pdfBytes, 'pdf-lib_creation_example.pdf', 'application/pdf');
+  //
+  //
+  //   const a = document.createElement('a');
+  //   document.body.appendChild(a);
+  //   a.style.display = 'none';
+  //   const name = 'testowyplik.pdf';
+  //   const blob = new Blob([pdfBytes], {type: 'application/pdf'});
+  //   const url_out = window.URL.createObjectURL(blob);
+  //   console.log('Blob: ', blob);
+  //   console.log('url_out: ', url_out);
+  //   console.log('pdfBytes: ', pdfBytes);
+  //   a.href = url_out;
+  //   a.download = name;
+  //   a.click();
+  //   window.URL.revokeObjectURL(url_out);
+  // }
 
   // saveFile(file) {
   //   // this.addMetadataToFile();
@@ -190,28 +302,7 @@ export class DocumentGeneratorService {
   //   // this.metadataIn;
   // }
 
-  public saveFileToDataBase(file){
 
-    // Send to data base, nie działa na razie
-    // const blob = new Blob([file], {type: 'application/pdf'});
-    const bleb = new Blob([file], {type: 'application/pdf'});
-    this.apiService.sendFile(bleb);
-  }
-
-  public generateFile(fileName){
-    let file = this.apiService.downloadFile(fileName);
-    // let run = false;
-    // while (!run) {
-    if (file) {
-        // run = true;
-        this.modifyDownloadPDF(file, fileName);
-        console.log('Tu jest pobrany plik: ', file);
-      } else {
-        file = this.apiService.downloadFile(fileName);
-      }
-    }
-    // }
-}
 
 
 //

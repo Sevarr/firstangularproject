@@ -13,7 +13,7 @@ export class FileUploadComponent implements OnInit {
   dataToAddForm: FormGroup;
   private fileName;
   closeResult = '';
-  list = ['Data', 'Imie', 'Drugie imie', 'Nazwisko', 'Data urodzenia', 'Plec', 'Numer telefonu', 'Miejscowosc wypelniania formularza', 'Kwalifikacje zawodowe', 'Przebieg dotychczasowego zatrudnienia', 'Dodatkowe dane osobowe', 'Ukonczone szkoly'];
+  list = ['Data', 'Imie', 'Drugie_imie', 'Nazwisko', 'Data_urodzenia', 'Plec', 'Numer_telefonu', 'Miejscowosc_wypelniania_formularza', 'Kwalifikacje_zawodowe', 'Przebieg_dotychczasowego_zatrudnienia', 'Dodatkowe_dane_osobowe', 'Ukonczone_szkoly'];
   sortOrders: string[] = this.list;
   defaultSelectedSortOrder = 'Wybierz informację, którą chcesz dodać do pliku';
   selectedSortOrder = this.defaultSelectedSortOrder;
@@ -80,7 +80,6 @@ export class FileUploadComponent implements OnInit {
         });
       };
     }
-    this.documentGenerator.saveFileToDataBase(this.fileForm.get('file').value);
   }
 
   validate() {
@@ -134,11 +133,16 @@ export class FileUploadComponent implements OnInit {
   onSubmitFile() {
     // console.log(this.fileName); // , this.fileForm.get('file').value);
     // this.ApiService.sendFile(this.fileForm.get('file').value);
-    this.documentGenerator.previewPDF(this.fileForm.get('file').value);
+    this.documentGenerator.setPDF(this.fileForm.get('file').value);
+    // this.documentGenerator.generatePDF();
+  }
+
+  previewPDF(){
+    this.documentGenerator.previewPDF();
   }
 
   saveFile() {
-    this.documentGenerator.saveFileToDataBase(this.fileForm.get('file').value);
+    this.documentGenerator.saveFileToDataBase();
   }
 
 }

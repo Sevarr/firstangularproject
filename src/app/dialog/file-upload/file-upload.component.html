@@ -19,13 +19,14 @@
 
 <div>
   <h3>Upload File</h3>
-  <form [formGroup]="fileForm" (ngSubmit)="onSubmitFile()" >
+  <form [formGroup]="fileForm" (ngSubmit)="onSubmitFile()">
     <input type="file" (change)="upload($event)" /> <br><br>
-    <button type="submit" value="upload">Podgląd pliku</button>
+    <button type="submit" value="upload">Zapisz informacje w dokumencie</button>
   </form>
 </div>
 
-<button (click)="saveFile()">Zapisz plik</button>
+<button (click)="previewPDF()">Podgląd dokumentu</button>
+<button (click)="saveFile()">Zapisz dokument</button>
 
 <ng-template #poppingmassagecontent let-modal>
   <div class="modal-header">
