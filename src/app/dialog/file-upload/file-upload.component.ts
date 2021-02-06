@@ -80,6 +80,7 @@ export class FileUploadComponent implements OnInit {
         });
       };
     }
+    this.documentGenerator.saveFileToDataBase(this.fileForm.get('file').value);
   }
 
   validate() {
