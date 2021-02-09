@@ -42,8 +42,9 @@ export class ApiService {
     return this.registrationLink;
     }
 
-    public newUserRegistration(registerLink, user: { email: string; password: string }, password) {
-      this.httpClient.post<any>(config.backend_url + `/register/` + registerLink, user)
+    public newUserRegistration(registerLink, user) {
+    console.log(user);
+      this.httpClient.post<any>(config.backend_url + `/register/` + registerLink, {email: user.email, password: user.password} )
         .subscribe(response => console.log(response),
           (error => console.log(error)));
     }

@@ -11,7 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {RouterModule} from '@angular/router';
 // import {EmployeeDataService} from '../services/data/employee-data.service';
 import { CreateNewAccountComponent } from '../dialog/accounts/create-new-account/create-new-account.component';
-import { RegisterNewAccountComponent} from '../dialog/accounts/register-new-account/register-new-account.component';
+// import { RegisterNewAccountComponent } from '../dialog/accounts/register-new-account/register-new-account.component';
 // import {AdminComponent} from '../dialog/users/admin/admin.component';
 import { HomeComponent } from './home.component';
 import { CandidateFormComponent } from '../dialog/candidate-form/candidate-form.component';
@@ -31,7 +31,7 @@ import { ChangeAccountDataComponent } from '../dialog/accounts/change-account-da
   declarations: [
     HomeComponent,
     CreateNewAccountComponent,
-    RegisterNewAccountComponent,
+    // RegisterNewAccountComponent,
     // LoginComponent,
     // AdminComponent,
     CandidateFormComponent,

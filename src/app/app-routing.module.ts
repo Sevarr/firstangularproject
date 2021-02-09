@@ -10,10 +10,6 @@ import { RegisterNewAccountComponent } from './dialog/accounts/register-new-acco
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   {
-    path: 'register',
-    component: RegisterNewAccountComponent,
-  },
-  {
     path: 'login',
     component: LoginComponent,
     canActivate: [AuthGuard]
@@ -24,6 +20,10 @@ const routes: Routes = [
     canActivate: [HomeGuard],
     canLoad: [HomeGuard]
   },
+  {
+    path: 'register',
+    component: RegisterNewAccountComponent,
+  }
 ];
 
 @NgModule({

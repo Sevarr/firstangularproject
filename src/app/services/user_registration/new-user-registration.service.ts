@@ -8,7 +8,7 @@ export class NewUserRegistrationService {
 
   constructor(private apiService: ApiService) { }
 
-  registerUser(registrationLink, email, password) {
-    this.apiService.newUserRegistration(registrationLink, email, password);
+  registerUser(registrationLink, credentials) {
+    this.apiService.newUserRegistration(registrationLink, credentials);
   }
 }
