@@ -13,6 +13,7 @@ export class ApiService {
   private data: any;
   private fileNames = null;
   private file = null;
+  private registrationLink: string;
   constructor(private httpClient: HttpClient, private authService: AuthService) {
     this.getFileNames();
   }
@@ -30,13 +31,21 @@ export class ApiService {
   // }
 
   newAccountRegistrationLink(userType: { userType: string }){
-    return this.httpClient.post(config.backend_url + '/generatelink', userType,
+    this.httpClient.post(config.backend_url + '/generatelink', userType,
       {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe( error => console.log(error) );
+      .subscribe( response => this.registrationLink = response);
     }
 
-    public registrationLink(registerLink){
-      console.log('poszło tutaj: ', registerLink);
+    getRegistrationLink(){
+    const link = this.registrationLink.split('register/');
+    this.registrationLink = link[1];
+    return this.registrationLink;
+    }
+
+    public newUserRegistration(registerLink, user: { email: string; password: string }, password) {
+      this.httpClient.post<any>(config.backend_url + `/register/` + registerLink, user)
+        .subscribe(response => console.log(response),
+          (error => console.log(error)));
     }
 
   // Get corrent user data from database by id

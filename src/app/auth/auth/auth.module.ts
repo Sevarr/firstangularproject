@@ -10,6 +10,8 @@ import { HomeGuard } from '../guards/home.guard';
 import { TokenInterceptor } from '../token.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+// import {RegisterNewAccountComponent} from '../../dialog/accounts/register-new-account/register-new-account.component';
+// import { RegisterNewAccountComponent } from '../../dialog/accounts/register-new-account/register-new-account.component';
 // import { NewEmployeeComponent } from '../../dialog/users/new-employee/new-employee.component';
 // import { CandidateFormComponent } from '../../dialog/candidate-form/candidate-form.component';
 // import { EmployeeFormComponent } from '../../dialog/employee-form/employee-form.component';
@@ -38,8 +40,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     // ReactiveFormsModule,
     // RouterModule.forRoot([
     //   {
-    //     path: 'new',
-    //     component: CreateNewAccountComponent
+    //     path: 'register',
+    //     component: RegisterNewAccountComponent
     //   },
     // {
     //   path: 'login',

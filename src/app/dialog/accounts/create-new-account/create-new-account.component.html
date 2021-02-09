@@ -1,2 +1,3 @@
 <p>create-new-account works!</p>
-<button (click)="generateRegisterLink()"></button>
+<button *ngIf="hideRegisterButton" (click)="getRegistratonLink()">Wygeneruj link logowania</button>
+<form *ngIf="hideRegistrationLink">Link: {{ registrationLink }}</form>

@@ -2,11 +2,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import {RouterModule} from '@angular/router';
-import {AppRoutingModule} from './app-routing.module';
-import {AuthModule} from './auth/auth/auth.module';
-import {AppComponent} from './app.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbCollapse, NgbDatepicker, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from './auth/auth/auth.module';
+import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbCollapse, NgbDatepicker, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent} from './login/login.component';
+// import { RegisterNewAccountComponent } from './dialog/accounts/register-new-account/register-new-account.component';
+
 // import { CreateNewAccountComponent } from './dialog/accounts/create-new-account/create-new-account.component';
 // import { RegisterNewAccountComponent } from './dialog/accounts/register-new-account/register-new-account.component';
 // import {LoginComponent} from './login/login.component';
@@ -26,6 +29,7 @@ import {NgbCollapse, NgbDatepicker, NgbModule} from '@ng-bootstrap/ng-bootstrap'
 @NgModule({
   declarations: [
     AppComponent,
+    // RegisterNewAccountComponent
     // CreateNewAccountComponent,
     // RegisterNewAccountComponent,
     // // LoginComponent,

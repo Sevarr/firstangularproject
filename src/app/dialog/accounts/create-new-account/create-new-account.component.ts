@@ -10,15 +10,26 @@ import {of} from 'rxjs';
 })
 export class CreateNewAccountComponent implements OnInit {
   private data: any;
+  hideRegisterButton = true;
+  hideRegistrationLink = false;
+  registrationLink: string;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+    this.generateRegisterLink();
+  }
 
   ngOnInit(): void {
   }
 
+  getRegistratonLink(){
+    this.hideRegisterButton = false;
+    this.hideRegistrationLink = true;
+    this.registrationLink = this.apiService.getRegistrationLink();
+  }
+
   generateRegisterLink() {
-    console.log('Testuje');
     console.log(this.apiService.newAccountRegistrationLink({userType: 'WORKER'})); // .subscribe(data => { this.data = data; });
+
       // .pipe(
         // tap(registerLink => this.data = registerLink),
         // mapTo(true),

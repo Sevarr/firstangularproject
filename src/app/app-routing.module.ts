@@ -3,11 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { HomeGuard } from './auth/guards/home.guard';
+import { RegisterNewAccountComponent } from './dialog/accounts/register-new-account/register-new-account.component';
 // import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
+  {
+    path: 'register',
+    component: RegisterNewAccountComponent,
+  },
   {
     path: 'login',
     component: LoginComponent,
@@ -18,7 +23,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
     canActivate: [HomeGuard],
     canLoad: [HomeGuard]
-  }
+  },
 ];
 
 @NgModule({
