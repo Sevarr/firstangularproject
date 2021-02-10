@@ -1,6 +1,6 @@
 <p>create-new-account works!</p>
-<button *ngIf="hideRegisterButton" (click)="getWorkerRegistratonLink()">Wygeneruj link logowania dla nowego pracownika</button>
-<button *ngIf="hideRegisterButton" (click)="getHREmployeeRegistratonLink()">Wygeneruj link logowania dla pracownika działu kadr</button>
-<button *ngIf="hideRegisterButton" (click)="getAdminRegistratonLink()">Wygeneruj link logowania dla administratora</button>
+<button *ngIf="hideWorkerRegisterButton" (click)="generateRegistrationLink('WORKER')">Wygeneruj link logowania dla nowego pracownika</button>
+<button *ngIf="hidehrEmployeeRegisterButton" (click)="generateRegistrationLink('HR_EMPLOYEE')">Wygeneruj link logowania dla pracownika działu kadr</button>
+<button *ngIf="hideAdminRegisterButton" (click)="generateRegistrationLink('ADMIN')">Wygeneruj link logowania dla administratora</button>
 
-<form *ngIf="hideRegistrationLink">Link: {{ registrationLink }}</form>
+<form *ngIf="hideRegistrationLink">Link dla {{userType}}: {{ registrationLink }}</form>

@@ -65,6 +65,7 @@ export class NewEmployeeComponent implements OnInit {
     this.hideCandidateForm = false;
     this.hideEmployeeForm = false;
     this.hideDocumentGenerator = false;
+    this.hideFileDownload = false;
   }
 
 

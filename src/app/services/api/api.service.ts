@@ -11,8 +11,9 @@ export class ApiService {
   private data: any;
   private fileNames = null;
   private file = null;
-  private workerRegistrationLink: string;
-  private hrEmployeeRegistrationLink: string;
+  private registrationLink: string;
+  // private workerRegistrationLink: string;
+  // private hrEmployeeRegistrationLink: string;
   private adminRegistrationLink: string;
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {
@@ -40,41 +41,82 @@ export class ApiService {
     return this.authService.getUserEmail();
   }
 
-  newWorkerRegistrationLink() {
-    this.httpClient.post(config.backend_url + '/generatelink', { userType: 'WORKER' },
-      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(response => this.workerRegistrationLink = response);
+  getUserRegistrationLink(userType){
+    this.generateUserRegistrationLink(userType);
+    const link = this.registrationLink.split('register/');
+    this.registrationLink = link[1];
+    return this.registrationLink;
   }
 
-  newHREmployeeRegistrationLink() {
-    this.httpClient.post(config.backend_url + '/generatelink', { userType: 'HR_EMPLOYEE' },
-      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(response => this.hrEmployeeRegistrationLink = response);
-  }
-
-  newAdminRegistrationLink() {
-    this.httpClient.post<string>(config.backend_url + '/generatelinkadmin',
-      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(response => this.adminRegistrationLink = response);
+  private generateUserRegistrationLink(userType){
+    this.httpClient.post(config.backend_url + '/generatelink', { userType },
+        {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+        .subscribe(response => this.registrationLink = response);
   }
 
   getAdminRegistrationLink() {
+    this.generateAdminRegistrationLink('ADMIN');
+    console.log(this.adminRegistrationLink);
     const link = this.adminRegistrationLink.split('register/');
     this.adminRegistrationLink = link[1];
     return this.adminRegistrationLink;
   }
 
-  getWorkerRegistrationLink() {
-    const link = this.workerRegistrationLink.split('register/');
-    this.workerRegistrationLink = link[1];
-    return this.workerRegistrationLink;
-  }
+  private generateAdminRegistrationLink(userType) {
+    this.httpClient.post(config.backend_url + '/generatelinkadmin', { userType },
+      {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .subscribe(response => this.adminRegistrationLink = response);
+        // this.httpClient.post<string>(config.backend_url + '/generatelinkadmin',
+        //   {response: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+        //   .subscribe(response => this.adminRegistrationLink = response);
+      }
 
-  getHREmployeeRegistrationLink() {
-    const link = this.hrEmployeeRegistrationLink.split('register/');
-    this.hrEmployeeRegistrationLink = link[1];
-    return this.hrEmployeeRegistrationLink;
-  }
+  // newAdminRegistrationLink() {
+  //     this.httpClient.post<string>(config.backend_url + '/generatelinkadmin',
+  //       {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+  //       .subscribe(response => this.adminRegistrationLink = response);
+  //   }
+  //
+  //   getAdminRegistrationLink() {
+  //     const link = this.adminRegistrationLink.split('register/');
+  //     this.adminRegistrationLink = link[1];
+  //     return this.adminRegistrationLink;
+  //
+  // newWorkerRegistrationLink() {
+  //   this.httpClient.post(config.backend_url + '/generatelink', { userType: 'WORKER' },
+  //     {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+  //     .subscribe(response => this.workerRegistrationLink = response);
+  // }
+  //
+  // newHREmployeeRegistrationLink() {
+  //   this.httpClient.post(config.backend_url + '/generatelink', { userType: 'HR_EMPLOYEE' },
+  //     {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+  //     .subscribe(response => this.hrEmployeeRegistrationLink = response);
+  // }
+  //
+  // newAdminRegistrationLink() {
+  //   this.httpClient.post<string>(config.backend_url + '/generatelinkadmin',
+  //     {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+  //     .subscribe(response => this.adminRegistrationLink = response);
+  // }
+  //
+  // getAdminRegistrationLink() {
+  //   const link = this.adminRegistrationLink.split('register/');
+  //   this.adminRegistrationLink = link[1];
+  //   return this.adminRegistrationLink;
+  // }
+  //
+  // getWorkerRegistrationLink() {
+  //   const link = this.workerRegistrationLink.split('register/');
+  //   this.workerRegistrationLink = link[1];
+  //   return this.workerRegistrationLink;
+  // }
+  //
+  // getHREmployeeRegistrationLink() {
+  //   const link = this.hrEmployeeRegistrationLink.split('register/');
+  //   this.hrEmployeeRegistrationLink = link[1];
+  //   return this.hrEmployeeRegistrationLink;
+  // }
 
   public newUserRegistration(registerLink, user) {
     console.log(user);
