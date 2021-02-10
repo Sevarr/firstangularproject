@@ -6,11 +6,11 @@
   <form [formGroup]="passwordDataForm" (ngSubmit)="changePassword()">
     <div class="row">
       <div class="col-sm-12 col-md-4 form-group">
-        <label for="oldPassword">Stare hasło</label>
-        <input id="oldPassword" type="password" class="form-control" formControlName="oldPassword">
-        <br>
-        <label for="password">Nowe hasło</label>
+        <label for="password">Stare hasło</label>
         <input id="password" type="password" class="form-control" formControlName="password">
+        <br>
+        <label for="newPassword">Nowe hasło</label>
+        <input id="newPassword" type="password" class="form-control" formControlName="newPassword">
         <br>
         <label for="confirmPassword">Ponownie nowe hasło</label>
         <input id="confirmPassword" type="password" class="form-control" formControlName="confirmPassword">

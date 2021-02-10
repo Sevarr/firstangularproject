@@ -11,7 +11,9 @@ import {of} from 'rxjs';
 export class CreateNewAccountComponent implements OnInit {
   private data: any;
   hideRegisterButton = true;
-  hideRegistrationLink = false;
+  hideWorkerRegistrationLink = false;
+  hideHREmployeeRegistrationLink = false;
+  hideAdminRegistrationLink = false;
   registrationLink: string;
 
   constructor(private apiService: ApiService) {
@@ -23,23 +25,32 @@ export class CreateNewAccountComponent implements OnInit {
 
   getRegistratonLink(){
     this.hideRegisterButton = false;
-    this.hideRegistrationLink = true;
-    this.registrationLink = this.apiService.getRegistrationLink();
+    this.hideWorkerRegistrationLink = true;
+    this.registrationLink = this.apiService.getWorkerRegistrationLink();
   }
 
   generateRegisterLink() {
-    console.log(this.apiService.newAccountRegistrationLink({userType: 'WORKER'})); // .subscribe(data => { this.data = data; });
+    console.log(this.apiService.newWorkerRegistrationLink());
+    // @ts-ignore
+    if (this.apiService.getUserType === ('ADMIN')) {
+      console.log(this.apiService.newHREmployeeRegistrationLink());
+      console.log(this.apiService.newAdminRegistrationLink());
+    }
+  }
 
-      // .pipe(
-        // tap(registerLink => this.data = registerLink),
-        // mapTo(true),
-        // catchError(error => {
-        //   alert(error.error);
-        //   return of(false);
-        // }));
-    // .subscribe((url) => {
-      // this.data = url;
-    // });
-    // console.log('Co zas: ', this.data);
+  generateAdminRegisterLink(){
+    console.log(this.apiService.newAdminRegistrationLink());
+  }
+
+  getAdminRegistratonLink() {
+    console.log(this.apiService.getAdminRegistrationLink());
+  }
+
+  getWorkerRegistratonLink() {
+    console.log(this.apiService.newWorkerRegistrationLink());
+  }
+
+  getHREmployeeRegistratonLink() {
+    console.log(this.apiService.newHREmployeeRegistrationLink());
   }
 }

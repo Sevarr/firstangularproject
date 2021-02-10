@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import { EmployeeDataService } from '../../services/data/employee-data.service';
 import { ApiService } from '../api/api.service';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../api/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { first } from 'rxjs/operators';

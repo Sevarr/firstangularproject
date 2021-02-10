@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../../../services/api/api.service';
 
 @Component({
   selector: 'app-change-account-data',
@@ -8,10 +8,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./change-account-data.component.css']
 })
 export class ChangeAccountDataComponent implements OnInit {
-  accountType = this.authService.getUserType();
+  accountType = this.apiService.getUserType();
   passwordDataForm: FormGroup;
   private response;
-  constructor(private authService: AuthService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.initializePasswordDataForm();
@@ -19,14 +19,14 @@ export class ChangeAccountDataComponent implements OnInit {
 
   initializePasswordDataForm(){
     this.passwordDataForm = new FormGroup({
-      oldPassword: new FormControl(null),
-      password: new FormControl(),
+      password: new FormControl(null),
+      newPassword: new FormControl(),
       confirmPassword: new FormControl(),
     });
   }
 
   changePassword(){
-    this.response = this.authService.changePassword(this.passwordDataForm);
+    this.response = this.apiService.changePassword(this.apiService.getUserEmail(), this.passwordDataForm);
   }
 
 

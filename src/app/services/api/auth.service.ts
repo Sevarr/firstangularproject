@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
-import { config } from '../../assets/config';
+import { config } from '../../../assets/config';
 // import { EmployeeDataService} from '../services/data/employee-data.service';
 // import { Tokens } from './tokens';
 
@@ -21,6 +21,7 @@ export class AuthService {
   // private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private loggedUser: string;
   private userType: string;
+  private email: string;
 
   constructor(
     private httpClient: HttpClient
@@ -28,6 +29,7 @@ export class AuthService {
   ) {}
 
   login(user: { email: string, password: string }): Observable<boolean> {
+    this.email = user.email;
     return this.httpClient.post<any>(config.backend_url + `/login`, user)
       .pipe(
         tap(tokens => this.doLoginUser(user.email, tokens)),
@@ -76,6 +78,10 @@ export class AuthService {
     return this.userType;
   }
 
+  getUserEmail() {
+    return this.email;
+  }
+
   private doLoginUser(email: string, tokens: Tokens) {
     this.userType = tokens.href.split('/')[3];
     this.loggedUser = email;
@@ -106,11 +112,6 @@ export class AuthService {
   private removeTokens() {
     localStorage.removeItem(this.JWT_TOKEN);
     // localStorage.removeItem(this.REFRESH_TOKEN);
-  }
-
-  // Komunikacja z backendem celem zmiany hasła
-  changePassword(passwordDataForm) {
-
   }
 }
 

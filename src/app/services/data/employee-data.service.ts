@@ -1,6 +1,6 @@
 import { ApiService } from '../api/api.service';
 import { Injectable } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../api/auth.service';
 import {parseDate} from 'pdf-lib';
 
 let employee = {
