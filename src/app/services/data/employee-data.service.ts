@@ -221,19 +221,27 @@ export class EmployeeDataService {
     this.employee.qualifications = qualifications;
   }
 
+  getPrevEmployment(){
+    return this.employee.prevEmployment;
+  }
+
+  setPrevEmployment(prevEmployment){
+    this.employee.prevEmployment = prevEmployment;
+  }
+
   getAdditionalPersonalData(){
     return this.employee.additionalPersonalData;
   }
 
-  setAdditionalPersonalData(personalData){
-    // this.employee.optionalData = personalData;
+  setAdditionalPersonalData(additionalPersonalData){
+    this.employee.additionalPersonalData = additionalPersonalData;
   }
 
-  getSchools(){
+  getEducation(){
     return this.employee.education;
   }
 
-  setSchools(schools){
+  setEducation(schools){
     for (let i = 0; i < this.employee.education.length; i++) {
       this.employee.education.splice(i);
     }

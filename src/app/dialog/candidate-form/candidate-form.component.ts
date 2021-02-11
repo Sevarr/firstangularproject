@@ -82,7 +82,7 @@ export class CandidateFormComponent implements OnInit {
       // mailAddres: new FormControl(this.employeeData.getEmail(), [Validators.required]),
       fillLocation: new FormControl(this.employeeData.getFillLocation(), [Validators.required]),
       qualifications: new FormControl(this.employeeData.getQualifications()),
-      prevEmployment: new FormControl(), // prevEmployment: new FormControl(this.employeeData.getPrevEmployment),
+      prevEmployment: new FormControl(this.employeeData.getPrevEmployment()),
       additionalPersonalData: new FormControl(this.employeeData.getAdditionalPersonalData())
     });
   }
@@ -95,6 +95,24 @@ export class CandidateFormComponent implements OnInit {
       specialty: new FormControl(null),
       title: new FormControl(null),
     });
+    this.getEducation();
+  }
+
+  getEducation(){
+    const education = this.employeeData.getEducation();
+    console.log(education);
+    // let i = 0;
+    // while (education[i] !== null) {
+    //   this.schools.push({
+    //     id: (i + 1),
+    //     name: education.name,
+    //     graduationYear: this.schoolDataForm.value.graduationYear,
+    //     profession: this.schoolDataForm.value.profession,
+    //     specialty: this.schoolDataForm.value.specialty,
+    //     title: this.schoolDataForm.value.title
+    //   });
+    //   i++;
+    // }
   }
 
   addSchool() {
@@ -186,9 +204,9 @@ export class CandidateFormComponent implements OnInit {
     // this.employeeData.setEmail(this.contactDataForm.value.email);
     this.employeeData.setFillLocation(this.contactDataForm.value.fillLocation);
     this.employeeData.setQualifications(this.contactDataForm.value.qualifications);
-    // this.employeeData.prevEmployment(this.contactDataForm.value.prevEmployment);
+    this.employeeData.setPrevEmployment(this.contactDataForm.value.prevEmployment);
     this.employeeData.setAdditionalPersonalData(this.contactDataForm.value.additionalPersonalData);
-    this.employeeData.setSchools(this.schools);
+    this.employeeData.setEducation(this.schools);
     this.employeeData.setData();
     console.log('Data form: ', this.personalDataForm.value);
   }
