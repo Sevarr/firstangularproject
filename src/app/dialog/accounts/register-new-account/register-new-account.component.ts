@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { NewUserRegistrationService } from '../../../services/user_registration/new-user-registration.service';
 
-let credentials = {
+const credentials = {
   email: null,
   password: null
 };
@@ -32,7 +32,6 @@ export class RegisterNewAccountComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('poszlo');
     this.credentials.email = this.userDataForm.value.email;
     this.credentials.password = this.userDataForm.value.password;
     console.log(this.newUserRegistrationService.registerUser(this.userDataForm.value.registrationLink,

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/api/auth.service';
 import { Router } from '@Angular/router';
-import {HttpClient} from '@angular/common/http';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-top-bar',
@@ -26,12 +25,11 @@ export class TopBarComponent implements OnInit {
   changePassword(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      // console.log(this.schoolDataForm.value.title);
-      // this.newSchool(this.schoolDataForm.value.school, this.schoolDataForm.value.graduationYear, this.schoolDataForm.value.profession, this.schoolDataForm.value.speciality, this.schoolDataForm.value.title);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
   private getDismissReason(reason: any): string {
       if (reason === ModalDismissReasons.ESC) {
         return 'by pressing ESC';

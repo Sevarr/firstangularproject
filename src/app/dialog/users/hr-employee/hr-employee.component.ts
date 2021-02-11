@@ -28,5 +28,4 @@ export class HREmployeeComponent implements OnInit {
     this.hideAll = true;
     this.hideCreateNewAccount = false;
   }
-
 }

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../services/api/auth.service';
-import {Router} from '@Angular/router';
-import {HttpClient} from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/api/auth.service';
+import { Router } from '@Angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',

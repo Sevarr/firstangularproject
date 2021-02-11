@@ -16,7 +16,6 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
   }
 
-
   loadCreateNewAccount() {
     if (this.hideCreateNewAccount){
       this.hideCreateNewAccount = false;
@@ -53,5 +52,4 @@ export class AdminComponent implements OnInit {
     this.hideUploadFiles = false;
     this.hideDownloadFiles = false;
   }
-
 }

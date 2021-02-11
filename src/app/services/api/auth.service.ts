@@ -3,9 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
 import { config } from '../../../assets/config';
-// import { EmployeeDataService} from '../services/data/employee-data.service';
-// import { Tokens } from './tokens';
-
 
 interface Tokens {
   href: string;
@@ -25,7 +22,6 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient
-    // public employeeDataService: EmployeeDataService
   ) {}
 
   login(user: { email: string, password: string }): Observable<boolean> {
@@ -61,20 +57,11 @@ export class AuthService {
     return !!this.getJwtToken();
   }
 
-  // refreshToken() {
-  //   return this.httpClient.post<any>(config.backend_url + `/refresh`, {
-  //     refreshToken: this.getRefreshToken()
-  //   }).pipe(tap((tokens: Tokens) => {
-  //     this.storeJwtToken(tokens.jwt);
-  //   }));
-  // }
-
   getJwtToken() {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
   getUserType(){
-    // console.log('User type: ', this.userType);
     return this.userType;
   }
 
@@ -94,10 +81,6 @@ export class AuthService {
     this.removeTokens();
   }
 
-  // private getRefreshToken() {
-  //   return localStorage.getItem(this.REFRESH_TOKEN);
-  // }
-
   private storeJwtToken(jwt: string) {
     localStorage.setItem(this.JWT_TOKEN, jwt);
   }
@@ -105,13 +88,11 @@ export class AuthService {
   private storeTokens(tokens: Tokens) {
     console.log('JWT: ', tokens.token);
     localStorage.setItem(this.JWT_TOKEN, tokens.token);
-    // localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
   }
 
   // Usunięcie tokenu użytkownika z pamięci
   private removeTokens() {
     localStorage.removeItem(this.JWT_TOKEN);
-    // localStorage.removeItem(this.REFRESH_TOKEN);
   }
 }
 

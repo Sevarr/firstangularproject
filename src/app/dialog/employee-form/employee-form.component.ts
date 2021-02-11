@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {EmployeeDataService} from '../../services/data/employee-data.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EmployeeDataService } from '../../services/data/employee-data.service';
 
 interface PersonalData {
   id: number;

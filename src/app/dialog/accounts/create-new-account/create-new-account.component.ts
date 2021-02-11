@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NewUserRegistrationService } from '../../../services/user_registration/new-user-registration.service';
-// import { ApiService } from '../../../services/api/api.service';
-// import { catchError, mapTo, tap } from 'rxjs/operators';
-// import { of} from 'rxjs';
 
 @Component({
   selector: 'app-create-new-account',
@@ -14,8 +11,6 @@ export class CreateNewAccountComponent implements OnInit {
   loggedUserType;
   hideRegisterButton = true;
   hideWorkerRegistrationLink = false;
-  // hideHREmployeeRegistrationLink = false;
-  // hideAdminRegistrationLink = false;
   hideRegistrationLink = false;
   registrationLink: string;
   userType: string;
@@ -25,7 +20,6 @@ export class CreateNewAccountComponent implements OnInit {
   hideAdminRegisterButton: boolean;
 
   constructor(private userRegistrationService: NewUserRegistrationService) {
-    // this.generateRegisterLink();
     this.loggedUserType = this.userRegistrationService.getLoggedUserType();
     this.showAll();
   }
@@ -58,39 +52,4 @@ export class CreateNewAccountComponent implements OnInit {
     this.hideRegistrationLink = true;
     this.hideAll();
   }
-
-  // getRegistratonLink(){
-  //   this.hideRegisterButton = false;
-  //   this.hideWorkerRegistrationLink = true;
-  //   this.registrationLink = this.apiService.getWorkerRegistrationLink();
-  // }
-  //
-  // generateRegisterLink() {
-  //   console.log(this.apiService.newWorkerRegistrationLink());
-  //   // @ts-ignore
-  //   // if (this.apiService.getUserType === ('ADMIN')) {
-  //     console.log(this.apiService.newHREmployeeRegistrationLink());
-  //     console.log(this.apiService.newAdminRegistrationLink());
-  //   // }
-  // }
-  //
-  // generateAdminRegisterLink(){
-  //   console.log(this.apiService.newAdminRegistrationLink());
-  // }
-  //
-  // getAdminRegistratonLink() {
-  //   console.log(this.apiService.getAdminRegistrationLink());
-  // }
-  //
-  // getWorkerRegistratonLink() {
-  //   console.log(this.apiService.newWorkerRegistrationLink());
-  //   this.hideRegisterButton = false;
-  //   this.hideWorkerRegistrationLink = true;
-  //   this.registrationLink = this.apiService.getWorkerRegistrationLink();
-  // }
-  //
-  // getHREmployeeRegistratonLink() {
-  //   console.log(this.apiService.newHREmployeeRegistrationLink());
-  // }
-
 }

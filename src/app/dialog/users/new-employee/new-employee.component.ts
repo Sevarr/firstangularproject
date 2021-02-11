@@ -29,6 +29,7 @@ export class NewEmployeeComponent implements OnInit {
       this.hideAll = false;
     }
   }
+
   loadEmployeeForm(){
     if (this.hideEmployeeForm){
       this.hideEmployeeForm = false;
@@ -39,16 +40,6 @@ export class NewEmployeeComponent implements OnInit {
       this.hideAll = false;
     }
   }
-
-  // loadDokumentGenerator() {
-  //   if (this.hideDocumentGenerator){
-  //     this.hideDocumentGenerator = false;
-  //     this.hideAll = true;
-  //   } else {
-  //     this.hideDocumentGenerator = true;
-  //     this.hideAll = false;
-  //   }
-  // }
 
   loadFileDownload() {
     if (this.hideFileDownload){
@@ -67,6 +58,4 @@ export class NewEmployeeComponent implements OnInit {
     this.hideDocumentGenerator = false;
     this.hideFileDownload = false;
   }
-
-
 }

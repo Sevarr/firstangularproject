@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentGeneratorService} from '../../services/documents/document-generator.service';
 import { ApiService } from '../../services/api/api.service';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-file-download',
@@ -18,11 +18,9 @@ export class FileDownloadComponent implements OnInit {
   private message: string;
 
   constructor(private documentGenerator: DocumentGeneratorService, private apiService: ApiService, private modalService: NgbModal) {
-    // this.apiService.downloadFile();
   }
 
   ngOnInit(): void {
-    // this.getFileList();
   }
 
   poppingMessage(content, message) {
@@ -51,9 +49,6 @@ export class FileDownloadComponent implements OnInit {
     for (let i = 0; this.fileList.length > i; i++) {
         console.log(this.fileList[i]);
       }
-    // for (let i = 0; this.fileList.length > i; i++) {
-    //   console.log(this.fileList[i]);
-    // }
   }
 
   changeSortOrder(newSortOrder: string) {
