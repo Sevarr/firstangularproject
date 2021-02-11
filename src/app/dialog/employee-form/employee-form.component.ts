@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Form, FormControl, FormGroup } from '@angular/forms';
-import { ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EmployeeDataService} from '../../services/data/employee-data.service';
 
 interface PersonalData {
   id: number;
@@ -32,8 +33,15 @@ export class EmployeeFormComponent implements OnInit {
   familyMembersInsuranceDatas = FAMILYMEMBERINSURANCEDATA;
   model: NgbDateStruct;
   closeResult = '';
+  dataComplete: boolean;
+  message: string;
 
-  constructor(private modalService: NgbModal, private calendar: NgbCalendar) {
+  constructor(
+    private modalService: NgbModal,
+    private calendar: NgbCalendar,
+    private employeeData: EmployeeDataService
+  ) {
+    this.dataComplete = true;
   }
 
   ngOnInit(): void {
@@ -46,23 +54,23 @@ export class EmployeeFormComponent implements OnInit {
 
   private initializeEmployeeDataForm() {
     this.employeeDataForm = new FormGroup({
-      pesel: new FormControl(null),
-      nip: new FormControl(null),
-      city: new FormControl(null),
-      postcode: new FormControl(null),
-      community: new FormControl(null),
-      county: new FormControl(null),
-      street: new FormControl(null),
-      houseNumber: new FormControl(null),
-      apartmentNumber: new FormControl(null),
-      taxOffice: new FormControl(null),
-      citizenship: new FormControl(null),
-      personToNotfiy: new FormControl(null),
-      position: new FormControl(null),
-      department: new FormControl(null),
-      nfz: new FormControl(null),
-      bankName: new FormControl(null),
-      bankAccount: new FormControl(null)
+      pesel: new FormControl(this.employeeData.getDocumentType_Number('pesel')),
+      nip: new FormControl(this.employeeData.getDocumentType_Number('nip')),
+      city: new FormControl(this.employeeData.getCity()),
+      postcode: new FormControl(this.employeeData.getPostcode()),
+      community: new FormControl(this.employeeData.getCommunity()),
+      county: new FormControl(this.employeeData.getCounty()),
+      street: new FormControl(this.employeeData.getStreet()),
+      houseNumber: new FormControl(this.employeeData.getHouseNumber()),
+      apartmentNumber: new FormControl(this.employeeData.getApartmentNumber()),
+      taxOffice: new FormControl(this.employeeData.getTaxOffice()),
+      citizenship: new FormControl(this.employeeData.getCitizenship()),
+      personToNotfiy: new FormControl(this.employeeData.getPersonToNotify()),
+      position: new FormControl(this.employeeData.getPosition()),
+      department: new FormControl(this.employeeData.getDepartment()),
+      nfz: new FormControl(this.employeeData.getNfz),
+      bankName: new FormControl(this.employeeData.getBankName()),
+      bankAccount: new FormControl(this.employeeData.getBankAccount())
     });
   }
 
@@ -188,9 +196,46 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
+  poppingMessage(content, message) {
+    this.message = message;
+    this.modalService.open(content, {ariaLabelledBy: 'poppingmassage'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
   onSubmit() {
-    console.log('Dane pracownika: ', this.employeeDataForm.value);
-    console.log('Dane dzieci: ', this.kidsInsuredDataForm.value);
-    console.log('Dane członków rodziny: ', this.familyMembersDataForm.value);
+    this.dataComplete = this.validate();
+    if (this.dataComplete) {
+      this.sendToDatabase();
+      this.message = 'Dane zapisane poprawnie';
+    } else {
+      this.message = 'Nie udało się zapisać. Uzupełnij brakujące dane';
+    }
+  }
+
+  private validate() {
+    return true;
+  }
+
+  sendToDatabase() {
+    this.employeeData.setDocumentType_Number(this.employeeDataForm.value.pesel, this.employeeDataForm.value.nip);
+    this.employeeData.setCity(this.employeeDataForm.value.city);
+    this.employeeData.setPostcode(this.employeeDataForm.value.postcode);
+    this.employeeData.setCommunity(this.employeeDataForm.value.community);
+    this.employeeData.setCounty(this.employeeDataForm.value.county);
+    this.employeeData.setStreet(this.employeeDataForm.value.street);
+    this.employeeData.setHouseNumber(this.employeeDataForm.value.houseNumber);
+    this.employeeData.setApartmentNumber(this.employeeDataForm.value.apartmentNumber);
+    this.employeeData.setTaxOffice(this.employeeDataForm.value.taxOffice);
+    this.employeeData.setCitizenship(this.employeeDataForm.value.citizenship);
+    this.employeeData.setPersonToNotify(this.employeeDataForm.value.personToNotfiy);
+    this.employeeData.setPosition(this.employeeDataForm.value.position);
+    this.employeeData.setDepartment(this.employeeDataForm.value.department);
+    this.employeeData.setNfz(this.employeeDataForm.value.nfz);
+    this.employeeData.setBankName(this.employeeDataForm.value.bankName);
+    this.employeeData.setBankAccount(this.employeeDataForm.value.bankAccount);
+    this.employeeData.setData();
   }
 }

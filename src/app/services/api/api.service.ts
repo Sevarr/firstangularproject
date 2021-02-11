@@ -142,6 +142,12 @@ export class ApiService {
     return this.httpClient.put<any>(config.backend_url + '/updatecandidate', data);
   }
 
+  public sendWorkerData(token, data) {
+    // console.log('Wysyłane data: ', data);
+    // return this.httpClient.put<any>(config.backend_url + '/updatecandidate', {headers: new HttpHeaders().set('Authorization', token)}, data);
+    return this.httpClient.put<any>(config.backend_url + '/updateworker', data);
+  }
+
   public getFile(name) {
     const url = (config.backend_url + '/');
     return this.httpClient.get(url);

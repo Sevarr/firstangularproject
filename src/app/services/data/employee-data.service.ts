@@ -1,7 +1,6 @@
 import { ApiService } from '../api/api.service';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../api/auth.service';
-import {parseDate} from 'pdf-lib';
 
 let employee = {
     email: null,
@@ -109,6 +108,7 @@ export class EmployeeDataService {
   setData() {
     // this.data = this.employee;
     this.apiService.sendEmployeeData(this.authService.getJwtToken(), this.employee)._subscribe(this.data);
+    this.apiService.sendWorkerData(this.authService.getJwtToken(), this.employee)._subscribe(this.data);
   }
 
   getEmail() {
@@ -267,15 +267,80 @@ export class EmployeeDataService {
   }
 
   // Pesel or NIP
-  getDocumentType_Number(){
-    return this.employee.documentType;
-    return this.employee.documentNumber;
+  getDocumentType_Number(documentType){
+    if (documentType === 'pesel' && this.employee.documentType === 'pesel') {
+      return (this.employee.documentNumber);
+    } else if (documentType === 'nip' && this.employee.documentType === 'nip') {
+      return (this.employee.documentNumber);
+    }
   }
 
-  setDocumentType_Number(documentType, documentNumber){
-    this.employee.documentType = documentType;
-    this.employee.documentNumber = documentNumber;
+  setDocumentType_Number(pesel, nip){
+    if (pesel !== null) {
+      this.employee.documentType = 'pesel';
+      this.employee.documentNumber = pesel;
+    } else {
+      this.employee.documentType = 'nip';
+      this.employee.documentNumber = nip;
+    }
   }
+
+  getCity(){
+
+  }
+
+  setCity(city){
+
+  }
+
+  getPostcode(){
+
+  }
+
+  setPostcode(postcode){
+
+  }
+
+  getCommunity(){
+
+  }
+
+  setCommunity(community){
+
+  }
+
+  getCounty(){
+
+  }
+
+  setCounty(county){
+
+  }
+
+  getStreet(){
+
+  }
+
+  setStreet(street){
+
+  }
+
+  getHouseNumber(){
+
+  }
+
+  setHouseNumber(houseNumber){
+
+  }
+
+  getApartmentNumber(){
+
+  }
+
+  setApartmentNumber(apartmentNumber){
+    // this.employee.
+  }
+
 
   getTaxOffice(){
     return this.employee.taxOffice;
@@ -290,19 +355,19 @@ export class EmployeeDataService {
   // "authorizedSurname": null,
   // "authorizedContact": null,
   getPersonToNotify(){
-    // return this.employee.authorizedName;
+    return this.employee.contractType;
   }
 
   setPersonToNotify(personToNotify){
-    // this.employee.authorizedName = personToNotify;
+    this.employee.contractType = personToNotify;
   }
 
-  getWorkplace(){
+  getPosition(){
     return this.employee.workplace;
   }
 
-  setWorkplace(workplace){
-    this.employee.workplace = workplace;
+  setPosition(position){
+    this.employee.workplace = position;
   }
 
   getDepartment(){
@@ -313,12 +378,12 @@ export class EmployeeDataService {
     this.employee.department = department;
   }
 
-  getEmploymentDate(){
-    return this.employee.employmentDate;
+  getNfz(){
+    return this.employee.nfz;
   }
 
-  setEmplotymentDate(employmentDate){
-    this.employee.employmentDate = employmentDate;
+  setNfz(nfz){
+    this.employee.nfz = nfz;
   }
 
   getBankName(){
@@ -341,7 +406,6 @@ export class EmployeeDataService {
     return this.employee;
   }
 }
-
 
 
 //   "willSpecialPowersForFamily": false,
