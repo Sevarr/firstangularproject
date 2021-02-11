@@ -11,7 +11,7 @@ import { NewUserRegistrationService } from '../../../services/user_registration/
 })
 export class CreateNewAccountComponent implements OnInit {
   private data: any;
-  loggedUserType: string;
+  loggedUserType;
   hideRegisterButton = true;
   hideWorkerRegistrationLink = false;
   // hideHREmployeeRegistrationLink = false;
@@ -40,7 +40,7 @@ export class CreateNewAccountComponent implements OnInit {
   }
 
   showAll(){
-    if (this.loggedUserType = 'ADMIN') {
+    if (this.loggedUserType === 'admin') {
       this.hideWorkerRegisterButton = true;
       this.hidehrEmployeeRegisterButton = true;
       this.hideAdminRegisterButton = true;
