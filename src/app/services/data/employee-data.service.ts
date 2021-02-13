@@ -87,7 +87,7 @@ export class EmployeeDataService {
 
   getData(): any {
     this.getUser();
-    this.apiService.getEmployeeData(this.apiService.getUserToken(), this.apiService.getUserType()).subscribe((data) => {
+    this.employee = this.apiService.getEmployeeData(this.apiService.getUserToken(), this.apiService.getUserType()).subscribe((data) => {
       this.employee = data;
     });
   }

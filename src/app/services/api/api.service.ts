@@ -64,17 +64,17 @@ export class ApiService {
   }
 
   // Get corrent user data from database by id
-  public getEmployeeData(token, userType): object {
+  public getEmployeeData(token, userType): any {
     return this.httpClient.get<any>(config.backend_url + '/' + userType,
       {headers: new HttpHeaders().set('Authorization', token)});
   }
 
   // Send corrent user data to database by id
-  public sendEmployeeData(token, data): object {
+  public sendEmployeeData(token, data): any {
     return this.httpClient.put<any>(config.backend_url + '/updatecandidate', data);
   }
 
-  public sendWorkerData(token, data): object {
+  public sendWorkerData(token, data): any {
     return this.httpClient.put<any>(config.backend_url + '/updateworker', data);
   }
 
