@@ -9,11 +9,11 @@ export class NewUserRegistrationService {
 
   constructor(private apiService: ApiService) { }
 
-  getLoggedUserType(){
+  getLoggedUserType(): any{
     return this.apiService.getUserType();
   }
 
-  getRegistrationLink(userType){
+  getRegistrationLink(userType): string{
     if (userType === 'ADMIN'){
       return this.apiService.getAdminRegistrationLink();
     } else {
@@ -21,7 +21,7 @@ export class NewUserRegistrationService {
     }
   }
 
-  registerUser(registrationLink, credentials) {
+  registerUser(registrationLink, credentials): any {
     this.apiService.newUserRegistration(registrationLink, credentials);
   }
 }

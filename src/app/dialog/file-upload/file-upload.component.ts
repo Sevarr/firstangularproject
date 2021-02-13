@@ -28,32 +28,14 @@ export class FileUploadComponent implements OnInit {
       file: new FormControl(null)
     });
     const date = new Date();
-    console.log('data to: ', (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear()));
   }
 
-  // selectedName() {
-  //   switch (this.selectedSortOrder) {
-  //     case 'Data' : {this.dataToAddForm.value.name = 'data'; break; }
-  //     case 'Imię' : {this.dataToAddForm.value.name = 'firstName'; break; }
-  //     case 'Drugie imię' : {this.dataToAddForm.value.name = 'secondName'; break; }
-  //     case 'Nazwisko' : {this.dataToAddForm.value.name = 'surename'; break; }
-  //     case 'Data urodzenia' : {this.dataToAddForm.value.name = 'dateOfBirth'; break; }
-  //     case 'Płeć' : {this.dataToAddForm.value.name = 'sex'; break; }
-  //     case 'Numer telefonu' : {this.dataToAddForm.value.name = 'phoneNumber'; break; }
-  //     case 'Miejscowość wypełniania formularza' : {this.dataToAddForm.value.name = 'fillLocation'; break; }
-  //     case 'Kwalifikacje zawodowe' : {this.dataToAddForm.value.name = 'qualifications'; break; }
-  //     case 'Przebieg dotychczasowego zatrudnienia' : {this.dataToAddForm.value.name = 'prevEmployment'; break; }
-  //     case 'Dodatkowe dane osobowe' : {this.dataToAddForm.value.name = 'additionaPersonalData'; break; }
-  //     case 'Ukończone szkoły' : {this.dataToAddForm.value.name = 'schools'; break; }
-  //   }
-  // }
-
-  changeSortOrder(newSortOrder: string) {
+  changeSortOrder(newSortOrder: string): any {
     this.selectedSortOrder = newSortOrder;
     this.dataToAddForm.value.name = this.selectedSortOrder;
   }
 
-  initializeDataToAdd() {
+  initializeDataToAdd(): any {
     this.dataToAddForm = new FormGroup({
       name: new FormControl(null),
       positionX: new FormControl(null),
@@ -62,7 +44,7 @@ export class FileUploadComponent implements OnInit {
     });
   }
 
-  upload(event) {
+  upload(event): any {
     const reader = new FileReader();
 
     if (event.target.files && event.target.files.length) {
@@ -78,7 +60,7 @@ export class FileUploadComponent implements OnInit {
     }
   }
 
-  validate() {
+  validate(): boolean {
     if (
       this.dataToAddForm.value.name == null ||
       this.dataToAddForm.value.positionX == null ||
@@ -90,8 +72,7 @@ export class FileUploadComponent implements OnInit {
     return true;
   }
 
-  onSubmitData() {
-    // this.selectedName();
+  onSubmitData(): any {
     if (this.validate()) {
       this.documentGenerator.addMetadata(
         this.dataToAddForm.value.name,
@@ -101,13 +82,12 @@ export class FileUploadComponent implements OnInit {
       this.message = 'Dodano poprawnie';
       this.list.slice(this.dataToAddForm.value.name);
       this.selectedSortOrder = this.defaultSelectedSortOrder;
-      // console.log(this.dataToAddForm.value);
     } else {
       this.message = 'Brakuje informacji';
     }
   }
 
-  poppingMessage(content, message) {
+  poppingMessage(content, message): any {
     this.message = message;
     this.modalService.open(content, {ariaLabelledBy: 'poppingmassage'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -126,15 +106,15 @@ export class FileUploadComponent implements OnInit {
     }
   }
 
-  onSubmitFile() {
+  onSubmitFile(): any {
     this.documentGenerator.setPDF(this.fileForm.get('file').value);
   }
 
-  previewPDF(){
+  previewPDF(): any {
     this.documentGenerator.previewPDF();
   }
 
-  saveFile() {
+  saveFile(): any {
     this.documentGenerator.saveFileToDatabase();
   }
 }

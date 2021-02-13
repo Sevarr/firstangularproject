@@ -7,16 +7,14 @@ import { NewUserRegistrationService } from '../../../services/user_registration/
   styleUrls: ['./create-new-account.component.css']
 })
 export class CreateNewAccountComponent implements OnInit {
-  private data: any;
   loggedUserType;
-  hideRegisterButton = true;
   hideWorkerRegistrationLink = false;
   hideRegistrationLink = false;
   registrationLink: string;
   userType: string;
 
   hideWorkerRegisterButton: boolean;
-  hidehrEmployeeRegisterButton: boolean;
+  hideHREmployeeRegisterButton: boolean;
   hideAdminRegisterButton: boolean;
 
   constructor(private userRegistrationService: NewUserRegistrationService) {
@@ -27,25 +25,25 @@ export class CreateNewAccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  hideAll(){
+  hideAll(): any{
     this.hideWorkerRegisterButton = false;
-    this.hidehrEmployeeRegisterButton = false;
+    this.hideHREmployeeRegisterButton = false;
     this.hideAdminRegisterButton = false;
   }
 
-  showAll(){
+  showAll(): any {
     if (this.loggedUserType === 'admin') {
       this.hideWorkerRegisterButton = true;
-      this.hidehrEmployeeRegisterButton = true;
+      this.hideHREmployeeRegisterButton = true;
       this.hideAdminRegisterButton = true;
     } else {
       this.hideWorkerRegisterButton = true;
-      this.hidehrEmployeeRegisterButton = false;
+      this.hideHREmployeeRegisterButton = false;
       this.hideAdminRegisterButton = false;
     }
   }
 
-  generateRegistrationLink(userType){
+  generateRegistrationLink(userType): any {
     this.registrationLink = null;
     this.userType = userType;
     this.registrationLink = this.userRegistrationService.getRegistrationLink(userType);

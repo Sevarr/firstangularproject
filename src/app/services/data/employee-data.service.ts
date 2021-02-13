@@ -1,8 +1,7 @@
 import { ApiService } from '../api/api.service';
 import { Injectable } from '@angular/core';
-import { AuthService } from '../api/auth.service';
 
-let employee = {
+const employee = {
     email: null,
     phoneNumber: null,
     fillLocation: null,
@@ -67,7 +66,7 @@ let employee = {
 })
 export class EmployeeDataService {
 
-  constructor(private apiService: ApiService, private authService: AuthService) {
+  constructor(private apiService: ApiService) {
       this.getUser();
       this.getData();
   }
@@ -76,75 +75,57 @@ export class EmployeeDataService {
   private userType;
   private data;
   private employee = employee;
-  // private dataCompleted = false;
 
-  getUser(){
-    this.jwtToken = this.authService.getJwtToken();
-    this.userType = this.authService.getUserType();
+  getUser(): any {
+    this.jwtToken = this.apiService.getUserToken();
+    this.userType = this.apiService.getUserType();
   }
 
-  clearEmployee(){
+  clearEmployee(): any{
     this.employee = null;
   }
 
-  get(){console.log('Tworzenie employee-data'); }
-
-  // getDataCompleted(){
-  //   return this.dataCompleted;
-  // }
-
-  getData() {
+  getData(): any {
     this.getUser();
-    this.apiService.getEmployeeData(this.authService.getJwtToken(), this.authService.getUserType()).subscribe((data) => {
+    this.apiService.getEmployeeData(this.apiService.getUserToken(), this.apiService.getUserType()).subscribe((data) => {
       this.employee = data;
-      // console.log(this.employee);
     });
-    // if (this.data.name !== '') {
-    //   this.dataCompleted = true;
-    // }
-    // this.employee = this.data;
   }
 
-  setData() {
-    // this.data = this.employee;
-    this.apiService.sendEmployeeData(this.authService.getJwtToken(), this.employee)._subscribe(this.data);
-    this.apiService.sendWorkerData(this.authService.getJwtToken(), this.employee)._subscribe(this.data);
+  setData(): any {
+    this.apiService.sendEmployeeData(this.apiService.getUserToken(), this.employee)._subscribe(this.data);
+    this.apiService.sendWorkerData(this.apiService.getUserToken(), this.employee)._subscribe(this.data);
   }
 
-  getEmail() {
+  getEmail(): string {
       return this.employee.email;
   }
 
-  // setEmail(email) {
-  //   // console.log(this.employee.email);
-  //   this.employee.email = email;
-  // }
-
-  getPhoneNumber() {
+  getPhoneNumber(): number {
     return this.employee.phoneNumber;
   }
 
-  setPhoneNumber(phoneNumber) {
+  setPhoneNumber(phoneNumber): any {
     this.employee.phoneNumber = phoneNumber;
   }
 
-  getFillLocation(){
+  getFillLocation(): string {
     return this.employee.fillLocation;
   }
 
-  setFillLocation(fillLocation){
+  setFillLocation(fillLocation): any {
     this.employee.fillLocation = fillLocation;
   }
 
-  getSex(){
+  getSex(): string {
     switch (this.employee.sex){
-      case 'MALE' : {return 'Mężczyzna'; break; }
-      case 'FEMALE' : {return 'Kobieta'; break; }
-      default : {return 'Inne'; break; }
+      case 'MALE' : {return 'Mężczyzna'; }
+      case 'FEMALE' : {return 'Kobieta'; }
+      default : {return 'Inne'; }
     }
   }
 
-  setSex(sex) {
+  setSex(sex): any {
     switch (sex){
         case 'Mężczyzna' : {this.employee.sex = 'MALE'; break; }
         case 'Kobieta' : {this.employee.sex = 'FEMALE'; break; }
@@ -152,32 +133,31 @@ export class EmployeeDataService {
       }
   }
 
-  getName() {
-    console.log('Uzystane dane: ', this.employee);
+  getName(): string {
     return this.employee.firstName;
   }
 
-  setName(name) {
+  setName(name): any {
     this.employee.firstName = name;
   }
 
-  getSecondName() {
+  getSecondName(): string {
     return this.employee.secondName;
   }
 
-  setSecondName(secondName) {
+  setSecondName(secondName): any {
     this.employee.secondName = secondName;
   }
 
-  getSurname(){
+  getSurname(): string {
     return this.employee.surname;
   }
 
-  setSurname(surename){
+  setSurname(surename): any{
     this.employee.surname = surename;
   }
 
-  getBirthDate(){
+  getBirthDate(): string {
     let date;
     date = this.employee.dateOfBirth.split('-');
     if (date[1] < 10){ date[1] = (date[1][1]); }
@@ -186,88 +166,61 @@ export class EmployeeDataService {
     return date;
   }
 
-  setBirthDate(birthDate){
+  setBirthDate(birthDate): any {
     if (birthDate.day < 10){ birthDate.day = ('0' + birthDate.day); }
     if (birthDate.month < 10){ birthDate.month = ('0' + birthDate.month); }
     const date = (birthDate.year + '-' + birthDate.month + '-' + birthDate.day);
     this.employee.dateOfBirth  = date;
   }
 
-  // getProfession(){
-  //   return this.employee.profession;
-  // }
-  //
-  // setProfession(profession){
-  //   this.employee.profession = profession;
-  // }
-  //
-  // getSpecialty(){
-  //   return this.employee.specialty;
-  // }
-  //
-  // getTitle(){
-  //   return this.employee.title;
-  // }
-  //
-  // setTitle(title){
-  //   this.employee.title = title;
-  // }
-
-  getQualifications(){
+  getQualifications(): string {
     return this.employee.qualifications;
   }
 
-  setQualifications(qualifications){
+  setQualifications(qualifications): any {
     this.employee.qualifications = qualifications;
   }
 
-  getPrevEmployment(){
+  getPrevEmployment(): string {
     return this.employee.prevEmployment;
   }
 
-  setPrevEmployment(prevEmployment){
+  setPrevEmployment(prevEmployment): any {
     this.employee.prevEmployment = prevEmployment;
   }
 
-  getAdditionalPersonalData(){
+  getAdditionalPersonalData(): string {
     return this.employee.additionalPersonalData;
   }
 
-  setAdditionalPersonalData(additionalPersonalData){
+  setAdditionalPersonalData(additionalPersonalData): any {
     this.employee.additionalPersonalData = additionalPersonalData;
   }
 
-  getEducation(){
+  getEducation(): any[] {
     return this.employee.education;
   }
 
-  setEducation(schools){
+  setEducation(schools): any{
     for (let i = 0; i < this.employee.education.length; i++) {
       this.employee.education.splice(i);
     }
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < schools.length; i++) {
       this.employee.education.push(schools[i]);
     }
-
-    // for (let i = 0; i < schools.length; i++) {
-    //   this.employee.education.push({
-    //     name: (schools[i].name),
-    //     graduationYear: (schools[i].graduationYear)
-    //   });
-    //   // console.log(schools);
-    // }
   }
 
-  getCitizenship(){
+  getCitizenship(): string {
     return this.employee.citizenship;
   }
 
-  setCitizenship(citizenship){
+  setCitizenship(citizenship): any{
     this.employee.citizenship = citizenship;
   }
 
   // Pesel or NIP
-  getDocumentType_Number(documentType){
+  getDocumentType_Number(documentType): string{
     if (documentType === 'pesel' && this.employee.documentType === 'pesel') {
       return (this.employee.documentNumber);
     } else if (documentType === 'nip' && this.employee.documentType === 'nip') {
@@ -275,7 +228,7 @@ export class EmployeeDataService {
     }
   }
 
-  setDocumentType_Number(pesel, nip){
+  setDocumentType_Number(pesel, nip): any {
     if (pesel !== null) {
       this.employee.documentType = 'pesel';
       this.employee.documentNumber = pesel;
@@ -285,219 +238,120 @@ export class EmployeeDataService {
     }
   }
 
-  getCity(){
+  // getCity(): string{
+  //
+  // }
+  //
+  // setCity(city){
+  //
+  // }
+  //
+  // getPostcode(){
+  //
+  // }
+  //
+  // setPostcode(postcode){
+  //
+  // }
+  //
+  // getCommunity(){
+  //
+  // }
+  //
+  // setCommunity(community){
+  //
+  // }
+  //
+  // getCounty(){
+  //
+  // }
+  //
+  // setCounty(county){
+  //
+  // }
+  //
+  // getStreet(){
+  //
+  // }
+  //
+  // setStreet(street){
+  //
+  // }
+  //
+  // getHouseNumber(){
+  //
+  // }
+  //
+  // setHouseNumber(houseNumber){
+  //
+  // }
+  //
+  // getApartmentNumber(){
+  //
+  // }
+  //
+  // setApartmentNumber(apartmentNumber){
+  //   // this.employee.
+  // }
 
-  }
 
-  setCity(city){
-
-  }
-
-  getPostcode(){
-
-  }
-
-  setPostcode(postcode){
-
-  }
-
-  getCommunity(){
-
-  }
-
-  setCommunity(community){
-
-  }
-
-  getCounty(){
-
-  }
-
-  setCounty(county){
-
-  }
-
-  getStreet(){
-
-  }
-
-  setStreet(street){
-
-  }
-
-  getHouseNumber(){
-
-  }
-
-  setHouseNumber(houseNumber){
-
-  }
-
-  getApartmentNumber(){
-
-  }
-
-  setApartmentNumber(apartmentNumber){
-    // this.employee.
-  }
-
-
-  getTaxOffice(){
+  getTaxOffice(): string {
     return this.employee.taxOffice;
   }
 
-  setTaxOffice(taxOffice){
+  setTaxOffice(taxOffice): any {
     this.employee.taxOffice = taxOffice;
   }
 
-  // Need that combined
-  // "authorizedName": null,
-  // "authorizedSurname": null,
-  // "authorizedContact": null,
-  getPersonToNotify(){
+  getPersonToNotify(): string {
     return this.employee.contractType;
   }
 
-  setPersonToNotify(personToNotify){
+  setPersonToNotify(personToNotify): any {
     this.employee.contractType = personToNotify;
   }
 
-  getPosition(){
+  getPosition(): string {
     return this.employee.workplace;
   }
 
-  setPosition(position){
+  setPosition(position): any{
     this.employee.workplace = position;
   }
 
-  getDepartment(){
+  getDepartment(): string {
     return this.employee.department;
   }
 
-  setDepartment(department){
+  setDepartment(department): any{
     this.employee.department = department;
   }
 
-  getNfz(){
+  getNfz(): string {
     return this.employee.nfz;
   }
 
-  setNfz(nfz){
+  setNfz(nfz): any {
     this.employee.nfz = nfz;
   }
 
-  getBankName(){
+  getBankName(): string {
     return this.employee.bank;
   }
 
-  setBankName(bankName){
+  setBankName(bankName): any {
     this.employee.bank = bankName;
   }
 
-  getBankAccount(){
+  getBankAccount(): string {
     return this.employee.accountNumber;
   }
 
-  setBankAccount(bankAccount){
+  setBankAccount(bankAccount): any {
     this.employee.accountNumber = bankAccount;
   }
 
-  getCandidate() {
-    return this.employee;
-  }
+  // getCandidate(): object {
+  //   return this.employee;
+  // }
 }
-
-
-//   "willSpecialPowersForFamily": false,
-//   "willPIT2": false,
-//   "pension": null,
-//   "securityClearance": null,
-//   "pensionZUSNumber": null,
-//   "disabledZUSNumber": null,
-//   "disabledFrom": null,
-//   "disabledTo": null,
-//   "medicover": null,
-//   "contractType": null,
-//   "incomePerPerson": null,
-//   "hasChildren": false,
-//   "willParent": false,
-//   "childUnderFourPermissions": null,
-//   "childUnderFourteenPermissions": null,
-//   "willReducedTask": false,
-//   "methodOfTaxation": false,
-//   "annualEarningsFamily": null,
-//   "willTaxReducingAmount": false,
-//   "willHigherTask": false,
-//   "higherTaskMonth": null,
-//   "willIncreasedCosts": false,
-//   "willZUS": false,
-//   "annualEarningsZUS": null,
-//   "addresses": [
-//   {
-//     "id": "1fb08251-1a99-4b21-b256-6ce789109d53",
-//     "addressType": "ALL",
-//     "postalCode": "42-605",
-//     "location": "gLIWICE",
-//     "district": null,
-//     "community": null,
-//     "street": "Jasna",
-//     "homeNumber": "12",
-//     "flatNumber": null
-//   }
-// ],
-//   "education": [
-//   {
-//     "id": "6f8b78a2-50db-44ba-8cd4-91c09ac7c4aa",
-//     "schoolName": "",
-//     "graduationYear": "2020"
-//   },
-//   {
-//     "id": "b3bf839a-ad86-4a31-8798-4cfd5a3e4c2a",
-//     "schoolName": "POLSL",
-//     "graduationYear": "2020"
-//   }
-// ],
-//   "employments": [
-//   {
-//     "id": "d220806b-46bc-4b29-8002-732c3766790a",
-//     "start": "2015-02",
-//     "finish": "2017-05",
-//     "name": "Wasko",
-//     "workplace": "Programista Java"
-//   }
-// ],
-//   "familyMembers": [
-//   {
-//     "id": "14d7e4ae-42d8-406b-a692-b545917480c2",
-//     "relationship": "CHILD",
-//     "name": "Adam",
-//     "surname": "Nowak",
-//     "birthDate": "2010-10-10",
-//     "insuredAtEmployee": true,
-//     "legalGuardian": true,
-//     "disabledZUSNumber": null,
-//     "disabilityLevel": null,
-//     "onExclusiveMaintenance": false,
-//     "location": "Katowice",
-//     "postCode": "12-345",
-//     "district": null,
-//     "community": null,
-//     "street": "Majewskiego",
-//     "homeNumber": "44",
-//     "flatNumber": null,
-//     "pesel": "94021982948",
-//     "disabled": false,
-//     "sharedHousehold": true
-//   }
-// ],
-//   "nip": null,
-//   "polishCitizen": false,
-//   "zfss4": false,
-//   "disabled": false,
-//   "nfz": null,
-//   "zfss1": false,
-//   "zfss2": false,
-//   "zfss6": false,
-//   "zfss5": false,
-//   "zfss3": false,
-//   "zfss7": false

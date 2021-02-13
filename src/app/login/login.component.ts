@@ -15,14 +15,14 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): any {
     this.loginForm = new FormGroup({
       email: new FormControl(''),
       password: new FormControl('')
     });
   }
 
-  login() {
+  login(): any {
     this.authService.login(
       {
         email: this.loginForm.value.email,

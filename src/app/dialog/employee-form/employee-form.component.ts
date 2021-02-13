@@ -52,17 +52,17 @@ export class EmployeeFormComponent implements OnInit {
     this.initializefamilyMembersInsuredDataForm();
   }
 
-  private initializeEmployeeDataForm() {
+  private initializeEmployeeDataForm(): any {
     this.employeeDataForm = new FormGroup({
       pesel: new FormControl(this.employeeData.getDocumentType_Number('pesel')),
       nip: new FormControl(this.employeeData.getDocumentType_Number('nip')),
-      city: new FormControl(this.employeeData.getCity()),
-      postcode: new FormControl(this.employeeData.getPostcode()),
-      community: new FormControl(this.employeeData.getCommunity()),
-      county: new FormControl(this.employeeData.getCounty()),
-      street: new FormControl(this.employeeData.getStreet()),
-      houseNumber: new FormControl(this.employeeData.getHouseNumber()),
-      apartmentNumber: new FormControl(this.employeeData.getApartmentNumber()),
+      // city: new FormControl(this.employeeData.getCity()),
+      // postcode: new FormControl(this.employeeData.getPostcode()),
+      // community: new FormControl(this.employeeData.getCommunity()),
+      // county: new FormControl(this.employeeData.getCounty()),
+      // street: new FormControl(this.employeeData.getStreet()),
+      // houseNumber: new FormControl(this.employeeData.getHouseNumber()),
+      // apartmentNumber: new FormControl(this.employeeData.getApartmentNumber()),
       taxOffice: new FormControl(this.employeeData.getTaxOffice()),
       citizenship: new FormControl(this.employeeData.getCitizenship()),
       personToNotfiy: new FormControl(this.employeeData.getPersonToNotify()),
@@ -74,7 +74,7 @@ export class EmployeeFormComponent implements OnInit {
     });
   }
 
-  private initializeKidsPersonalDataForm() {
+  private initializeKidsPersonalDataForm(): any {
     this.kidsDataForm = new FormGroup(
       {
         id: new FormControl(null),
@@ -85,7 +85,7 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  private initializeFamilyMembersDataForm() {
+  private initializeFamilyMembersDataForm(): any {
     this.familyMembersDataForm = new FormGroup(
       {
         id: new FormControl(null),
@@ -96,7 +96,7 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  private initializeKidsInsuredDataForm() {
+  private initializeKidsInsuredDataForm(): any {
     this.kidsInsuredDataForm = new FormGroup(
       {
         id: new FormControl(null),
@@ -107,7 +107,7 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  private initializefamilyMembersInsuredDataForm() {
+  private initializefamilyMembersInsuredDataForm(): any {
     this.familyMembersInsuredDataForm = new FormGroup(
       {
         id: new FormControl(null),
@@ -118,7 +118,7 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  onAdd(Content, modalTitle) {
+  onAdd(Content, modalTitle): any {
     this.modalService.open(Content, {ariaLabelledBy: modalTitle}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -134,7 +134,7 @@ export class EmployeeFormComponent implements OnInit {
   //   }
   // }
 
-  onDelete(id, dataType) {
+  onDelete(id, dataType): any {
     for (let i = 0; i < dataType.length; ++i) {
       if (dataType[i].id === id) {
         dataType.splice(i, 1);
@@ -152,7 +152,7 @@ export class EmployeeFormComponent implements OnInit {
     }
   }
 
-  private addKid() {
+  private addKid(): any {
     this.kidsPersonalDatas.push(
       {
         id: this.kidsPersonalDatas.length + 1,
@@ -163,7 +163,7 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  private addFamilyMember() {
+  private addFamilyMember(): any {
     this.familyMembersPersonalDatas.push(
       {
         id: this.familyMembersPersonalDatas.length + 1,
@@ -174,7 +174,7 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  private addKidToInsurance() {
+  private addKidToInsurance(): any {
     this.kidsInsuranceDatas.push(
       {
         id: this.kidsInsuranceDatas.length + 1,
@@ -185,7 +185,7 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  private addFamilyMemberToInsurance() {
+  private addFamilyMemberToInsurance(): any {
     this.familyMembersInsuranceDatas.push(
       {
         id: this.familyMembersInsuranceDatas.length + 1,
@@ -196,7 +196,7 @@ export class EmployeeFormComponent implements OnInit {
     );
   }
 
-  poppingMessage(content, message) {
+  poppingMessage(content, message): any {
     this.message = message;
     this.modalService.open(content, {ariaLabelledBy: 'poppingmassage'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -205,7 +205,7 @@ export class EmployeeFormComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.dataComplete = this.validate();
     if (this.dataComplete) {
       this.sendToDatabase();
@@ -215,19 +215,19 @@ export class EmployeeFormComponent implements OnInit {
     }
   }
 
-  private validate() {
+  private validate(): boolean {
     return true;
   }
 
-  sendToDatabase() {
+  sendToDatabase(): any {
     this.employeeData.setDocumentType_Number(this.employeeDataForm.value.pesel, this.employeeDataForm.value.nip);
-    this.employeeData.setCity(this.employeeDataForm.value.city);
-    this.employeeData.setPostcode(this.employeeDataForm.value.postcode);
-    this.employeeData.setCommunity(this.employeeDataForm.value.community);
-    this.employeeData.setCounty(this.employeeDataForm.value.county);
-    this.employeeData.setStreet(this.employeeDataForm.value.street);
-    this.employeeData.setHouseNumber(this.employeeDataForm.value.houseNumber);
-    this.employeeData.setApartmentNumber(this.employeeDataForm.value.apartmentNumber);
+    // this.employeeData.setCity(this.employeeDataForm.value.city);
+    // this.employeeData.setPostcode(this.employeeDataForm.value.postcode);
+    // this.employeeData.setCommunity(this.employeeDataForm.value.community);
+    // this.employeeData.setCounty(this.employeeDataForm.value.county);
+    // this.employeeData.setStreet(this.employeeDataForm.value.street);
+    // this.employeeData.setHouseNumber(this.employeeDataForm.value.houseNumber);
+    // this.employeeData.setApartmentNumber(this.employeeDataForm.value.apartmentNumber);
     this.employeeData.setTaxOffice(this.employeeDataForm.value.taxOffice);
     this.employeeData.setCitizenship(this.employeeDataForm.value.citizenship);
     this.employeeData.setPersonToNotify(this.employeeDataForm.value.personToNotfiy);

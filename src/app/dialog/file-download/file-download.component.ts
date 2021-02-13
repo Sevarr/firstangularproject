@@ -11,8 +11,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class FileDownloadComponent implements OnInit {
 
   closeResult = '';
-  fileList: string[] = null;
-  sortOrders: string[];
+  fileList: string = null;
+  sortOrders: string;
   defaultSelectedSortOrder = 'Wybierz plik do wygenerowania';
   selectedSortOrder = this.defaultSelectedSortOrder;
   private message: string;
@@ -23,7 +23,7 @@ export class FileDownloadComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  poppingMessage(content, message) {
+  poppingMessage(content, message): any {
     this.message = message;
     this.modalService.open(content, {ariaLabelledBy: 'poppingmassage'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -42,20 +42,16 @@ export class FileDownloadComponent implements OnInit {
     }
   }
 
-  getFileList() {
-    // this.apiService.getFileList();
+  getFileList(): any {
     this.fileList = this.apiService.getFileList();
     this.sortOrders = this.fileList;
-    for (let i = 0; this.fileList.length > i; i++) {
-        console.log(this.fileList[i]);
-      }
   }
 
-  changeSortOrder(newSortOrder: string) {
+  changeSortOrder(newSortOrder: string): any {
     this.selectedSortOrder = newSortOrder;
   }
 
-  downloadFile(content) {
+  downloadFile(content): any {
     if (this.selectedSortOrder !== this.defaultSelectedSortOrder) {
       this.documentGenerator.generateFile(this.selectedSortOrder);
       this.message = 'Pobieranie';

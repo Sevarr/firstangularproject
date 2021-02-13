@@ -30,7 +30,6 @@ export class CandidateFormComponent implements OnInit {
   schoolDataForm: FormGroup;
   dataComplete: boolean;
   model: NgbDateStruct;
-  // date: {year: number, month: number, day: number};
   schools = SCHOOLS;
   closeResult = '';
   message = '';
@@ -49,24 +48,18 @@ export class CandidateFormComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): any {
     this.initializePersonalDataForm();
     this.initializeContactDataForm();
     this.initializeSchoolDataForm();
   }
 
-  changeSortOrder(newSortOrder: string) {
+  changeSortOrder(newSortOrder: string): any {
       this.selectedSortOrder = newSortOrder;
-    // switch (newSortOrder){
-    //   case 'Mężczyzna' : {this.personalDataForm.value.sex = 'MALE'; break; }
-    //   case 'Kobieta' : {this.personalDataForm.value.sex = 'FEMALE'; break; }
-    //   default : {this.personalDataForm.value.sex = 'OTHER'; break; }
-    // }
-    // this.personalDataForm.value.sex = newSortOrder;
   }
 
 
-  private initializePersonalDataForm() {
+  private initializePersonalDataForm(): any {
       this.personalDataForm = new FormGroup({
         id: new FormControl(null),
         firstName: new FormControl(this.employeeData.getName(), [Validators.required]),
@@ -76,7 +69,7 @@ export class CandidateFormComponent implements OnInit {
       });
   }
 
-  private initializeContactDataForm() {
+  private initializeContactDataForm(): any {
     this.contactDataForm = new FormGroup({
       phoneNumber: new FormControl(this.employeeData.getPhoneNumber(), [Validators.required]),
       // mailAddres: new FormControl(this.employeeData.getEmail(), [Validators.required]),
@@ -87,7 +80,7 @@ export class CandidateFormComponent implements OnInit {
     });
   }
 
-  private initializeSchoolDataForm() {
+  private initializeSchoolDataForm(): any {
     this.schoolDataForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       graduationYear: new FormControl(null, [Validators.required]),
@@ -98,24 +91,11 @@ export class CandidateFormComponent implements OnInit {
     this.getEducation();
   }
 
-  getEducation(){
+  getEducation(): any{
     const education = this.employeeData.getEducation();
-    console.log(education);
-    // let i = 0;
-    // while (education[i] !== null) {
-    //   this.schools.push({
-    //     id: (i + 1),
-    //     name: education.name,
-    //     graduationYear: this.schoolDataForm.value.graduationYear,
-    //     profession: this.schoolDataForm.value.profession,
-    //     specialty: this.schoolDataForm.value.specialty,
-    //     title: this.schoolDataForm.value.title
-    //   });
-    //   i++;
-    // }
   }
 
-  addSchool() {
+  addSchool(): any {
     this.schools.push({
         id: (this.schools.length + 1),
         name: this.schoolDataForm.value.name,
@@ -126,17 +106,17 @@ export class CandidateFormComponent implements OnInit {
       });
   }
 
-  onAdd(content) {
+  onAdd(content): any {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      // console.log(this.schoolDataForm.value.title);
+      // tslint:disable-next-line:max-line-length
       // this.newSchool(this.schoolDataForm.value.school, this.schoolDataForm.value.graduationYear, this.schoolDataForm.value.profession, this.schoolDataForm.value.speciality, this.schoolDataForm.value.title);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
-  poppingMessage(content, message){
+  poppingMessage(content, message): any{
     this.message = message;
     this.modalService.open(content, {ariaLabelledBy: 'poppingmassage'}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
@@ -155,7 +135,7 @@ export class CandidateFormComponent implements OnInit {
     }
   }
 
-  onDelete(id) {
+  onDelete(id): any {
     for (let i = 0; i < this.schools.length; ++i) {
       if (this.schools[i].id === id) {
         this.schools.splice(i, 1);
@@ -163,7 +143,7 @@ export class CandidateFormComponent implements OnInit {
     }
   }
 
-  validate(){
+  validate(): boolean{
     if (this.personalDataForm.value.firstName == null ||
     this.personalDataForm.value.surname == null ||
     this.personalDataForm.value.birthDate == null ||
@@ -172,13 +152,14 @@ export class CandidateFormComponent implements OnInit {
     }
     if (this.contactDataForm.value.phoneNumber == null ||
       // this.contactDataForm.value.mailAddres == null ||
-      this.contactDataForm.value.fillLocation == null || this.contactDataForm.value.fillLocation === '""'){
+      this.contactDataForm.value.fillLocation == null ||
+      this.contactDataForm.value.fillLocation === '""'){
        return false;
     }
     return true;
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.dataComplete = this.validate();
     console.log('Formularz dane osobowe: ', this.personalDataForm.value);
     console.log('Formularz kontaktowy: ', this.contactDataForm.value);
@@ -194,7 +175,7 @@ export class CandidateFormComponent implements OnInit {
     }
   }
 
-  sendToDatabase(){
+  sendToDatabase(): any {
     this.employeeData.setName(this.personalDataForm.value.firstName);
     this.employeeData.setSecondName(this.personalDataForm.value.secondName);
     this.employeeData.setSurname(this.personalDataForm.value.surname);
@@ -208,7 +189,6 @@ export class CandidateFormComponent implements OnInit {
     this.employeeData.setAdditionalPersonalData(this.contactDataForm.value.additionalPersonalData);
     this.employeeData.setEducation(this.schools);
     this.employeeData.setData();
-    console.log('Data form: ', this.personalDataForm.value);
   }
 
 }

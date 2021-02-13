@@ -14,7 +14,7 @@ export class HREmployeeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loadCreateNewAccount() {
+  loadCreateNewAccount(): any {
     if (this.hideCreateNewAccount){
       this.hideCreateNewAccount = false;
       this.hideAll = true;
@@ -24,7 +24,7 @@ export class HREmployeeComponent implements OnInit {
     }
   }
 
-  goBack(){
+  goBack(): any{
     this.hideAll = true;
     this.hideCreateNewAccount = false;
   }

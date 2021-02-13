@@ -4,8 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { HomeGuard } from './auth/guards/home.guard';
 import { RegisterNewAccountComponent } from './dialog/accounts/register-new-account/register-new-account.component';
-// import { HomeComponent } from './home/home.component';
-
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },

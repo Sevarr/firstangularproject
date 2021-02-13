@@ -19,7 +19,7 @@ export class NewEmployeeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loadCandidateForm(){
+  loadCandidateForm(): any {
     if (this.hideCandidateForm){
       this.hideCandidateForm = false;
       this.hideAll = true;
@@ -30,7 +30,7 @@ export class NewEmployeeComponent implements OnInit {
     }
   }
 
-  loadEmployeeForm(){
+  loadEmployeeForm(): any {
     if (this.hideEmployeeForm){
       this.hideEmployeeForm = false;
       this.hideAll = true;
@@ -41,7 +41,7 @@ export class NewEmployeeComponent implements OnInit {
     }
   }
 
-  loadFileDownload() {
+  loadFileDownload(): any {
     if (this.hideFileDownload){
       this.hideFileDownload = false;
       this.hideAll = true;
@@ -51,7 +51,7 @@ export class NewEmployeeComponent implements OnInit {
     }
   }
 
-  goBack(){
+  goBack(): any {
     this.hideAll = true;
     this.hideCandidateForm = false;
     this.hideEmployeeForm = false;

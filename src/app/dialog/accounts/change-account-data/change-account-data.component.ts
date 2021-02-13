@@ -17,7 +17,7 @@ export class ChangeAccountDataComponent implements OnInit {
     this.initializePasswordDataForm();
   }
 
-  initializePasswordDataForm(){
+  initializePasswordDataForm(): any{
     this.passwordDataForm = new FormGroup({
       password: new FormControl(null),
       newPassword: new FormControl(),
@@ -25,9 +25,7 @@ export class ChangeAccountDataComponent implements OnInit {
     });
   }
 
-  changePassword(){
+  changePassword(): any {
     this.response = this.apiService.changePassword(this.apiService.getUserEmail(), this.passwordDataForm);
   }
-
-
 }

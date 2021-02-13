@@ -15,7 +15,6 @@ interface Tokens {
 export class AuthService {
 
   private readonly JWT_TOKEN = 'JWT_TOKEN';
-  // private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private loggedUser: string;
   private userType: string;
   private email: string;
@@ -36,7 +35,7 @@ export class AuthService {
         }));
   }
 
-  logout() {
+  logout(): any {
     this.doLogoutUser();
     // localStorage.clear();
     // return this.httpClient.post<any>(config.backend_url + `/logout`, {
@@ -50,48 +49,47 @@ export class AuthService {
     //   }));
   }
 
-  isLoggedIn() {
+  isLoggedIn(): any {
     if (!this.userType){
       this.doLogoutUser();
     }
     return !!this.getJwtToken();
   }
 
-  getJwtToken() {
+  getJwtToken(): string {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
-  getUserType(){
+  getUserType(): string {
     return this.userType;
   }
 
-  getUserEmail() {
+  getUserEmail(): string {
     return this.email;
   }
 
-  private doLoginUser(email: string, tokens: Tokens) {
+  private doLoginUser(email: string, tokens: Tokens): any {
     this.userType = tokens.href.split('/')[3];
     this.loggedUser = email;
     this.storeTokens(tokens);
   }
 
-  private doLogoutUser() {
+  private doLogoutUser(): any {
     this.loggedUser = null;
     this.userType = null;
     this.removeTokens();
   }
 
-  private storeJwtToken(jwt: string) {
-    localStorage.setItem(this.JWT_TOKEN, jwt);
-  }
+  // private storeJwtToken(jwt: string): any {
+  //   localStorage.setItem(this.JWT_TOKEN, jwt);
+  // }
 
-  private storeTokens(tokens: Tokens) {
+  private storeTokens(tokens: Tokens): any {
     console.log('JWT: ', tokens.token);
     localStorage.setItem(this.JWT_TOKEN, tokens.token);
   }
 
-  // Usunięcie tokenu użytkownika z pamięci
-  private removeTokens() {
+  private removeTokens(): any {
     localStorage.removeItem(this.JWT_TOKEN);
   }
 }

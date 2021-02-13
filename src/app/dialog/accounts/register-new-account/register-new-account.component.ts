@@ -23,7 +23,7 @@ export class RegisterNewAccountComponent implements OnInit {
     this.initializeUserDataForm();
   }
 
-  private initializeUserDataForm() {
+  private initializeUserDataForm(): any {
     this.userDataForm = new FormGroup({
       registrationLink: new FormControl(null),
       email: new FormControl(null),
@@ -31,10 +31,8 @@ export class RegisterNewAccountComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.credentials.email = this.userDataForm.value.email;
     this.credentials.password = this.userDataForm.value.password;
-    console.log(this.newUserRegistrationService.registerUser(this.userDataForm.value.registrationLink,
-      this.credentials));
   }
 }

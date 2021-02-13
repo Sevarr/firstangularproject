@@ -13,10 +13,10 @@ export class AdminComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  loadCreateNewAccount() {
+  loadCreateNewAccount(): any {
     if (this.hideCreateNewAccount){
       this.hideCreateNewAccount = false;
       this.hideAll = true;
@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  loadUploadFiles(){
+  loadUploadFiles(): any{
     if (this.hideUploadFiles){
       this.hideUploadFiles = false;
       this.hideAll = true;
@@ -36,7 +36,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  loadDownloadFiles(){
+  loadDownloadFiles(): any {
     if (this.hideDownloadFiles){
       this.hideDownloadFiles = false;
       this.hideAll = true;
@@ -46,7 +46,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  goBack(){
+  goBack(): any {
     this.hideAll = true;
     this.hideCreateNewAccount = false;
     this.hideUploadFiles = false;

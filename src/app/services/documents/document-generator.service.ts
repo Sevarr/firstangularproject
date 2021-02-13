@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
-import { EmployeeDataService } from '../../services/data/employee-data.service';
+import { EmployeeDataService } from '../data/employee-data.service';
 import { ApiService } from '../api/api.service';
 import { AuthService } from '../api/auth.service';
 
@@ -17,12 +17,10 @@ const METADATA: Metadata[] = [];
   providedIn: 'root'
 })
 export class DocumentGeneratorService {
-  private url: string;
   private existingPdfBytes: ArrayBuffer;
   private pdfDoc: PDFDocument;
   private pdfDocPreview: PDFDocument;
   private metadataOut = METADATA;
-  private metadataIn = METADATA;
   public files = [];
   private file;
   private fileName;
@@ -30,16 +28,19 @@ export class DocumentGeneratorService {
   constructor(private employeeData: EmployeeDataService, private apiService: ApiService, private authService: AuthService) {
   }
 
-  addMetadata(name, positionX, positionY, size) {
+  addMetadata(name, positionX, positionY, size): any {
     this.metadataOut.push({
       name,
+      // tslint:disable-next-line:radix
       x: parseInt(positionX),
+      // tslint:disable-next-line:radix
       y: parseInt(positionY),
+      // tslint:disable-next-line:radix
       size: parseInt(size)
     });
   }
 
-  private addMetadataToFile() {
+  private addMetadataToFile(): any {
     const keywords = [];
     if (this.metadataOut.length > 0) {
       // let i = 0;
@@ -55,81 +56,67 @@ export class DocumentGeneratorService {
     }
   }
 
-  readMetadata(pdfDoc) {
+  readMetadata(pdfDoc): any {
     if (pdfDoc.getKeywords()) {
-      let data = pdfDoc.getKeywords().split(' ; ');
+      const data = pdfDoc.getKeywords().split(' ; ');
       for (let i = 0; data.length > i; i++) {
-        let singleData = data[i].split(' ');
+        const singleData = data[i].split(' ');
         this.metadataOut.push({
           name: (singleData[0]),
+          // tslint:disable-next-line:radix
           x: parseInt(singleData[1]),
+          // tslint:disable-next-line:radix
           y: parseInt(singleData[2]),
+          // tslint:disable-next-line:radix
           size: parseInt(singleData[3])
         });
       }
     }
   }
 
-  private readData(data) {
+  private readData(data): string {
     const date = new Date();
     if (this.authService.getUserType() === 'worker') {
-      // if (data === 'data'){
-      //   return (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear());
-      // } else if (data === this.employeeData.) {
-      //
-      // }
       switch (data) {
         case 'data': {
+          // tslint:disable-next-line:max-line-length
           return (String(date.getDate().toString().padStart(2, '0')) + ' ' + String(date.getMonth() + 1).padStart(2, '0')) + ' ' + String(date.getFullYear());
-          break;
         }
         case 'Imie': {
           return this.employeeData.getName();
-          break;
         }
         case 'Drugie_imie': {
           return this.employeeData.getName();
-          break;
         }
         case 'Nazwisko': {
           return this.employeeData.getName();
-          break;
         }
         case 'Data_urodzenia': {
           return this.employeeData.getName();
-          break;
         }
         case 'Plec': {
           return this.employeeData.getName();
-          break;
         }
         case 'Numer_telefonu': {
           return this.employeeData.getName();
-          break;
         }
         case 'Miejscowosc_wypelniania_formularza': {
           return this.employeeData.getName();
-          break;
         }
         case 'Kwalifikacje_zawodowe': {
           return this.employeeData.getName();
-          break;
         }
         case 'Przebieg_dotychczasowego_zatrudnienia': {
           return this.employeeData.getName();
-          break;
         }
         case 'Dodatkowe_dane_osobowe': {
           return this.employeeData.getName();
-          break;
         }
         case 'Ukonczone_szkoly': {
           return this.employeeData.getName();
-          break;
         }
         default: {
           return '';
-          break;
         }
       }
     } else {
@@ -137,7 +124,7 @@ export class DocumentGeneratorService {
     }
   }
 
-  private drawText(page, font, pdfDoc) {
+  private drawText(page, font, pdfDoc): any {
     this.readMetadata(pdfDoc);
     for (let i = 0; this.metadataOut.length > i; i++) {
       page.drawText(this.readData(this.metadataOut[i].name), {
@@ -151,7 +138,7 @@ export class DocumentGeneratorService {
     this.metadataOut.slice();
   }
 
-  public async setPDF(file) {
+  public async setPDF(file): Promise<void> {
     this.file = file;
     this.fileName = file.name;
     this.existingPdfBytes = await fetch(file).then(res => res.arrayBuffer());
@@ -160,13 +147,12 @@ export class DocumentGeneratorService {
     this.addMetadataToFile();
   }
 
-  public async previewPDF() {
-    // this.readMetadata();
-    let pdfDoc = this.pdfDocPreview;
+  public async previewPDF(): Promise<void> {
+    const pdfDoc = this.pdfDocPreview;
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
-    const { width, height } = firstPage.getSize();
+    const {} = firstPage.getSize();
     this.drawText(firstPage, helveticaFont, pdfDoc);
     const pdfBytes = await pdfDoc.save();
 
@@ -175,21 +161,21 @@ export class DocumentGeneratorService {
     a.style.display = 'none';
     const name = this.fileName;
     const blob = new Blob([pdfBytes], {type: 'application/pdf'});
-    const url_out = window.URL.createObjectURL(blob);
-    a.href = url_out;
+    const urlOut = window.URL.createObjectURL(blob);
+    a.href = urlOut;
     a.download = name;
     a.click();
-    window.URL.revokeObjectURL(url_out);
+    window.URL.revokeObjectURL(urlOut);
     this.metadataOut.slice();
   }
 
-  private async modifyDownloadPDF(file, fileName) {
+  private async modifyDownloadPDF(file, fileName): Promise<void> {
     const existingPdfBytes = await file.arrayBuffer();
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
-    const { width, height } = firstPage.getSize();
+    const {} = firstPage.getSize();
     this.drawText(firstPage, helveticaFont, pdfDoc);
     const pdfBytes = await pdfDoc.save();
 
@@ -198,25 +184,25 @@ export class DocumentGeneratorService {
     a.style.display = 'none';
     const name = fileName;
     const blob = new Blob([pdfBytes], {type: 'application/pdf'});
-    const url_out = window.URL.createObjectURL(blob);
-    a.href = url_out;
+    const urlOut = window.URL.createObjectURL(blob);
+    a.href = urlOut;
     a.download = name;
     a.click();
-    window.URL.revokeObjectURL(url_out);
+    window.URL.revokeObjectURL(urlOut);
     this.metadataOut.slice();
   }
 
-  public async saveFileToDatabase() {
+  public async saveFileToDatabase(): Promise<void> {
     const blob = new Blob([this.fileName, this.file], {type: 'application/pdf'});
     this.apiService.sendFile(blob);
   }
 
-  public generateFile(fileName){
-    let file = this.apiService.downloadFile(fileName);
+  public generateFile(fileName): void {
+    const file = this.apiService.downloadFile(fileName);
     if (file) {
       this.modifyDownloadPDF(file, fileName);
     } else {
-      file = this.apiService.downloadFile(fileName);
+      this.file = this.apiService.downloadFile(fileName);
     }
   }
 }

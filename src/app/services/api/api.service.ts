@@ -12,36 +12,38 @@ export class ApiService {
   private fileNames = null;
   private file = null;
   private registrationLink: string;
-  // private workerRegistrationLink: string;
-  // private hrEmployeeRegistrationLink: string;
   private adminRegistrationLink: string;
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {
     this.getFileNames();
   }
 
-  getUserType(){
+  getUserType(): string {
     return this.authService.getUserType();
   }
 
-  getUserEmail() {
+  getUserEmail(): string {
     return this.authService.getUserEmail();
   }
 
-  getUserRegistrationLink(userType){
+  getUserToken(): any {
+    return this.authService.getJwtToken();
+  }
+
+  getUserRegistrationLink(userType): string {
     this.generateUserRegistrationLink(userType);
     const link = this.registrationLink.split('register/');
     this.registrationLink = link[1];
     return this.registrationLink;
   }
 
-  private generateUserRegistrationLink(userType){
+  private generateUserRegistrationLink(userType): any {
     this.httpClient.post(config.backend_url + '/generatelink', { userType },
         {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
         .subscribe(response => this.registrationLink = response);
   }
 
-  getAdminRegistrationLink() {
+  getAdminRegistrationLink(): string {
     this.generateAdminRegistrationLink('ADMIN');
     console.log(this.adminRegistrationLink);
     const link = this.adminRegistrationLink.split('register/');
@@ -49,42 +51,39 @@ export class ApiService {
     return this.adminRegistrationLink;
   }
 
-  private generateAdminRegistrationLink(userType) {
+  private generateAdminRegistrationLink(userType): any {
     this.httpClient.post(config.backend_url + '/generatelinkadmin', { userType },
       {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
       .subscribe(response => this.adminRegistrationLink = response);
       }
 
-  public newUserRegistration(registerLink, user) {
-    console.log(user);
+  public newUserRegistration(registerLink, user): any {
     this.httpClient.post<any>(config.backend_url + `/register/` + registerLink, {email: user.email, password: user.password})
       .subscribe(response => console.log(response),
         (error => console.log(error)));
   }
 
   // Get corrent user data from database by id
-  public getEmployeeData(token, userType) {
+  public getEmployeeData(token, userType): object {
     return this.httpClient.get<any>(config.backend_url + '/' + userType,
       {headers: new HttpHeaders().set('Authorization', token)});
   }
 
   // Send corrent user data to database by id
-  public sendEmployeeData(token, data) {
-    // console.log('Wysyłane data: ', data);
-    // return this.httpClient.put<any>(config.backend_url + '/updatecandidate', {headers: new HttpHeaders().set('Authorization', token)}, data);
+  public sendEmployeeData(token, data): object {
     return this.httpClient.put<any>(config.backend_url + '/updatecandidate', data);
   }
 
-  public sendWorkerData(token, data) {
+  public sendWorkerData(token, data): object {
     return this.httpClient.put<any>(config.backend_url + '/updateworker', data);
   }
 
-  public getFile(name) {
-    const url = (config.backend_url + '/');
-    return this.httpClient.get(url);
-  }
+  // public getFile(name): any {
+  //   const url = (config.backend_url + '/');
+  //   return this.httpClient.get(url);
+  // }
 
-  public sendFile(file) {
+  public sendFile(file): object {
     const formData = new FormData();
     formData.set('files', file);
     return this.httpClient.post<any>(config.backend_url + '/uploadfiles/1', formData,
@@ -93,7 +92,7 @@ export class ApiService {
         (error => console.log(error)));
   }
 
-  public getFileList() {
+  public getFileList(): string {
     if (this.fileNames != null) {
       this.getFileNames();
       this.fileNames = this.fileNames.slice(2, (length - 2));
@@ -103,15 +102,14 @@ export class ApiService {
     }
   }
 
-  private getFileNames() {
+  private getFileNames(): any {
     this.httpClient.get(config.backend_url + '/downloadfilenames',
       {responseType: 'text', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
       .subscribe(fileNames => this.fileNames = fileNames);
   }
 
 
-  downloadFile(fileName) {
-    // file;
+  downloadFile(fileName): object {
     this.httpClient.get(config.backend_url + '/downloadfile/' + fileName,
       {responseType: 'blob', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
       .subscribe(
@@ -121,9 +119,7 @@ export class ApiService {
     return this.file;
   }
 
-  // Komunikacja z backendem celem zmiany hasła
-  changePassword(email, passwordDataForm) {
-    console.log(passwordDataForm);
+  changePassword(email, passwordDataForm): any {
     this.httpClient.put<any>(config.backend_url + `/changepassword`, {email, password: passwordDataForm.value.password,
       newPassword: passwordDataForm.value.newPassword}, {headers: new HttpHeaders().set('Authorization',
         this.authService.getJwtToken())}).subscribe(response => console.log(response),
