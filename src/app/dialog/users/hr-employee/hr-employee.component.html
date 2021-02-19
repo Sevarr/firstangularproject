@@ -1,6 +1,7 @@
-<p>hr-employee works!</p>
 <div *ngIf="hideAll">
-<button (click)="loadCreateNewAccount()">Stwórz nowe konto</button>
+  <options_menu>
+      <button class="badge-pill" (click)="loadCreateNewAccount()">Stwórz nowe konto</button>
+  </options_menu>
 </div>
 <app-create-new-account  *ngIf="hideCreateNewAccount"></app-create-new-account><br><br>
-<button *ngIf="hideAll == false" (click)="goBack()">Powrót</button>
+<button class="badge-pill" *ngIf="hideAll == false" (click)="goBack()">Powrót</button>

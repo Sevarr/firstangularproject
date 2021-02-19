@@ -1,12 +1,12 @@
-
 <div *ngIf="hideAll">
-  Admin
-  <button (click)="loadCreateNewAccount()">Stwórz nowe konto</button>
-  <button (click)="loadUploadFiles()">Dodaj dokumenty</button>
-  <button (click)="loadDownloadFiles()">Pobierz dokumenty</button>
-
+  <br><h1>Wybierz jedną z opcji</h1>
+  <menu>
+  <button class="badge-pill" (click)="loadCreateNewAccount()">Stwórz nowe konto</button>
+  <button class="badge-pill" (click)="loadUploadFiles()">Dodaj dokumenty</button>
+  <button class="badge-pill" (click)="loadDownloadFiles()">Pobierz dokumenty</button>
+  </menu>
 </div>
 <app-create-new-account  *ngIf="hideCreateNewAccount"></app-create-new-account><br><br>
 <app-file-upload  *ngIf="hideUploadFiles"></app-file-upload><br><br>
 <app-file-download  *ngIf="hideDownloadFiles"></app-file-download><br><br>
-<button *ngIf="hideAll == false" (click)="goBack()">Powrót</button>
+<button class="badge-pill" *ngIf="hideAll == false" (click)="goBack()">Powrót</button>

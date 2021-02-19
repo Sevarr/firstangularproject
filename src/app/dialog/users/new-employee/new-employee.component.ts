@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeDataService } from '../../../services/data/employee-data.service';
 
 @Component({
   selector: 'app-new-employee',
@@ -14,7 +13,7 @@ export class NewEmployeeComponent implements OnInit {
   public hideDocumentGenerator = false;
   public hideFileDownload = false;
 
-  constructor(private employeeData: EmployeeDataService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

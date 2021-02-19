@@ -32,7 +32,9 @@ export class RegisterNewAccountComponent implements OnInit {
   }
 
   onSubmit(): any {
+    console.log(credentials);
     this.credentials.email = this.userDataForm.value.email;
     this.credentials.password = this.userDataForm.value.password;
+    this.newUserRegistrationService.registerUser(this.userDataForm.value.registrationLink, this.credentials);
   }
 }

@@ -1,8 +1,6 @@
+<html>
 <app-top-bar></app-top-bar>
-<h1>Witaj!</h1>
-<h1>Wybierz co chcesz zrobić</h1>
 <body>
-
 <div [ngSwitch]="userType">
   <div *ngSwitchCase="'worker'"><app-new-employee></app-new-employee><br><br></div>
   <div *ngSwitchCase="'admin'"><app-admin></app-admin><br><br></div>
@@ -10,4 +8,5 @@
 </div>
 
 </body>
-
+<br>
+</html>

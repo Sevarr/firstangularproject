@@ -60,13 +60,14 @@ export class ApiService {
   public newUserRegistration(registerLink, user): any {
     this.httpClient.post<any>(config.backend_url + `/register/` + registerLink, {email: user.email, password: user.password})
       .subscribe(response => console.log(response),
-        (error => console.log(error)));
+        (error => alert(error)));
   }
 
   // Get corrent user data from database by id
   public getEmployeeData(token, userType): any {
     return this.httpClient.get<any>(config.backend_url + '/' + userType,
-      {headers: new HttpHeaders().set('Authorization', token)});
+      {headers: new HttpHeaders().set('Authorization', token),
+      });
   }
 
   // Send corrent user data to database by id

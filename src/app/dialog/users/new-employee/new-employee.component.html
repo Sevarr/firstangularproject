@@ -1,16 +1,11 @@
-<!--<h1>Strona startowa aplikacji</h1>-->
-<!--<p>-->
-<!--  <a routerLink="/candidate_form">Formularz dla kandydata</a><br>-->
-<!--  <a routerLink="/employee_form">Formularz dla pracownika</a><br>-->
-<!--  <a routerLink="/upload_file">Prześlij plik</a><br>-->
-<!--</p>-->
 <div *ngIf="hideAll">
-Strona nowego pracownika
-  <button (click)="loadCandidateForm()">Otworz formularz kandydata</button>
-  <button (click)="loadEmployeeForm()">Otworz formularz pracownika</button>
-  <button (click)="loadFileDownload()">Generuj dokumenty</button>
+  <br><h1>Wybierz jedną z opcji</h1>
+  <options_menu>
+  <button class="badge-pill" (click)="loadCandidateForm()">Otworz formularz kandydata</button>
+  <button class="badge-pill" (click)="loadEmployeeForm()">Otworz formularz pracownika</button>
+  <button class="badge-pill" (click)="loadFileDownload()">Wygeneruj i pobierz dokumenty</button>
+  </options_menu>
 </div>
-<button *ngIf="hideAll == false" (click)="goBack()">Powrót</button>
 
 <app-candidate-form  *ngIf="hideCandidateForm"></app-candidate-form><br>
 
@@ -18,5 +13,4 @@ Strona nowego pracownika
 
 <app-file-download  *ngIf="hideFileDownload"></app-file-download><br>
 
-<!--<button (click)="loadDokumentGenerator()">Generuj dokumenty</button>-->
-<!--<app-change-account-data  *ngIf="hideDocumentGenerator"></app-change-account-data>-->
+<button class="badge-pill" *ngIf="hideAll == false" (click)="goBack()">Powrót</button>

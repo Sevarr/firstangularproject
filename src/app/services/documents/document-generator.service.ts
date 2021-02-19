@@ -193,8 +193,8 @@ export class DocumentGeneratorService {
   }
 
   public async saveFileToDatabase(): Promise<void> {
-    const blob = new Blob([this.fileName, this.file], {type: 'application/pdf'});
-    this.apiService.sendFile(blob);
+    // const blob = new Blob([this.fileName, this.file], {type: 'application/pdf'});
+    // this.apiService.sendFile(blob);
   }
 
   public generateFile(fileName): void {

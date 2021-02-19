@@ -40,24 +40,22 @@ export class CandidateFormComponent implements OnInit {
     private modalService: NgbModal,
     private employeeData: EmployeeDataService
   ) {
-    // this.getFromDatabase();
-    // console.log('Imie: ', this.employeeData.getName());
     this.dataComplete = true;
-    if (this.employeeData.getSex != null){
+    console.log(this.employeeData.getSex);
+    if (this.employeeData.getSex !== null){
       this.selectedSortOrder = this.employeeData.getSex();
     }
   }
 
   ngOnInit(): any {
-    this.initializePersonalDataForm();
-    this.initializeContactDataForm();
-    this.initializeSchoolDataForm();
+      this.initializePersonalDataForm();
+      this.initializeContactDataForm();
+      this.initializeSchoolDataForm();
   }
 
   changeSortOrder(newSortOrder: string): any {
       this.selectedSortOrder = newSortOrder;
   }
-
 
   private initializePersonalDataForm(): any {
       this.personalDataForm = new FormGroup({
