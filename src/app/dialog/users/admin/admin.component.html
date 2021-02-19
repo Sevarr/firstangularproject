@@ -1,10 +1,8 @@
 <div *ngIf="hideAll">
   <br><h1>Wybierz jedną z opcji</h1>
-  <menu>
-  <button class="badge-pill" (click)="loadCreateNewAccount()">Stwórz nowe konto</button>
-  <button class="badge-pill" (click)="loadUploadFiles()">Dodaj dokumenty</button>
-  <button class="badge-pill" (click)="loadDownloadFiles()">Pobierz dokumenty</button>
-  </menu>
+  <button class="menu-button" (click)="loadCreateNewAccount()">Stwórz nowe konto</button>
+  <button class="menu-button" (click)="loadUploadFiles()">Dodaj dokumenty</button>
+  <button class="menu-button" (click)="loadDownloadFiles()">Pobierz dokumenty</button>
 </div>
 <app-create-new-account  *ngIf="hideCreateNewAccount"></app-create-new-account><br><br>
 <app-file-upload  *ngIf="hideUploadFiles"></app-file-upload><br><br>

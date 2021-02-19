@@ -3,17 +3,29 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeDataService } from '../../services/data/employee-data.service';
 
+interface AddressesData {
+  id: number;
+  addressType: string;
+  city: string;
+  postcode: string;
+  community: string;
+  county: string;
+  street: string;
+  houseNumber: string;
+  apartmentNumber: string;
+}
+
 interface PersonalData {
   id: number;
+  connection: string;
   name: string;
   forename: string;
   dateOfBirth: string;
+  insured: boolean;
 }
 
-const KIDPERSONALDATA: PersonalData[] = [];
+const ADDRESSESDATA: AddressesData[] = [];
 const FAMILYMEMBERPERSONALDATA: PersonalData[] = [];
-const KIDINSURANCEDATA: PersonalData[] = [];
-const FAMILYMEMBERINSURANCEDATA: PersonalData[] = [];
 
 @Component({
   selector: 'app-employee-form',
@@ -23,14 +35,10 @@ const FAMILYMEMBERINSURANCEDATA: PersonalData[] = [];
 export class EmployeeFormComponent implements OnInit {
 
   employeeDataForm: FormGroup;
-  kidsDataForm: FormGroup;
+  addressesDataForm: FormGroup;
   familyMembersDataForm: FormGroup;
-  kidsInsuredDataForm: FormGroup;
-  familyMembersInsuredDataForm: FormGroup;
-  kidsPersonalDatas = KIDPERSONALDATA;
+  addressesDatas = ADDRESSESDATA;
   familyMembersPersonalDatas = FAMILYMEMBERPERSONALDATA;
-  kidsInsuranceDatas = KIDINSURANCEDATA;
-  familyMembersInsuranceDatas = FAMILYMEMBERINSURANCEDATA;
   model: NgbDateStruct;
   closeResult = '';
   dataComplete: boolean;
@@ -46,41 +54,36 @@ export class EmployeeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeEmployeeDataForm();
-    this.initializeKidsPersonalDataForm();
+    this.initializeAddressesDataForm();
     this.initializeFamilyMembersDataForm();
-    this.initializeKidsInsuredDataForm();
-    this.initializefamilyMembersInsuredDataForm();
   }
 
   private initializeEmployeeDataForm(): any {
     this.employeeDataForm = new FormGroup({
       pesel: new FormControl(this.employeeData.getDocumentType_Number('pesel')),
       nip: new FormControl(this.employeeData.getDocumentType_Number('nip')),
-      // city: new FormControl(this.employeeData.getCity()),
-      // postcode: new FormControl(this.employeeData.getPostcode()),
-      // community: new FormControl(this.employeeData.getCommunity()),
-      // county: new FormControl(this.employeeData.getCounty()),
-      // street: new FormControl(this.employeeData.getStreet()),
-      // houseNumber: new FormControl(this.employeeData.getHouseNumber()),
-      // apartmentNumber: new FormControl(this.employeeData.getApartmentNumber()),
       taxOffice: new FormControl(this.employeeData.getTaxOffice()),
       citizenship: new FormControl(this.employeeData.getCitizenship()),
       personToNotfiy: new FormControl(this.employeeData.getPersonToNotify()),
       position: new FormControl(this.employeeData.getPosition()),
       department: new FormControl(this.employeeData.getDepartment()),
-      nfz: new FormControl(this.employeeData.getNfz),
+      nfz: new FormControl(this.employeeData.getNfz()),
       bankName: new FormControl(this.employeeData.getBankName()),
       bankAccount: new FormControl(this.employeeData.getBankAccount())
     });
   }
 
-  private initializeKidsPersonalDataForm(): any {
-    this.kidsDataForm = new FormGroup(
+  private initializeAddressesDataForm(): any {
+    this.addressesDataForm = new FormGroup(
       {
-        id: new FormControl(null),
-        name: new FormControl(null),
-        forename: new FormControl(null),
-        dateOfBirth: new FormControl(null),
+        addressType: new FormControl(null),
+        city: new FormControl(null),
+        postcode: new FormControl(null),
+        community: new FormControl(null),
+        county: new FormControl(null),
+        street: new FormControl(null),
+        houseNumber: new FormControl(null),
+        apartmentNumber: new FormControl(null),
       }
     );
   }
@@ -89,31 +92,11 @@ export class EmployeeFormComponent implements OnInit {
     this.familyMembersDataForm = new FormGroup(
       {
         id: new FormControl(null),
+        connection: new FormControl(null),
         name: new FormControl(null),
         forename: new FormControl(null),
         dateOfBirth: new FormControl(null),
-      }
-    );
-  }
-
-  private initializeKidsInsuredDataForm(): any {
-    this.kidsInsuredDataForm = new FormGroup(
-      {
-        id: new FormControl(null),
-        name: new FormControl(null),
-        forename: new FormControl(null),
-        dateOfBirth: new FormControl(null),
-      }
-    );
-  }
-
-  private initializefamilyMembersInsuredDataForm(): any {
-    this.familyMembersInsuredDataForm = new FormGroup(
-      {
-        id: new FormControl(null),
-        name: new FormControl(null),
-        forename: new FormControl(null),
-        dateOfBirth: new FormControl(null),
+        insured: new FormControl(null)
       }
     );
   }
@@ -152,13 +135,18 @@ export class EmployeeFormComponent implements OnInit {
     }
   }
 
-  private addKid(): any {
-    this.kidsPersonalDatas.push(
+  private addAddressData(): any {
+    this.addressesDatas.push(
       {
-        id: this.kidsPersonalDatas.length + 1,
-        name: this.kidsDataForm.value.name,
-        forename: this.kidsDataForm.value.forename,
-        dateOfBirth: this.kidsDataForm.value.dateOfBirth,
+        id: this.addressesDatas.length + 1,
+        addressType: this.addressesDataForm.value.addressType,
+        city: this.addressesDataForm.value.city,
+        postcode: this.addressesDataForm.value.postcode,
+        community: this.addressesDataForm.value.community,
+        county: this.addressesDataForm.value.county,
+        street: this.addressesDataForm.value.street,
+        houseNumber: this.addressesDataForm.value.houseNumber,
+        apartmentNumber: this.addressesDataForm.value.apartmentNumber,
       }
     );
   }
@@ -167,31 +155,11 @@ export class EmployeeFormComponent implements OnInit {
     this.familyMembersPersonalDatas.push(
       {
         id: this.familyMembersPersonalDatas.length + 1,
+        connection: this.familyMembersDataForm.value.connection,
         name: this.familyMembersDataForm.value.name,
         forename: this.familyMembersDataForm.value.forename,
-        dateOfBirth: this.familyMembersDataForm.value.dateOfBirth,
-      }
-    );
-  }
-
-  private addKidToInsurance(): any {
-    this.kidsInsuranceDatas.push(
-      {
-        id: this.kidsInsuranceDatas.length + 1,
-        name: this.kidsInsuredDataForm.value.name,
-        forename: this.kidsInsuredDataForm.value.forename,
-        dateOfBirth: this.kidsInsuredDataForm.value.dateOfBirth,
-      }
-    );
-  }
-
-  private addFamilyMemberToInsurance(): any {
-    this.familyMembersInsuranceDatas.push(
-      {
-        id: this.familyMembersInsuranceDatas.length + 1,
-        name: this.familyMembersInsuredDataForm.value.name,
-        forename: this.familyMembersInsuredDataForm.value.forename,
-        dateOfBirth: this.familyMembersInsuredDataForm.value.dateOfBirth,
+        dateOfBirth: (this.familyMembersDataForm.value.dateOfBirth.year + '-' + this.familyMembersDataForm.value.dateOfBirth.month + '-' + this.familyMembersDataForm.value.dateOfBirth.day),
+        insured: this.familyMembersDataForm.value.insured,
       }
     );
   }

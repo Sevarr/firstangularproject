@@ -1,4 +1,4 @@
-<h1>Wypełnij formularz kandydata</h1><br>
+<h1>Wypełnij formularz danych kandydata</h1><br>
 <div class="row">
   <div class="col-xs-12 col-lg-12">
     <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()">
@@ -86,7 +86,9 @@
                   </div>
                   <hr>
                   <br>
-                  <table class="table">
+
+
+                  <table class="table table-striped">
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Ukończona Szkoła</th>
@@ -109,7 +111,7 @@
                     </tbody>
                   </table>
                   <div class="action-buttons" fxLayout="row" fxLayoutAlign="start center">
-                    <button type="button" class="table-buttons" (click)="onAdd(content)">Dodaj szkołę</button>
+                    <button type="button" class="table-buttons" (click)="onAdd(content)">Dodaj</button>
                   </div>
 
                   <hr>

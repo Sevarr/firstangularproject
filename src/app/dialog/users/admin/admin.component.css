@@ -1,0 +1,9 @@
+.menu {
+  color: black;
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding: 16px 40px;
+  background: none;
+  width: 300px;
+}

@@ -1,10 +1,8 @@
 <div *ngIf="hideAll">
   <br><h1>Wybierz jedną z opcji</h1>
-  <options_menu>
-  <button class="badge-pill" (click)="loadCandidateForm()">Otworz formularz kandydata</button>
-  <button class="badge-pill" (click)="loadEmployeeForm()">Otworz formularz pracownika</button>
-  <button class="badge-pill" (click)="loadFileDownload()">Wygeneruj i pobierz dokumenty</button>
-  </options_menu>
+    <button class="menu-button" (click)="loadCandidateForm()">Otworz formularz kandydata</button>
+    <button class="menu-button" (click)="loadEmployeeForm()">Otworz formularz pracownika</button>
+    <button class="menu-button" (click)="loadFileDownload()">Wygeneruj i pobierz dokumenty</button>
 </div>
 
 <app-candidate-form  *ngIf="hideCandidateForm"></app-candidate-form><br>
