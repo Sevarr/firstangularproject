@@ -8,7 +8,7 @@ import { ApiService } from '../../../services/api/api.service';
   styleUrls: ['./change-account-data.component.css']
 })
 export class ChangeAccountDataComponent implements OnInit {
-  accountType = this.apiService.getUserType();
+  accountTypeTranslate = this.getUserType();
   passwordDataForm: FormGroup;
   private response;
   constructor(private apiService: ApiService) { }
@@ -23,6 +23,17 @@ export class ChangeAccountDataComponent implements OnInit {
       newPassword: new FormControl(),
       confirmPassword: new FormControl(),
     });
+  }
+
+  getUserType(){
+    const accountType = this.apiService.getUserType();
+    if (accountType === 'admin'){
+      return 'Administrator';
+    } else if (accountType === 'hr_employee') {
+      return 'Pracownik kadr';
+    } else {
+      return 'Kandydat/Pracownik';
+    }
   }
 
   changePassword(): any {
