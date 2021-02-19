@@ -1,21 +1,16 @@
-<p>change-account-data works!</p>
 <div>
   <h5>Typ konta: {{this.accountType}}</h5>
 </div>
 <div>
   <form [formGroup]="passwordDataForm" (ngSubmit)="changePassword()">
-    <div class="row">
-      <div class="col-sm-12 col-md-4 form-group">
+      <div class="form-group">
         <label for="password">Stare hasło</label>
         <input id="password" type="password" class="form-control" formControlName="password">
-        <br>
         <label for="newPassword">Nowe hasło</label>
         <input id="newPassword" type="password" class="form-control" formControlName="newPassword">
-        <br>
-        <label for="confirmPassword">Ponownie nowe hasło</label>
+        <label for="confirmPassword">Powtórz hasło</label>
         <input id="confirmPassword" type="password" class="form-control" formControlName="confirmPassword">
       </div>
-    </div>
     <button class="btn btn-success" type="submit">Zatwierdź zmianę</button>
   </form>
 </div>

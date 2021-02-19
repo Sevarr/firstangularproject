@@ -6,7 +6,7 @@
 <body>
 <h2>
 <form class="box" [formGroup]="loginForm" (ngSubmit)="login()">
-  <h2>Zaloguj się</h2>
+  <h2>Wprowadź dane logowania</h2>
     <input  type="text" id="email" placeholder="email" autocomplete="off" formControlName="email" required>
     <input  type="password" id="password" placeholder="Password" formControlName="password" required>
     <button color="primary" type="submit" [disabled]="!loginForm.valid">Zaloguj się</button>

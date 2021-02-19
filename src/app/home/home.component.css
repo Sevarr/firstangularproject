@@ -1,9 +1,9 @@
-html {
-  background: #cccccc;
-  /*border: 1px solid black;*/
-  /*width: 600px;*/
-  /*height: 600px;*/
-}
+/*html {*/
+/*  background: #cccccc;*/
+/*  !*border: 1px solid black;*!*/
+/*  !*width: 600px;*!*/
+/*  !*height: 600px;*!*/
+/*}*/
 
 input[type = "text"]{
   border-radius: 24px;
