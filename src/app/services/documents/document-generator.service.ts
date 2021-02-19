@@ -53,6 +53,7 @@ export class DocumentGeneratorService {
         // i++;
       });
       this.pdfDoc.setKeywords(keywords);
+      this.pdfDocPreview.setKeywords(keywords);
     }
   }
 
@@ -74,7 +75,7 @@ export class DocumentGeneratorService {
     }
   }
 
-  private readData(data): string {
+  private readData(data) {
     const date = new Date();
     if (this.authService.getUserType() === 'worker') {
       switch (data) {
@@ -86,34 +87,34 @@ export class DocumentGeneratorService {
           return this.employeeData.getName();
         }
         case 'Drugie_imie': {
-          return this.employeeData.getName();
+          return this.employeeData.getSecondName();
         }
         case 'Nazwisko': {
-          return this.employeeData.getName();
+          return this.employeeData.getSurname();
         }
         case 'Data_urodzenia': {
-          return this.employeeData.getName();
+          return this.employeeData.getBirthDate();
         }
         case 'Plec': {
-          return this.employeeData.getName();
+          return this.employeeData.getSex();
         }
         case 'Numer_telefonu': {
-          return this.employeeData.getName();
+          return this.employeeData.getPhoneNumber();
         }
         case 'Miejscowosc_wypelniania_formularza': {
-          return this.employeeData.getName();
+          return this.employeeData.getFillLocation();
         }
         case 'Kwalifikacje_zawodowe': {
-          return this.employeeData.getName();
+          return this.employeeData.getQualifications();
         }
         case 'Przebieg_dotychczasowego_zatrudnienia': {
-          return this.employeeData.getName();
+          return this.employeeData.getPrevEmployment();
         }
         case 'Dodatkowe_dane_osobowe': {
-          return this.employeeData.getName();
+          return this.employeeData.getAdditionalPersonalData();
         }
         case 'Ukonczone_szkoly': {
-          return this.employeeData.getName();
+          return this.employeeData.getEducation();
         }
         default: {
           return '';
@@ -178,7 +179,6 @@ export class DocumentGeneratorService {
     const {} = firstPage.getSize();
     this.drawText(firstPage, helveticaFont, pdfDoc);
     const pdfBytes = await pdfDoc.save();
-
     const a = document.createElement('a');
     document.body.appendChild(a);
     a.style.display = 'none';
@@ -193,8 +193,8 @@ export class DocumentGeneratorService {
   }
 
   public async saveFileToDatabase(): Promise<void> {
-    // const blob = new Blob([this.fileName, this.file], {type: 'application/pdf'});
-    // this.apiService.sendFile(blob);
+    const blob = new Blob([this.fileName, this.file] , {type: 'application/pdf'});
+    this.apiService.sendFile(blob);
   }
 
   public generateFile(fileName): void {

@@ -73,13 +73,13 @@
     <tr *ngFor="let addressesData of addressesDatas; index as i">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ addressesData.addressType }}</td>
-      <td>{{ addressesData.city }}</td>
-      <td>{{ addressesData.postcode }}</td>
+      <td>{{ addressesData.location }}</td>
+      <td>{{ addressesData.postalCode }}</td>
       <td>{{ addressesData.community }}</td>
-      <td>{{ addressesData.county }}</td>
+      <td>{{ addressesData.district }}</td>
       <td>{{ addressesData.street }}</td>
-      <td>{{ addressesData.houseNumber }}</td>
-      <td>{{ addressesData.apartmentNumber }}</td>
+      <td>{{ addressesData.homeNumber }}</td>
+      <td>{{ addressesData.flatNumber }}</td>
       <button type="button" class="btn btn-lg btn-outline-primary" (click)="onDelete(addressesData.id, addressesDatas)">delete</button>
     </tr>
     </tbody>
@@ -102,11 +102,11 @@
     <tbody>
     <tr *ngFor="let familyMembersPersonalData of familyMembersPersonalDatas; index as i">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ familyMembersPersonalData.connection }}</td>
+      <td>{{ familyMembersPersonalData.relationship }}</td>
       <td>{{ familyMembersPersonalData.name }}</td>
-      <td>{{ familyMembersPersonalData.forename }}</td>
-      <td>{{ familyMembersPersonalData.dateOfBirth }}</td>
-      <td>{{ familyMembersPersonalData.insured }}</td>
+      <td>{{ familyMembersPersonalData.surname }}</td>
+      <td>{{ familyMembersPersonalData.birthDate }}</td>
+      <td>{{ familyMembersPersonalData.insuredAtEmployee }}</td>
       <button type="button" class="btn btn-lg btn-outline-primary" (click)="onDelete(familyMembersPersonalData.id, familyMembersPersonalDatas)">delete</button>
     </tr>
     </tbody>
@@ -146,32 +146,32 @@
           <input id="addressType" type="text" class="form-control" formControlName="addressType">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="city">Miasto</label>
-          <input id="city" type="text" class="form-control" formControlName="city">
+          <label for="location">Miasto</label>
+          <input id="location" type="text" class="form-control" formControlName="location">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="postcode">Kod pocztowy</label>
-          <input id="postcode" type="text" class="form-control" formControlName="postcode">
+          <label for="postalCode">Kod pocztowy</label>
+          <input id="postalCode" type="text" class="form-control" formControlName="postalCode">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
           <label for="community">Gmina</label>
           <input id="community" type="text" class="form-control" formControlName="community">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="county">Powiat</label>
-          <input id="county" type="text" class="form-control" formControlName="county">
+          <label for="district">Powiat</label>
+          <input id="district" type="text" class="form-control" formControlName="district">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
           <label for="street">Ulica</label>
           <input id="street" type="text" class="form-control" formControlName="street">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="houseNumber">Numer domu</label>
-          <input id="houseNumber" type="text" class="form-control" formControlName="houseNumber">
+          <label for="homeNumber">Numer domu</label>
+          <input id="homeNumber" type="text" class="form-control" formControlName="homeNumber">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="apartmentNumber">Numer mieszkania</label>
-          <input id="apartmentNumber" type="text" class="form-control" formControlName="apartmentNumber">
+          <label for="flatNumber">Numer mieszkania</label>
+          <input id="flatNumber" type="text" class="form-control" formControlName="flatNumber">
         </div>
       <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>
       </div>
@@ -192,20 +192,20 @@
     <form [formGroup]='familyMembersDataForm' (ngSubmit)="addFamilyMember()">
       <div class="form-group">
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="connection">Pokrewieństwo</label>
-          <input id="connection" type="text" class="form-control" formControlName="connection">
+          <label for="relationship">Pokrewieństwo</label>
+          <input id="relationship" type="text" class="form-control" formControlName="relationship">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
           <label for="name">Imię</label>
           <input id="name" type="text" class="form-control" formControlName="name">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="forename">Nazwisko</label>
-          <input id="forename" type="text" class="form-control" formControlName="forename">
+          <label for="surname">Nazwisko</label>
+          <input id="surname" type="text" class="form-control" formControlName="surname">
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="dateOfBirth">Data urodzenia</label>
-          <input id="dateOfBirth" type="text" class="form-control" formControlName="dateOfBirth"
+          <label for="birthDate">Data urodzenia</label>
+          <input id="birthDate" type="text" class="form-control" formControlName="birthDate"
                  placeholder="rrrr-mm-dd"
                  name="dateOfBirth" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
           <div class="input-group-append">
@@ -213,8 +213,8 @@
           </div>
         </div>
         <div class="col-sm-12 col-md-10 form-group">
-          <label for="insured">Ubezpieczony</label>
-          <input id="insured" type="text" class="form-control" formControlName="insured">
+          <label for="insuredAtEmployee">Ubezpieczony</label>
+          <input id="insuredAtEmployee" type="text" class="form-control" formControlName="insuredAtEmployee">
         </div>
       </div>
       <button type="submit" class="btn btn-success" (click)="modal.close()">Save</button>
@@ -226,7 +226,7 @@
 
 <ng-template #poppingmassagecontent let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="poppingmassage"></h4>
+    <h1 class="modal-title" id="poppingmassage"></h1>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>

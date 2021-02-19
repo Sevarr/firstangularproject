@@ -101,7 +101,7 @@
                     <tbody>
                     <tr *ngFor="let school of schools; index as i">
                       <th scope="row">{{ i + 1 }}</th>
-                      <td>{{ school.name }}</td>
+                      <td>{{ school.schoolName }}</td>
                       <td>{{ school.graduationYear }}</td>
                       <td>{{ school.profession }}</td>
                       <td>{{ school.specialty }}</td>
@@ -149,9 +149,9 @@
           <form [formGroup]="schoolDataForm" (ngSubmit)="addSchool()">
             <div class="form-group">
               <div class="col-sm-12 col-md-10 form-group">
-                <label for="name">Ukończona szkoła</label>
-                <input id="name" type="text" class="form-control" formControlName="name">
-                <div *ngIf="schoolDataForm.get('name').hasError('required')">Pole wymagane.</div>
+                <label for="schoolName">Ukończona szkoła</label>
+                <input id="schoolName" type="text" class="form-control" formControlName="schoolName">
+                <div *ngIf="schoolDataForm.get('schoolName').hasError('required')">Pole wymagane.</div>
               </div>
               <div class="col-sm-12 col-md-10 form-group">
                 <label for="graduationYear">Rok ukończenia szkoły</label>

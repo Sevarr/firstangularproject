@@ -1,86 +1,6 @@
 import { ApiService } from '../api/api.service';
 import { Injectable } from '@angular/core';
 
-// const employee = {                          // Dane pracownika
-//   email: null,                              // Adres mailowy
-//   phoneNumber: null,                        // Numer telefonu
-//   fillLocation: null,                       // Miejscowość wypełniania dokumentów
-//   sex: null,                                // Płeć
-//   firstName: null,                          // Imię
-//   secondName: null,                         // Drugie imię
-//   surname: null,                            // Nazwisko
-//   prevEmployment: null,                     // Przebieg poprzedniego zatrudnienia
-//   dateOfBirth: null,                        // Data urodzenia
-//   qualifications: null,                     // Dodatkowe kwalifikacje
-//   additionalPersonalData: null,             // Dodatkowe dane osobowe
-//   citizenship: null,                        // Obywatelstwo
-//   documentNumber: null,                     // Numer dokumentu (pesel lub nip)
-//   documentType: null,                       // Typ dokumentu
-//   taxOffice: null,                          // Urząd podatkowy
-//   department: null,                         // Departament pracy
-//   position: null,                           // Obejmowane stanowisko
-//   employmentDate: null,                     // Data zatrudnienia
-//   bank: null,                               // Nazwa banku
-//   accountNumber: null,                      // Numer konta w banku
-//   securityClearance: null,                  // Uprawnienia
-//   disabledZUSNumber: null,                  // Numer ZUS niepełnosprawnego
-//   disabledFrom: null,                       // Niepełnosprawny od
-//   disabledTo: null,                         // Niepełnosprawny do
-//   contractType: null,                       // Osoba do powiadomienia w razie wypadku
-//   hasChildren: false,                       // Czy pracownik ma dzieci
-//   // addresses: [],                            // Tabela adresów
-//   // education: [],                            // Tabela ukończonych szkół
-//   // familyMembers: [],                        // Tabela członków rodziny
-//   nip: null,                                // Numer NIP
-//   disabled: false,                          // Czy pracownik jest niepełnosprawny
-//   nfz: null,                                // Numer ubezpieczenia NFZ
-// // };
-//
-//     addresses: [{                     // Adresy użytkownika
-//       addressType: null,              // Typ adresu
-//       postalCode: null,               // Kod pocztowy
-//       location: null,                 // Miejscowość
-//       district: null,                 // Powiat
-//       community: null,                // Gmina
-//       street: null,                   // Ulica
-//       homeNumber: null,               // Numer domu
-//       flatNumber: null                // Numer mieszkania
-//     }],
-//
-//     education: [{                     // Ukończone szkoły
-//       schoolName: null,               // Nazwa ukończonej szkoły
-//       graduationYear: null,           // Rok ukończenia szkoły
-//       profession: null,               // Zawód
-//       speciality: null,               // Specjalizacja
-//       title: null                     // Tytuł
-//    }],
-//
-//     familyMembers: [{                 // Członkowie rodziny
-//       relationship: null,             // Relacje rodzinne z pracownikiem
-//       name: null,                     // Imię
-//       surname: null,                  // Nazwisko
-//       birthDate: null,                // Data urodzenia
-//       insuredAtEmployee: false,
-//       legalGuardian: false,           // Czy pracownik jest prawnym opiekunem
-//       disabledZUSNumber: null,        // Numer ZUS niepełnosprawnego
-//       disabilityLevel: null,          // Poziom niepełnosprawności
-//       onExclusiveMaintenance: true,
-//       location: null,                 // Miejscowość zamieszkania
-//       postCode: null,                 // Kod pocztowy
-//       district: null,                 // Dzielnica
-//       community: null,                // Gmina
-//       street: null,                   // Ulica
-//       homeNumber: null,               // Numer domu
-//       flatNumber: null,               // Numer mieszkania
-//       pesel: null,                    // Numer pesel
-//       disabled: false,                // Czy jest niepełnosprawny
-//       sharedHousehold: false
-//     }]
-//
-// };
-
-
-
 const employee = {
     email: null,
     phoneNumber: null,
@@ -282,13 +202,7 @@ export class EmployeeDataService {
   }
 
   setEducation(schools): any{
-    for (let i = 0; i < this.employee.education.length; i++) {
-      this.employee.education.splice(i);
-    }
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < schools.length; i++) {
-      this.employee.education.push(schools[i]);
-    }
+    this.employee.education = schools;
   }
 
   getCitizenship(): string {
@@ -317,63 +231,6 @@ export class EmployeeDataService {
       this.employee.documentNumber = nip;
     }
   }
-
-  // getCity(): string{
-  //
-  // }
-  //
-  // setCity(city){
-  //
-  // }
-  //
-  // getPostcode(){
-  //
-  // }
-  //
-  // setPostcode(postcode){
-  //
-  // }
-  //
-  // getCommunity(){
-  //
-  // }
-  //
-  // setCommunity(community){
-  //
-  // }
-  //
-  // getCounty(){
-  //
-  // }
-  //
-  // setCounty(county){
-  //
-  // }
-  //
-  // getStreet(){
-  //
-  // }
-  //
-  // setStreet(street){
-  //
-  // }
-  //
-  // getHouseNumber(){
-  //
-  // }
-  //
-  // setHouseNumber(houseNumber){
-  //
-  // }
-  //
-  // getApartmentNumber(){
-  //
-  // }
-  //
-  // setApartmentNumber(apartmentNumber){
-  //   // this.employee.
-  // }
-
 
   getTaxOffice(): string {
     return this.employee.taxOffice;
@@ -434,4 +291,20 @@ export class EmployeeDataService {
   // getCandidate(): object {
   //   return this.employee;
   // }
+
+  getAddresses(): any[] {
+    return this.employee.addresses;
+  }
+
+  setAddresses(addressesData) {
+    this.employee.addresses = addressesData;
+  }
+
+  getFamilyMembers(): any[] {
+    return this.employee.familyMembers;
+  }
+
+  setFamilyMembers(familyMembers) {
+    this.employee.familyMembers = familyMembers;
+  }
 }

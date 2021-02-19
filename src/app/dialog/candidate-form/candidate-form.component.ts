@@ -5,7 +5,7 @@ import { EmployeeDataService } from '../../services/data/employee-data.service';
 
 interface School {
   id: number;
-  name: string;
+  schoolName: string;
   graduationYear: number;
   profession: string;
   specialty: string;
@@ -80,7 +80,7 @@ export class CandidateFormComponent implements OnInit {
 
   private initializeSchoolDataForm(): any {
     this.schoolDataForm = new FormGroup({
-      name: new FormControl(null, [Validators.required]),
+      schoolName: new FormControl(null, [Validators.required]),
       graduationYear: new FormControl(null, [Validators.required]),
       profession: new FormControl(null),
       specialty: new FormControl(null),
@@ -90,13 +90,13 @@ export class CandidateFormComponent implements OnInit {
   }
 
   getEducation(): any{
-    const education = this.employeeData.getEducation();
+    this.schools = this.employeeData.getEducation();
   }
 
   addSchool(): any {
     this.schools.push({
         id: (this.schools.length + 1),
-        name: this.schoolDataForm.value.name,
+        schoolName: this.schoolDataForm.value.schoolName,
         graduationYear: this.schoolDataForm.value.graduationYear,
         profession: this.schoolDataForm.value.profession,
         specialty: this.schoolDataForm.value.specialty,

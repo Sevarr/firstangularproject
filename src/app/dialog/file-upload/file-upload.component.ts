@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentGeneratorService } from '../../services/documents/document-generator.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ApiService } from '../../services/api/api.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -17,9 +18,14 @@ export class FileUploadComponent implements OnInit {
   sortOrders: string[] = this.list;
   defaultSelectedSortOrder = 'Wybierz informację, którą chcesz dodać do pliku';
   selectedSortOrder = this.defaultSelectedSortOrder;
+  fileList: string = null;
+  sortDeleteOrders: string;
+  defaultSelectedDeleteSortOrder = 'Wybierz plik do usunięcia';
+  selectedDeleteSortOrder = this.defaultSelectedDeleteSortOrder;
   private message: string;
+  private messageDelete: string;
 
-  constructor(private documentGenerator: DocumentGeneratorService, private modalService: NgbModal) {
+  constructor(private documentGenerator: DocumentGeneratorService, private modalService: NgbModal, private apiService: ApiService) {
   }
 
   ngOnInit(): void {
@@ -96,6 +102,15 @@ export class FileUploadComponent implements OnInit {
     });
   }
 
+  poppingMessageDelete(content, message): any {
+    this.messageDelete = message;
+    this.modalService.open(content, {ariaLabelledBy: 'poppingmassagedelete'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -104,6 +119,24 @@ export class FileUploadComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  getFileList(): any {
+    this.fileList = this.apiService.getFileList();
+    this.sortDeleteOrders = this.fileList;
+  }
+
+  changeDeleteSortOrder(newSortOrder: string): any {
+    this.selectedDeleteSortOrder = newSortOrder;
+  }
+
+  deleteFile(content): any {
+    if (this.selectedDeleteSortOrder !== this.defaultSelectedDeleteSortOrder) {
+      this.apiService.deleteFile(this.selectedDeleteSortOrder);
+      this.messageDelete = 'Plik usunięty';
+      this.selectedDeleteSortOrder = this.defaultSelectedDeleteSortOrder;
+    } else { this.messageDelete = 'Wybierz plik do usunięcia'; }
+    this.poppingMessageDelete(content, this.messageDelete);
   }
 
   onSubmitFile(): any {

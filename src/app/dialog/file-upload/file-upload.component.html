@@ -1,5 +1,6 @@
+<h1>Dodawanie plików</h1><br>
 <form [formGroup]="dataToAddForm" (ngSubmit)="onSubmitData()">
-  <label>Dodawanie plików</label><br>
+
   <div ngbDropdown class="d-inline-block">
     <button type="button" class="btn btn-outline-primary" id="sortMenu"
             ngbDropdownToggle>{{selectedSortOrder}}</button>
@@ -7,36 +8,58 @@
       <button type="button" class="dropdown-item" *ngFor="let sortOrder of sortOrders"
               (click)="changeSortOrder(sortOrder)">{{sortOrder}}</button>
     </div>
-  </div><br>
-  <label>Pozycja X</label>
-  <input id="positionX" name="positionX" type="text" formControlName="positionX" /><br>
-  <label>Pozycja Y</label>
-  <input id="positionY" name="positionY" type="text" formControlName="positionY"/><br>
-  <label>Rozmiar</label>
-  <input id="size" name="size" type="text" formControlName="size"/><br>
-  <button type="submit" (click)="poppingMessage(poppingmassagecontent, 'Wiadomość')">Submit</button>
+  </div><br><br>
+  <input id="positionX" name="positionX" placeholder="Wprowadź pozycję X" type="text" formControlName="positionX" /><br>
+  <input id="positionY" name="positionY" placeholder="Wprowadź pozycję Y" type="text" formControlName="positionY"/><br>
+  <input id="size" name="size" type="text"placeholder="Wprowadź rozmiar czcionki" formControlName="size"/><br>
+  <button type="submit" (click)="poppingMessage(poppingmassagecontent, 'Wiadomość')">Dodaj</button><br><br>
 </form>
 
 <div>
-  <h3>Upload File</h3>
+  <label>Wybierz plik do dodania</label>
   <form [formGroup]="fileForm" (ngSubmit)="onSubmitFile()">
-    <input type="file" (change)="upload($event)" /> <br><br>
-    <button type="submit" value="upload">Zapisz informacje w dokumencie</button>
+    <input type="file" (change)="upload($event)" /><br><br>
+    <button type="submit" value="upload">Zapisz informacje w dokumencie</button><br><br><br>
   </form>
 </div>
 
-<button (click)="previewPDF()">Podgląd dokumentu</button>
-<button (click)="saveFile()">Zapisz dokument</button>
+<button (click)="previewPDF()">Podgląd dokumentu</button><br><br>
+<button (click)="saveFile()">Zapisz dokument</button><br><br><br>
+
+<label>Wybierz z listy plik do usunięcia</label><br>
+<div ngbDropdown class="d-inline-block">
+  <button type="button" (click)="getFileList()" class="btn btn-outline-primary" id="sortDeleteMenu"
+          ngbDropdownToggle>{{ selectedDeleteSortOrder }}</button>
+  <div ngbDropdownMenu aria-labelledby="sortDeleteMenu">
+    <button type="button" class="dropdown-item" *ngFor="let sortDeleteOrder of sortDeleteOrders"
+            (click)="changeDeleteSortOrder(sortDeleteOrder)">{{ sortDeleteOrder }}</button>
+  </div>
+</div><br>
+<br><button type="button" class="btn-outline-primary" (click)="deleteFile(poppingmassagedeletecontent)">Usuń plik</button><br>
 
 <ng-template #poppingmassagecontent let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="poppingmassage"></h4>
+    <h1 class="modal-title" id="poppingmassage"></h1>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <td>{{ message }}</td>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>
+
+<ng-template #poppingmassagedeletecontent let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title" id="poppingmassagedelete"></h1>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <td>{{ messageDelete }}</td>
   </div>
   <div class="modal-footer">
   </div>

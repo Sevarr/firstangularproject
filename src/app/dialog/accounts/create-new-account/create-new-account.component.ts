@@ -16,6 +16,7 @@ export class CreateNewAccountComponent implements OnInit {
   hideWorkerRegisterButton: boolean;
   hideHREmployeeRegisterButton: boolean;
   hideAdminRegisterButton: boolean;
+  accountTypeTranslate: any;
 
   constructor(private userRegistrationService: NewUserRegistrationService) {
     this.loggedUserType = this.userRegistrationService.getLoggedUserType();
@@ -47,7 +48,19 @@ export class CreateNewAccountComponent implements OnInit {
     this.registrationLink = null;
     this.userType = userType;
     this.registrationLink = this.userRegistrationService.getRegistrationLink(userType);
+    this.getUserType();
     this.hideRegistrationLink = true;
     this.hideAll();
   }
+
+  getUserType(): void{
+    if (this.userType === 'ADMIN'){
+      this.accountTypeTranslate = 'Administratora';
+    } else if (this.userType === 'HR_EMPLOYEE') {
+      this.accountTypeTranslate = 'Pracownika kadr';
+    } else {
+      this.accountTypeTranslate = 'Kandydata/Pracownika';
+    }
+  }
+
 }

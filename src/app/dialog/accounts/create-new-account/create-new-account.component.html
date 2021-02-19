@@ -1,5 +1,5 @@
-<button *ngIf="hideWorkerRegisterButton" (click)="generateRegistrationLink('WORKER')">Wygeneruj link logowania dla nowego pracownika</button>
-<button *ngIf="hideHREmployeeRegisterButton" (click)="generateRegistrationLink('HR_EMPLOYEE')">Wygeneruj link logowania dla pracownika działu kadr</button>
+<button *ngIf="hideWorkerRegisterButton" (click)="generateRegistrationLink('WORKER')">Wygeneruj link logowania dla nowego pracownika</button><br><br>
+<button *ngIf="hideHREmployeeRegisterButton" (click)="generateRegistrationLink('HR_EMPLOYEE')">Wygeneruj link logowania dla pracownika działu kadr</button><br><br>
 <button *ngIf="hideAdminRegisterButton" (click)="generateRegistrationLink('ADMIN')">Wygeneruj link logowania dla administratora</button>
 
-<form *ngIf="hideRegistrationLink">Link dla {{userType}}: {{ registrationLink }}</form>
+<form *ngIf="hideRegistrationLink">Token rejestracji dla {{ this.accountTypeTranslate  }}: {{ registrationLink }}</form>

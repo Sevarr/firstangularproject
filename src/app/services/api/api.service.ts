@@ -59,8 +59,7 @@ export class ApiService {
 
   public newUserRegistration(registerLink, user): any {
     this.httpClient.post<any>(config.backend_url + `/register/` + registerLink, {email: user.email, password: user.password})
-      .subscribe(response => console.log(response),
-        (error => alert(error)));
+      .subscribe(response => alert(response));
   }
 
   // Get corrent user data from database by id
@@ -79,20 +78,6 @@ export class ApiService {
     return this.httpClient.put<any>(config.backend_url + '/updateworker', data);
   }
 
-  // public getFile(name): any {
-  //   const url = (config.backend_url + '/');
-  //   return this.httpClient.get(url);
-  // }
-
-  public sendFile(file): object {
-    const formData = new FormData();
-    formData.set('files', file);
-    return this.httpClient.post<any>(config.backend_url + '/uploadfiles/1', formData,
-      {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
-      .subscribe(response => console.log(response),
-        (error => console.log(error)));
-  }
-
   public getFileList(): string {
     if (this.fileNames != null) {
       this.getFileNames();
@@ -109,21 +94,33 @@ export class ApiService {
       .subscribe(fileNames => this.fileNames = fileNames);
   }
 
+  deleteFile(fileName): object {
+    this.httpClient.delete(config.backend_url + '/deletefile/' + fileName,
+      {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .subscribe(
+        response => (this.file = response));
+    return this.file;
+  }
 
   downloadFile(fileName): object {
     this.httpClient.get(config.backend_url + '/downloadfile/' + fileName,
       {responseType: 'blob', headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
       .subscribe(
-        response => (this.file = response),
-        error => console.log(error));
-    console.log('Pobrany plik ', this.file);
+        response => (this.file = response));
     return this.file;
+  }
+
+  sendFile(file): object {
+    const formData = new FormData();
+    formData.set('files', file);
+    return this.httpClient.post<any>(config.backend_url + '/uploadfiles/1', formData,
+      {headers: new HttpHeaders().set('Authorization', this.authService.getJwtToken())})
+      .subscribe(response => alert(response));
   }
 
   changePassword(email, passwordDataForm): any {
     this.httpClient.put<any>(config.backend_url + `/changepassword`, {email, password: passwordDataForm.value.password,
       newPassword: passwordDataForm.value.newPassword}, {headers: new HttpHeaders().set('Authorization',
-        this.authService.getJwtToken())}).subscribe(response => console.log(response),
-        (error => console.log(error)));
+        this.authService.getJwtToken())}).subscribe(response => alert(response));
   }
 }

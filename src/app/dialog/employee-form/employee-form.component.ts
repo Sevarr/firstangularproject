@@ -6,26 +6,40 @@ import { EmployeeDataService } from '../../services/data/employee-data.service';
 interface AddressesData {
   id: number;
   addressType: string;
-  city: string;
-  postcode: string;
+  location: string;
+  postalCode: string;
   community: string;
-  county: string;
+  district: string;
   street: string;
-  houseNumber: string;
-  apartmentNumber: string;
+  homeNumber: string;
+  flatNumber: string;
 }
 
-interface PersonalData {
-  id: number;
-  connection: string;
-  name: string;
-  forename: string;
-  dateOfBirth: string;
-  insured: boolean;
+interface FamilyMemberData {
+      id: number;
+      relationship: string;
+      name: string;
+      surname: string;
+      birthDate: string;
+      insuredAtEmployee: false;
+      // legalGuardian: false;
+      // disabledZUSNumber: string;
+      // disabilityLevel: string;
+      // onExclusiveMaintenance: true;
+      // location: string;
+      // postCode: string;
+      // district: string;
+      // community: string;
+      // street: string;
+      // homeNumber: string;
+      // flatNumber: string;
+      // pesel: string;
+      // disabled: false;
+      // sharedHousehold: false;
 }
 
 const ADDRESSESDATA: AddressesData[] = [];
-const FAMILYMEMBERPERSONALDATA: PersonalData[] = [];
+const FAMILYMEMBERPERSONALDATA: FamilyMemberData[] = [];
 
 @Component({
   selector: 'app-employee-form',
@@ -77,28 +91,42 @@ export class EmployeeFormComponent implements OnInit {
     this.addressesDataForm = new FormGroup(
       {
         addressType: new FormControl(null),
-        city: new FormControl(null),
-        postcode: new FormControl(null),
+        location: new FormControl(null),
+        postalCode: new FormControl(null),
         community: new FormControl(null),
-        county: new FormControl(null),
+        district: new FormControl(null),
         street: new FormControl(null),
-        houseNumber: new FormControl(null),
-        apartmentNumber: new FormControl(null),
-      }
-    );
+        homeNumber: new FormControl(null),
+        flatNumber: new FormControl(null),
+      });
+    this.getAddresses();
   }
 
   private initializeFamilyMembersDataForm(): any {
     this.familyMembersDataForm = new FormGroup(
       {
         id: new FormControl(null),
-        connection: new FormControl(null),
+        relationship: new FormControl(null),
         name: new FormControl(null),
-        forename: new FormControl(null),
-        dateOfBirth: new FormControl(null),
-        insured: new FormControl(null)
-      }
-    );
+        surname: new FormControl(null),
+        birthDate: new FormControl(null),
+        insuredAtEmployee: new FormControl(null),
+        legalGuardian: new FormControl(false),
+        // disabledZUSNumber: new FormControl('000000000'),
+        // disabilityLevel: new FormControl(1),
+        // onExclusiveMaintenance: new FormControl(true),
+        // location: new FormControl('na'),
+        // postCode: new FormControl('na'),
+        // district: new FormControl('na'),
+        // community: new FormControl('na'),
+        // street: new FormControl('na'),
+        // homeNumber: new FormControl('1'),
+        // flatNumber: new FormControl('1'),
+        // pesel: new FormControl('00000000000'),
+        // disabled: new FormControl(false),
+        // sharedHousehold: new FormControl(false),
+      });
+    this.getFamilyMembersData();
   }
 
   onAdd(Content, modalTitle): any {
@@ -140,13 +168,13 @@ export class EmployeeFormComponent implements OnInit {
       {
         id: this.addressesDatas.length + 1,
         addressType: this.addressesDataForm.value.addressType,
-        city: this.addressesDataForm.value.city,
-        postcode: this.addressesDataForm.value.postcode,
+        location: this.addressesDataForm.value.location,
+        postalCode: this.addressesDataForm.value.postalCode,
         community: this.addressesDataForm.value.community,
-        county: this.addressesDataForm.value.county,
+        district: this.addressesDataForm.value.district,
         street: this.addressesDataForm.value.street,
-        houseNumber: this.addressesDataForm.value.houseNumber,
-        apartmentNumber: this.addressesDataForm.value.apartmentNumber,
+        homeNumber: this.addressesDataForm.value.homeNumber,
+        flatNumber: this.addressesDataForm.value.flatNumber,
       }
     );
   }
@@ -155,13 +183,35 @@ export class EmployeeFormComponent implements OnInit {
     this.familyMembersPersonalDatas.push(
       {
         id: this.familyMembersPersonalDatas.length + 1,
-        connection: this.familyMembersDataForm.value.connection,
+        relationship: this.familyMembersDataForm.value.relationship,
         name: this.familyMembersDataForm.value.name,
-        forename: this.familyMembersDataForm.value.forename,
-        dateOfBirth: (this.familyMembersDataForm.value.dateOfBirth.year + '-' + this.familyMembersDataForm.value.dateOfBirth.month + '-' + this.familyMembersDataForm.value.dateOfBirth.day),
-        insured: this.familyMembersDataForm.value.insured,
+        surname: this.familyMembersDataForm.value.surname,
+        birthDate: (this.familyMembersDataForm.value.birthDate.year + '-' + this.familyMembersDataForm.value.birthDate.month + '-' + this.familyMembersDataForm.value.birthDate.day),
+        insuredAtEmployee: this.familyMembersDataForm.value.insuredAtEmployee,
+        // legalGuardian: this.familyMembersDataForm.value.legalGuardian,
+        // disabledZUSNumber: this.familyMembersDataForm.value.disabledZUSNumber,
+        // disabilityLevel: this.familyMembersDataForm.value.disabilityLevel,
+        // onExclusiveMaintenance: this.familyMembersDataForm.value.onExclusiveMaintenance,
+        // location: this.familyMembersDataForm.value.location,
+        // postCode: this.familyMembersDataForm.value.postCode,
+        // district: this.familyMembersDataForm.value.district,
+        // community: this.familyMembersDataForm.value.community,
+        // street: this.familyMembersDataForm.value.street,
+        // homeNumber: this.familyMembersDataForm.value.homeNumber,
+        // flatNumber: this.familyMembersDataForm.value.flatNumber,
+        // pesel: this.familyMembersDataForm.value.pesel,
+        // disabled: this.familyMembersDataForm.value.disabled,
+        // sharedHousehold: this.familyMembersDataForm.value.sharedHousehold,
       }
     );
+  }
+
+  private getAddresses() {
+    this.addressesDatas = this.employeeData.getAddresses();
+  }
+
+  private getFamilyMembersData() {
+    this.familyMembersPersonalDatas = this.employeeData.getFamilyMembers();
   }
 
   poppingMessage(content, message): any {
@@ -189,13 +239,6 @@ export class EmployeeFormComponent implements OnInit {
 
   sendToDatabase(): any {
     this.employeeData.setDocumentType_Number(this.employeeDataForm.value.pesel, this.employeeDataForm.value.nip);
-    // this.employeeData.setCity(this.employeeDataForm.value.city);
-    // this.employeeData.setPostcode(this.employeeDataForm.value.postcode);
-    // this.employeeData.setCommunity(this.employeeDataForm.value.community);
-    // this.employeeData.setCounty(this.employeeDataForm.value.county);
-    // this.employeeData.setStreet(this.employeeDataForm.value.street);
-    // this.employeeData.setHouseNumber(this.employeeDataForm.value.houseNumber);
-    // this.employeeData.setApartmentNumber(this.employeeDataForm.value.apartmentNumber);
     this.employeeData.setTaxOffice(this.employeeDataForm.value.taxOffice);
     this.employeeData.setCitizenship(this.employeeDataForm.value.citizenship);
     this.employeeData.setPersonToNotify(this.employeeDataForm.value.personToNotfiy);
@@ -204,6 +247,10 @@ export class EmployeeFormComponent implements OnInit {
     this.employeeData.setNfz(this.employeeDataForm.value.nfz);
     this.employeeData.setBankName(this.employeeDataForm.value.bankName);
     this.employeeData.setBankAccount(this.employeeDataForm.value.bankAccount);
+    this.employeeData.setAddresses(this.addressesDatas);
+    this.employeeData.setFamilyMembers(this.familyMembersPersonalDatas);
     this.employeeData.setData();
   }
+
+
 }
