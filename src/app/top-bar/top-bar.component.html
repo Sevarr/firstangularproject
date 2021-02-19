@@ -1,8 +1,9 @@
 <h4>Generowanie dokumentacji dla nowo przyjętych pracowników
-  <button class="up-buttons" (click)="changePassword(content)">Ustawienia konta</button>
-  <button class="up-buttons" (click)="logout()">Wyloguj się</button>
+  <div class="btn-group">
+    <button class="up-buttons" (click)="changePassword(content)">Ustawienia konta</button>
+    <button class="up-buttons" (click)="logout()">Wyloguj się</button>
+  </div>
 </h4>
-<br>
 
 <ng-template #content let-modal>
   <div class="modal-header">
