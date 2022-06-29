@@ -1,3 +1,6 @@
+#Info
+My first Angular and Typescript project made some time ago.
+
 # Projekt
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
