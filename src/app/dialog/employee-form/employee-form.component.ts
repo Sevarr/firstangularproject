@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EmployeeDataService } from '../../services/data/employee-data.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {ModalDismissReasons, NgbCalendar, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EmployeeDataService} from '../../services/data/employee-data.service';
 
 interface AddressesData {
   id: number;
@@ -16,26 +16,12 @@ interface AddressesData {
 }
 
 interface FamilyMemberData {
-      id: number;
-      relationship: string;
-      name: string;
-      surname: string;
-      birthDate: string;
-      insuredAtEmployee: false;
-      // legalGuardian: false;
-      // disabledZUSNumber: string;
-      // disabilityLevel: string;
-      // onExclusiveMaintenance: true;
-      // location: string;
-      // postCode: string;
-      // district: string;
-      // community: string;
-      // street: string;
-      // homeNumber: string;
-      // flatNumber: string;
-      // pesel: string;
-      // disabled: false;
-      // sharedHousehold: false;
+  id: number;
+  relationship: string;
+  name: string;
+  surname: string;
+  birthDate: string;
+  insuredAtEmployee: false;
 }
 
 const ADDRESSESDATA: AddressesData[] = [];
@@ -78,12 +64,12 @@ export class EmployeeFormComponent implements OnInit {
       nip: new FormControl(this.employeeData.getDocumentType_Number('nip')),
       taxOffice: new FormControl(this.employeeData.getTaxOffice()),
       citizenship: new FormControl(this.employeeData.getCitizenship()),
-      personToNotfiy: new FormControl(this.employeeData.getPersonToNotify()),
       position: new FormControl(this.employeeData.getPosition()),
       department: new FormControl(this.employeeData.getDepartment()),
       nfz: new FormControl(this.employeeData.getNfz()),
       bankName: new FormControl(this.employeeData.getBankName()),
-      bankAccount: new FormControl(this.employeeData.getBankAccount())
+      bankAccount: new FormControl(this.employeeData.getBankAccount()),
+      personToNotfiy: new FormControl(this.employeeData.getPersonToNotify())
     });
   }
 
@@ -112,19 +98,6 @@ export class EmployeeFormComponent implements OnInit {
         birthDate: new FormControl(null),
         insuredAtEmployee: new FormControl(null),
         legalGuardian: new FormControl(false),
-        // disabledZUSNumber: new FormControl('000000000'),
-        // disabilityLevel: new FormControl(1),
-        // onExclusiveMaintenance: new FormControl(true),
-        // location: new FormControl('na'),
-        // postCode: new FormControl('na'),
-        // district: new FormControl('na'),
-        // community: new FormControl('na'),
-        // street: new FormControl('na'),
-        // homeNumber: new FormControl('1'),
-        // flatNumber: new FormControl('1'),
-        // pesel: new FormControl('00000000000'),
-        // disabled: new FormControl(false),
-        // sharedHousehold: new FormControl(false),
       });
     this.getFamilyMembersData();
   }
@@ -136,14 +109,6 @@ export class EmployeeFormComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-
-  // onDelete(id) {
-  //   for (let i = 0; i < this.kidsPersonalDatas.length; ++i) {
-  //     if (this.kidsPersonalDatas[i].id === id) {
-  //       this.kidsPersonalDatas.splice(i, 1);
-  //     }
-  //   }
-  // }
 
   onDelete(id, dataType): any {
     for (let i = 0; i < dataType.length; ++i) {
@@ -188,20 +153,6 @@ export class EmployeeFormComponent implements OnInit {
         surname: this.familyMembersDataForm.value.surname,
         birthDate: (this.familyMembersDataForm.value.birthDate.year + '-' + this.familyMembersDataForm.value.birthDate.month + '-' + this.familyMembersDataForm.value.birthDate.day),
         insuredAtEmployee: this.familyMembersDataForm.value.insuredAtEmployee,
-        // legalGuardian: this.familyMembersDataForm.value.legalGuardian,
-        // disabledZUSNumber: this.familyMembersDataForm.value.disabledZUSNumber,
-        // disabilityLevel: this.familyMembersDataForm.value.disabilityLevel,
-        // onExclusiveMaintenance: this.familyMembersDataForm.value.onExclusiveMaintenance,
-        // location: this.familyMembersDataForm.value.location,
-        // postCode: this.familyMembersDataForm.value.postCode,
-        // district: this.familyMembersDataForm.value.district,
-        // community: this.familyMembersDataForm.value.community,
-        // street: this.familyMembersDataForm.value.street,
-        // homeNumber: this.familyMembersDataForm.value.homeNumber,
-        // flatNumber: this.familyMembersDataForm.value.flatNumber,
-        // pesel: this.familyMembersDataForm.value.pesel,
-        // disabled: this.familyMembersDataForm.value.disabled,
-        // sharedHousehold: this.familyMembersDataForm.value.sharedHousehold,
       }
     );
   }

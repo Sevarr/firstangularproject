@@ -19,7 +19,7 @@ const employee = {
     taxOffice: null,
     willSpecialPowersForFamily: false,
     willPIT2: false,
-    workplace: null,
+    position: null,
     department: null,
     pension: null,
     employmentDate: null,
@@ -249,11 +249,11 @@ export class EmployeeDataService {
   }
 
   getPosition(): string {
-    return this.employee.workplace;
+    return this.employee.position;
   }
 
   setPosition(position): any{
-    this.employee.workplace = position;
+    this.employee.position = position;
   }
 
   getDepartment(): string {
